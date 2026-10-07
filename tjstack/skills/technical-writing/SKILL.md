@@ -125,11 +125,11 @@ German docs follow every layer above. Write idiomatic German, never a literal tr
   - "This issue happens when the file is missing" is "Dieser Fehler tritt auf, wenn die Datei fehlt". Issue stays Issue when you mean the ticket.
 - Task headings are infinitive phrases: "Instanz erstellen". How-to titles name the task: "Monitoring einrichten". Explanation titles tolerate an implicit "Über…".
 - Address everyone: prefer "Sie" and neutral nouns ("das Team", "Personen, die…") to gender markers, unless the project has its own convention.
-- Use German typography in prose: „Anführungszeichen“ and the decimal comma. Code and output stay as they are.
+- Use the German decimal comma in prose. Quotes are straight keyboard quotes in both languages: "these". Code and output stay as they are.
 
 ## Voice and repo specifics
 
-- Cut AI tells: "delve", "robust", "seamless", "leverage", "crucial", throat-clearing intros, summary outros, bold on every other phrase, and emoji headings. In German: "nahtlos", "entscheidend", and "Zusammenfassend lässt sich sagen".
+- Cut AI tells by reading and applying `/noslop`.
 - PR descriptions and commit messages are writing too. Every layer except Diátaxis applies to them. A PR body is a briefing that a reviewer can read in under a minute. Link logs, SHA lists, and metric tables instead of pasting them.
 - Product UI strings are not documentation. Use your product's copy guidelines for those.
 - Write real paths and real symbols. Make every count or tree claim true at the commit that lands it, and include the command that regenerates it.
