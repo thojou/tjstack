@@ -1,0 +1,16 @@
+{
+  "name": "tjstack",
+  "owner": {
+    "name": "Thomas Joußen"
+  },
+  "metadata": {
+    "description": "tjstack marketplace"
+  },
+  "plugins": [
+    {
+      "name": "tjstack",
+      "source": "tjstack",
+      "description": "tjstack helps you write less, but higher quality code."
+    }
+  ]
+}

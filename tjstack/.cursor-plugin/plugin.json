@@ -1,0 +1,19 @@
+{
+  "name": "tjstack",
+  "displayName": "tjstack",
+  "version": "0.0.1",
+  "description": "tjstack helps you write less, but higher quality code.",
+  "author": {
+    "name": "Thomas Joußen"
+  },
+  "license": "MIT",
+  "logo": "assets/logo.png",
+  "keywords": [
+    "tjstack"
+  ],
+  "category": "developer-tools",
+  "tags": [
+    "coding",
+     "engineering"
+    ]
+}
