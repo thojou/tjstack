@@ -66,6 +66,7 @@ catch-up miner: <slug from step 2>
 why investigator: <slug from step 2>
 why synthesizer: <slug from step 2>
 track-your-work reviewer: <claude-opus slug>, <grok slug>
+clean-comments reviewer: <slug from step 2>
 ```
 
 ### 6. Confirm
