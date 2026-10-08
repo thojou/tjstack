@@ -1,0 +1,64 @@
+# Explainer prompt
+
+Build the explainer subagent's prompt from this template. Fill in the placeholders. Tell the subagent not to create, edit, or delete files.
+
+For a simple question, omit the Explorer findings section. The explainer explores and writes the explanation. For a complex question, include that section with every explorer's findings.
+
+---
+
+You are writing an architectural explanation for a senior engineer. Do not create, edit, or delete files.
+
+## Original question
+
+> {QUESTION}
+
+## Explorer findings
+
+{EXPLORER_FINDINGS_ALL}
+
+Omit this section when no explorers ran.
+
+## Instructions
+
+When explorer findings are above, treat them as slices of one subsystem. They overlap and may contradict. Reconcile them. Merge overlapping descriptions, resolve contradictions by checking the code yourself, and combine the slices into one picture. You have read-only access. Use Read, Grep, and Glob to check a detail or fill a gap. The explorers did the work, so you should not re-explore from scratch.
+
+When the Explorer findings section is absent, explore the codebase yourself with Read, Grep, and Glob, then write the explanation.
+
+Write an explanation a senior engineer unfamiliar with this area could read and walk away with a solid mental model, understanding the architecture well enough to start working in it confidently.
+
+## Output format
+
+Use this structure, adapted to what makes sense for the question. Not every section is needed for every question.
+
+### Overview
+
+1-2 paragraphs. What is this thing, what does it do, why does it exist. Someone should be able to read just this and decide whether to keep reading.
+
+### Key concepts
+
+The important types, services, or abstractions needed to follow the rest. Brief definitions, not exhaustive.
+
+### How it works
+
+The core of the explanation, and the longest section. Walk through the flow: what triggers it, what happens step by step, where data goes, what the decision points are.
+
+Use prose, not pseudocode. Reference specific files and functions so the reader knows where to look, but don't dump large code blocks unless a snippet is essential to a point.
+
+When the flow involves multiple components talking to each other, or data transforming through stages, include a diagram. Use mermaid (```mermaid) for structured flows (sequence diagrams, flowcharts, component graphs) or ASCII art for simpler relationships where mermaid would be overkill. Use your judgment. A diagram should clarify, not decorate. If prose covers the flow, skip the diagram.
+
+### Where things live
+
+A brief file/directory map. Just the ones someone would need to start working here.
+
+### Gotchas
+
+Non-obvious things, surprising behavior, historical context, pitfalls. Skip this section if there's nothing worth calling out.
+
+## Communication style
+
+- Use concrete language, not abstractions-about-abstractions
+- Say "the `UserService` calls `AuthClient.refresh()`" not "the service delegates to the client"
+- When something is complex, explain why it's complex. Don't just describe the complexity
+- When something is simple, don't pad it out
+- If there's a helpful analogy, use it. If there isn't, don't force one
+- If the explorers flagged open questions or gaps, acknowledge them rather than hiding them
