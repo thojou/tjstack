@@ -37,11 +37,11 @@ The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` 
 
 **Load models.** Run `agent models`. Parse lines of the form `slug - name`. The slug is the first field. Skip the header, blank lines, and the `Tip:` line. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one.
 
-**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`.
+**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `track-your-work reviewer` is the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
 
 **(b) Apply the budget.** The working table starts from those suggestions. On a re-run, keep a current value that is `inherit-parent`, `auto`, a list, or a different family than the suggestion. Set the effort token of every other real slug to the budget label. If that slug is not in the list, use the same family's listed slug with the highest effort at or below the target, and the same fast preference. If none exists, mark the role as needing a choice. `inherit-parent` and `auto` do not change.
 
-**(c) Show the roles and confirm.** Show every role with its model, marking any role that needs a choice. Also list each line step 1 dropped. Ask whether to accept as-is or change specific roles, offering the slugs from `agent models` plus `inherit-parent` and `auto`. Prefer AskQuestion over free text. A list value runs one subagent per entry, alias entries included.
+**(c) Show the roles and confirm.** Show every role with its model, marking any role that needs a choice. Also list each line step 1 dropped. Ask whether to accept as-is or change specific roles, offering the slugs from `agent models` plus `inherit-parent` and `auto`. Prefer AskQuestion over free text. A list value runs one subagent per entry, alias entries included. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry.
 
 ### 4. Validate
 
@@ -65,6 +65,7 @@ blast-radius reader: <slug from step 2>
 catch-up miner: <slug from step 2>
 why investigator: <slug from step 2>
 why synthesizer: <slug from step 2>
+track-your-work reviewer: <claude-opus slug>, <grok slug>
 ```
 
 ### 6. Confirm
