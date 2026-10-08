@@ -9,7 +9,9 @@ disable-model-invocation: true
 
 # Blast radius
 
-Find what a change breaks somewhere else, before it ships. `how` says what the code does. This skill says what else the change reaches.
+Find what a change breaks somewhere else, before it ships.
+
+Companion to `how` and `why`. `how` says what the code does. `why` says why it is shaped that way. This skill says what else the change reaches.
 
 A caller list is not the result. Grep already returns that. The result is breakage a symbol search misses, and a run that shows the safety fact is true.
 
