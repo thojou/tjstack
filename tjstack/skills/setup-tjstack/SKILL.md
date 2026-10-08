@@ -62,6 +62,7 @@ alwaysApply: true
 how explorer: <slug from step 2>
 how explainer: <slug from step 2>
 blast-radius reader: <slug from step 2>
+catch-up miner: <slug from step 2>
 why investigator: <slug from step 2>
 why synthesizer: <slug from step 2>
 ```
