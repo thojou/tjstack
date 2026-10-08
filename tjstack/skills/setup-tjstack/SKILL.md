@@ -61,6 +61,7 @@ alwaysApply: true
 # budget: <chosen label>
 how explorer: <slug from step 2>
 how explainer: <slug from step 2>
+blast-radius reader: <slug from step 2>
 ```
 
 ### 6. Confirm
