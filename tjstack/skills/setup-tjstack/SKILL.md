@@ -37,7 +37,7 @@ The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` 
 
 **Load models.** Run `agent models`. Parse lines of the form `slug - name`. The slug is the first field. Skip the header, blank lines, and the `Tip:` line. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one.
 
-**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, `arena cross-judge pool`, `architect runners`, and `challenge reviewers` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
+**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `retro judgment` is class `claude-opus` and prefers no `-fast`. `retro tooling` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, `arena cross-judge pool`, `architect runners`, and `challenge reviewers` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
 
 **(b) Apply the budget.** The working table starts from those suggestions. On a re-run, keep a current value that is `inherit-parent`, `auto`, a list, or a different family than the suggestion. Set the effort token of every other real slug to the budget label. If that slug is not in the list, use the same family's listed slug with the highest effort at or below the target, and the same fast preference. If none exists, mark the role as needing a choice. `inherit-parent` and `auto` do not change.
 
@@ -73,6 +73,8 @@ arena cross-judge pool: <claude-opus slug>, <grok slug>
 architect runners: <claude-opus slug>, <grok slug>
 challenge reviewers: <claude-opus slug>, <grok slug>
 swarm workers: <slug from step 2>
+retro judgment: <slug from step 2>
+retro tooling: <slug from step 2>
 ```
 
 ### 6. Confirm
