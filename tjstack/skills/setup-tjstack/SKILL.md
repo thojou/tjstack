@@ -37,11 +37,11 @@ The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` 
 
 **Load models.** Run `agent models`. Parse lines of the form `slug - name`. The slug is the first field. Skip the header, blank lines, and the `Tip:` line. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one.
 
-**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `track-your-work reviewer` is the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
+**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, and `arena cross-judge pool` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
 
 **(b) Apply the budget.** The working table starts from those suggestions. On a re-run, keep a current value that is `inherit-parent`, `auto`, a list, or a different family than the suggestion. Set the effort token of every other real slug to the budget label. If that slug is not in the list, use the same family's listed slug with the highest effort at or below the target, and the same fast preference. If none exists, mark the role as needing a choice. `inherit-parent` and `auto` do not change.
 
-**(c) Show the roles and confirm.** Show every role with its model, marking any role that needs a choice. Also list each line step 1 dropped. Ask whether to accept as-is or change specific roles, offering the slugs from `agent models` plus `inherit-parent` and `auto`. Prefer AskQuestion over free text. A list value runs one subagent per entry, alias entries included. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry.
+**(c) Show the roles and confirm.** Show every role with its model, marking any role that needs a choice. Also list each line step 1 dropped. Ask whether to accept as-is or change specific roles, offering the slugs from `agent models` plus `inherit-parent` and `auto`. Prefer AskQuestion over free text. A list value runs one subagent per entry, alias entries included, so the list length sets the count. `arena runners` is that kind of list. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry. `arena cross-judge pool` is also a list, but Arena selects one value from it whose model family differs from the parent's when possible. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
 ### 4. Validate
 
@@ -58,6 +58,7 @@ alwaysApply: true
 ---
 # tjstack model configuration. One line per role. Delete a line to fall back to the proposal rules in setup-tjstack.
 # `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`).
+# Alias entries in `arena runners` still count toward its fan-out. `arena cross-judge pool` selects one entry whose family differs from the parent's when possible. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
 # budget: <chosen label>
 how explorer: <slug from step 2>
 how explainer: <slug from step 2>
@@ -67,6 +68,9 @@ why investigator: <slug from step 2>
 why synthesizer: <slug from step 2>
 track-your-work reviewer: <claude-opus slug>, <grok slug>
 clean-comments reviewer: <slug from step 2>
+arena runners: <claude-opus slug>, <grok slug>
+arena cross-judge pool: <claude-opus slug>, <grok slug>
+swarm workers: <slug from step 2>
 ```
 
 ### 6. Confirm
