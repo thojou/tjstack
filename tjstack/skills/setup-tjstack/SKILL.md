@@ -1,16 +1,16 @@
 ---
 name: setup-tjstack
 description: >-
-  Configure which models tjstack uses per role and at what reasoning budget.
-  Asks for a budget, loads the model list with `agent models`, proposes a
-  slug per role from that list, and writes an always-applied rule. Use for
-  /setup-tjstack, "configure tjstack models", "tjstack budget", or changing
-  tjstack's model choices.
+  Configure which models tjstack uses per role, at what reasoning budget,
+  and which git remote alias Opening a PR publishes to. Asks for a budget,
+  loads the model list with `agent models`, proposes a slug per role, and
+  writes two always-applied rules. Use for /setup-tjstack, "configure
+  tjstack models", "tjstack budget", "PR remote", or changing those choices.
 ---
 
 # Setup tjstack
 
-Write `~/.cursor/rules/tjstack-models.mdc`, an always-applied rule that sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`.
+Write two always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`.
 
 
 ## Steps
@@ -37,7 +37,7 @@ The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` 
 
 **Load models.** Run `agent models`. Parse lines of the form `slug - name`. The slug is the first field. Skip the header, blank lines, and the `Tip:` line. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one.
 
-**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `retro judgment` is class `claude-opus` and prefers no `-fast`. `retro tooling` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, `arena cross-judge pool`, `architect runners`, and `challenge reviewers` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
+**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `bug-fix` and `feature, refactoring` are class `grok` and prefer `-fast`. `judgment and prose` and `hardest tasks` are class `claude-opus` and prefer no `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `retro judgment` is class `claude-opus` and prefers no `-fast`. `retro tooling` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, `arena cross-judge pool`, `architect runners`, and `challenge reviewers` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
 
 **(b) Apply the budget.** The working table starts from those suggestions. On a re-run, keep a current value that is `inherit-parent`, `auto`, a list, or a different family than the suggestion. Set the effort token of every other real slug to the budget label. If that slug is not in the list, use the same family's listed slug with the highest effort at or below the target, and the same fast preference. If none exists, mark the role as needing a choice. `inherit-parent` and `auto` do not change.
 
@@ -60,6 +60,10 @@ alwaysApply: true
 # `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`).
 # Alias entries in `arena runners`, `architect runners`, and `challenge reviewers` still count toward that line's fan-out. `arena cross-judge pool` selects one entry whose family differs from the parent's when possible. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
 # budget: <chosen label>
+bug-fix: <slug from step 2>
+feature, refactoring: <slug from step 2>
+judgment and prose: <slug from step 2>
+hardest tasks: <slug from step 2>
 how explorer: <slug from step 2>
 how explainer: <slug from step 2>
 blast-radius reader: <slug from step 2>
@@ -77,6 +81,26 @@ retro judgment: <slug from step 2>
 retro tooling: <slug from step 2>
 ```
 
-### 6. Confirm
+### 6. PR remote
 
-Tell the user the rule was written, which slug each role got, and that it applies to new sessions. Re-running this skill updates it.
+This choice is the only place that picks the remote. Opening a PR does not choose one.
+
+If `~/.cursor/rules/tjstack-pr-remote.mdc` exists, its `pr remote:` value is the current alias. Otherwise the alias is `origin`.
+
+Ask whether to keep that alias or set another git remote name. Prefer AskQuestion. Offer the current alias. The other choice is a different alias the user types. The value is one remote name, such as `origin` or `gitlab`. It is not a URL, a host, or a project path. An empty value or a value with spaces is not an alias. Ask again.
+
+Write `~/.cursor/rules/tjstack-pr-remote.mdc` with `alwaysApply: true`. Overwrite the whole file. Create `~/.cursor/rules/` if it is missing. Shape:
+
+```
+---
+description: git remote alias tjstack uses when opening a pull request
+alwaysApply: true
+---
+# Remote alias for Opening a PR. That playbook reads this line and does not choose a remote.
+# Default is origin. Set another git remote name to publish elsewhere.
+pr remote: <alias>
+```
+
+### 7. Confirm
+
+Tell the user both rules were written, which slug each role got, which PR remote alias was written, and that both apply to new sessions. Re-running this skill updates them.
