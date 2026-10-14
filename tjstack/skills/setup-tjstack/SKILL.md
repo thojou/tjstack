@@ -2,15 +2,17 @@
 name: setup-tjstack
 description: >-
   Configure which models tjstack uses per role, at what reasoning budget,
-  and which git remote alias Opening a PR publishes to. Asks for a budget,
-  loads the model list with `agent models`, proposes a slug per role, and
-  writes two always-applied rules. Use for /setup-tjstack, "configure
-  tjstack models", "tjstack budget", "PR remote", or changing those choices.
+  which git remote alias Opening a PR publishes to, and whether subagents
+  run in cloud or local. Asks for a budget, loads the model list with
+  `agent models`, proposes a slug per role, and writes three always-applied
+  rules. Use for /setup-tjstack, "configure tjstack models", "tjstack budget",
+  "PR remote", "subagent environment", "cloud or local", or changing those
+  choices.
 ---
 
 # Setup tjstack
 
-Write two always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`.
+Write three always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`.
 
 
 ## Steps
@@ -101,6 +103,26 @@ alwaysApply: true
 pr remote: <alias>
 ```
 
-### 7. Confirm
+### 7. Subagent environment
 
-Tell the user both rules were written, which slug each role got, which PR remote alias was written, and that both apply to new sessions. Re-running this skill updates them.
+This choice is the operator's explicit request for cloud agents. The Task tool starts a cloud agent only on that request.
+
+If `~/.cursor/rules/tjstack-environment.mdc` exists, its `subagent environment:` value is the current choice. If the file or the line is missing, the choice is `local`.
+
+Ask whether subagents run in `cloud` or `local`. Prefer AskQuestion. Offer both and name the current choice. `cloud` runs subagents as cloud agents, except those that need this machine, and falls back to local when a cloud spawn fails. `local` runs subagents on this machine, and each one that writes gets its own git worktree. Any other value is not a choice. Ask again.
+
+Write `~/.cursor/rules/tjstack-environment.mdc` with `alwaysApply: true`. Overwrite the whole file. Create `~/.cursor/rules/` if it is missing. Shape:
+
+```
+---
+description: where tjstack subagents run (cloud or local)
+alwaysApply: true
+---
+# Environment for tjstack subagents. spawn-subagent reads this line.
+# Default is local. A missing line means local. A failed cloud spawn falls back to local.
+subagent environment: <cloud|local>
+```
+
+### 8. Confirm
+
+Tell the user all three rules were written, which slug each role got, which PR remote alias was written, which subagent environment was written, and that all three apply to new sessions. Re-running this skill updates them.

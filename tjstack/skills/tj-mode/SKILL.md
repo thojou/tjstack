@@ -38,6 +38,7 @@ Remaining triggers:
 - Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it. That PR still goes through **Opening a PR**, including Destination.
 - Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **track-your-work** skill. Commit it when stakes need an auditable record. Keep it local otherwise.
 - Opening a PR → `playbooks/opening-a-pr.md`. Do not push or create until its Destination tuple is printed.
+- "check on MR X", "get it green", or "address the review comments" → `playbooks/babysit.md`, not Cursor's built-in babysit skill. Merely opening a PR or MR never triggers it.
 
 ## Principles
 
@@ -86,7 +87,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Just do it.** Use any MCP tool. Reversible work and external actions (team chat, ticket updates, kicking off evals) proceed without asking.
 
-**Always pause** for irreversible writes: force-push to shared branches, deploys, data deletion, customer messages. Also pause for any push or PR create before Opening a PR has printed a Destination tuple. A session override does not switch the PR remote.
+**Always pause** for irreversible writes: force-push to shared branches, deploys, data deletion, customer messages, and merging a PR or MR, arming its auto-merge, or closing it. Also pause for any push or PR create before Opening a PR has printed a Destination tuple. A session override does not switch the PR remote.
 
 **Session overrides:** "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" → keep going. The PR remote stays the alias in `tjstack-pr-remote.mdc`.
 
@@ -124,10 +125,13 @@ Comments follow the same rule as the reply. Write them clean as you go. Keep a c
 
 Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its file. Copy its steps in verbatim.
 
-A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
+A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits, as long as the process itself still needs designing. With a checkable exit condition and a known approach, it routes to Autonomous run instead, or to Autopilot-stack when it ships as a chain of dependent MRs. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
 
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence.
 - **Feature.** New or changed behavior, built from a named data shape.
 - **Refactoring.** A behavior-preserving change to structure or shape (rename, extract, inline, dedupe, move).
+- **Autonomous run.** A checkable exit condition and a known approach, driven to done without stopping ("/loop until X", "run until done").
+- **Autopilot-stack.** A coupled or ordered queue of MRs. One owner per MR builds it, the root verifies each link, and the operator receives one base-branch stack to land.
+- **Babysit.** Drive an open MR or stack to merge-ready, on request only ("check on MR X", "get it green", "address the review comments"). It never merges.
 - **Opening a PR.** Invoked at the end of every other playbook. File: `playbooks/opening-a-pr.md`.

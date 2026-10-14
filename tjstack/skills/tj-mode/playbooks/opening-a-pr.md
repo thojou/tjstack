@@ -2,7 +2,7 @@
 
 Invoked at the end of every other playbook. "PR" below also means a GitLab merge request.
 
-**Worktree.** Work from a git worktree off main. Subagents inherit it. Multiple `Task` calls on the same branch each get their own worktree. Do not push or reset until Destination has read the configured remote. Then reset against that remote: `git fetch <remote> && git reset --hard <remote>/<branch>`. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
+**Worktree.** Work from a git worktree off main. Subagents inherit it. Each subagent's environment and isolation follow `spawn-subagent`. Do not push or reset until Destination has read the configured remote. Then reset against that remote: `git fetch <remote> && git reset --hard <remote>/<branch>`. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
 
 **Commits.** Commit liberally. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable. Commit bodies don't restate the subject.
 
@@ -76,8 +76,8 @@ Before you call the PR open, confirm all three:
 - Every push and PR command so far used `<remote>` and `--repo` or `-R` for that project.
 - The URL the forge printed matches the tuple's host and project.
 
-**Babysit.** Opening a PR does not start a watch. Post the URL and keep building. Finish the phase or stack first. A status check is a separate ask. tjstack has no babysit playbook, so do not invent one. Push back when feedback drifts from intent.
+**Babysit.** Opening a PR does not start a watch. Post the URL and keep building. Finish the phase or stack first. A status check is a separate ask. Babysit is `playbooks/babysit.md`, on request or inside Autopilot-stack. Push back when feedback drifts from intent.
 
-A subagent that opens a PR runs `challenge`, **clean-comments**, and **noslop**, and posts the URL the forge printed. Then it returns to the parent without watching.
+A subagent that opens a PR runs `challenge`, **clean-comments**, and **noslop**, and posts the URL the forge printed. Then it returns to the parent without watching. An Autopilot-stack owner is the exception. It babysits its own MR per `playbooks/autopilot-stack.md`.
 
 **Reply link.** Reply with the URL the forge CLI printed on create for the Destination project. To fetch it again, use `gh pr view <n> --repo <owner>/<repo> --json url --jq .url` or `glab mr view <n> -R https://<host>/<project-path>`. Never build the link by hand.
