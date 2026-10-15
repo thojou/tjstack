@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Explore the codebase to answer "how does X work?" questions. Produce architectural explanations at the level of a senior engineer onboarding onto a subsystem, enough to build a working mental model, not so much that it reads like annotated source code.
 
-Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names the role line, the class, and the effort to use when the rule line is missing.
+Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
 ## Step 1. Assess complexity
 
@@ -25,7 +25,6 @@ Decompose the question into 2 to 4 exploration angles, each a distinct slice of 
 
 - `subagent_type`: `generalPurpose`
 - role line: `how explorer`
-- class: `grok`, prefer `-fast`, effort `xhigh` when the rule line is missing
 
 Each explorer gets the prompt in `references/explorer-prompt.md` with its angle filled in. Then go to Step 3.
 
@@ -35,7 +34,6 @@ Spawn one Task subagent that explores and explains in one pass:
 
 - `subagent_type`: `generalPurpose`
 - role line: `how explainer`
-- class: `claude-opus`, prefer no `-fast`, effort `xhigh` when the rule line is missing
 
 Build its prompt from `references/explainer-prompt.md` without the explorer-findings section. Go to Step 4.
 
@@ -45,7 +43,6 @@ Once all explorers have returned, spawn one Task subagent to synthesize their fi
 
 - `subagent_type`: `generalPurpose`
 - role line: `how explainer`
-- class: `claude-opus`, prefer no `-fast`, effort `xhigh` when the rule line is missing
 
 Build its prompt from `references/explainer-prompt.md` with every explorer's findings filled in.
 

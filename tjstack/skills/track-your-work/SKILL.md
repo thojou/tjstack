@@ -64,12 +64,10 @@ Correct the log, not the story. The audit never edits or removes a row, even an 
 
 ## Cross-model review of the trail
 
-Before handing back, spawn a subagent on a different model family from the one that did the work. Read `spawn-subagent` first.
+Before handing back, spawn a subagent on a different model from the one that did the work. Read `spawn-subagent` first.
 
 - `subagent_type`: `generalPurpose`
-- role line: `track-your-work reviewer`. The value is comma-separated. Pick the one entry whose family differs from the parent. That entry is the Task `model`. Do not spawn one subagent per entry.
-- class when the rule line is missing: `claude-opus`, prefer no `-fast`, when the parent's family is not `claude`. Otherwise `grok`, prefer `-fast`. Effort `xhigh`.
-- Family is the slug prefix: `claude`, `grok`, `gemini`, `gpt`, `composer`, `cursor`. The effort token (`max`, `xhigh`, `high`, `medium`, `low`) and a trailing `-fast` are the same family. `inherit-parent` and `auto` are the parent's family. Skip an alias that matches the parent. If none differs, say so and use the first real slug.
+- role line: `track-your-work reviewer`. The value is a pick line per **Model lists** in `spawn-subagent`. That entry is the Task `model`.
 - Tell it not to create, edit, or delete files.
 
 Self-review is not a substitute. The subagent reads the audit trail and the run's transcript, then flags what the user should pay attention to. Not a redo of the work, a scan for what's suboptimal or risky.

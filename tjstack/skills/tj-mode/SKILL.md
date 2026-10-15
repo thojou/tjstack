@@ -13,7 +13,7 @@ reminder: New task? Playbook match or rigor needed -> apply /tj-mode. Casual tur
 
 # tj-mode
 
-Bundled skills live at `../<name>/SKILL.md` from this file, so put this file's absolute path in every `tj-agent` prompt.
+Bundled skills live at `../<name>/SKILL.md` from this file, so put this file's absolute path in every `tj-agent` prompt. Outside Cursor, the `tjstack-harness` rule translates Cursor terms. If that rule is missing, run `/setup-tjstack` first.
 
 ## Non-negotiables
 
@@ -97,7 +97,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Use `subagent_type: "tj-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). The chat that receives `/tj-mode` runs the playbook. Never spawn a `tj-agent` to run the playbook itself. `/tj-mode` and `tj-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `challenge`, `retro`, `swarm`) set their own `subagent_type` for diverse-model review. Respect what the skill prescribes, don't override to `tj-agent`.
 
-**Defaults for every `Task` call.** Read `spawn-subagent` first. `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context. Code playbooks read the role line `bug-fix`, `perf-issue`, or `feature, refactoring` (class `grok`, prefers `-fast`). The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) read `hardest tasks` (class `claude-opus`, prefers no `-fast`), whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits stay on the code role. Prose and judgment read `judgment and prose` (class `claude-opus`, prefers no `-fast`). When the line is missing, the effort is `xhigh`. Per-role lines in the `/setup-tjstack` rule override these, and they override the model choices in the routed skills (`how`, `why`, `arena`, `swarm`, `architect`, `challenge`, `retro`). A role line of `inherit-parent` or `auto` runs that role on the parent chat model (omit Task `model`).
+**Defaults for every `Task` call.** Read `spawn-subagent` first. `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context. Code playbooks read the role line `bug-fix`, `perf-issue`, or `feature, refactoring`. The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) read `hardest tasks`, whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits stay on the code role. Prose and judgment read `judgment and prose`. Per-role lines in the `/setup-tjstack` rule override these, and they override the model choices in the routed skills (`how`, `why`, `arena`, `swarm`, `architect`, `challenge`, `retro`). A role line of `inherit-parent` or `auto` runs that role on the parent chat model (omit Task `model`).
 
 You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. A second opinion is the same prompt against a different model. Agreement is high-signal.
 

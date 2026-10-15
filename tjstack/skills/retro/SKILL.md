@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Mine this session for durable learnings, then write a retro report. The report is the whole deliverable. Do not edit skills, rules, or code, and do not file backlog items. Applying a proposal is a later instruction.
 
-Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names the role line, the class, and the effort to use when the rule line is missing.
+Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
 ## 1. Locate the active transcript
 
@@ -26,17 +26,17 @@ For each candidate, read the first JSONL line and check that `message.content[0]
 
 One message, three `Task` calls, `subagent_type: generalPurpose`, agent mode (`readonly: false`). Reviewers need MCP access for context the transcript cites. Readonly strips MCPs. The prompts forbid writes.
 
-| Lens | Role line | Class when the line is missing | Prompt |
-| --- | --- | --- | --- |
-| Judgment | `retro judgment` | `claude-opus`, prefer no `-fast`, effort `xhigh` | `references/judgment-reviewer.md` |
-| Tooling | `retro tooling` | `grok`, prefer `-fast`, effort `xhigh` | `references/tooling-reviewer.md` |
-| Divergent | `retro judgment` | `claude-opus`, prefer no `-fast`, effort `xhigh` | `references/divergent-reviewer.md` |
+| Lens | Role line | Prompt |
+| --- | --- | --- |
+| Judgment | `retro judgment` | `references/judgment-reviewer.md` |
+| Tooling | `retro tooling` | `references/tooling-reviewer.md` |
+| Divergent | `retro judgment` | `references/divergent-reviewer.md` |
 
 Pass each template verbatim, substituting the transcript path or the digest where marked. Reviewers return findings in the `Task` response body.
 
 ## 3. Synthesize
 
-One `Task` call, `subagent_type: generalPurpose`, agent mode (`readonly: false`), role line `retro judgment`, class `claude-opus`, prefer no `-fast`, effort `xhigh` when the line is missing. The quality check spot-verifies citations, which can require MCP access.
+One `Task` call, `subagent_type: generalPurpose`, agent mode (`readonly: false`), role line `retro judgment`. The quality check spot-verifies citations, which can require MCP access.
 
 Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns Accepted, Rejected, and Backlog. It does not edit anything.
 

@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Fan out N parallel attempts at the same task. Read every candidate end to end. Pick the strongest as the base. Graft the best ideas from the others into it. Verify the synthesized result.
 
-Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names the role line, the class, and the effort to use when the rule line is missing.
+Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
 ## Start
 
@@ -27,7 +27,7 @@ The N candidates will receive the same prompt, so the prompt is the contract.
 
 1. State the artifact each candidate is producing.
 2. Derive the rubric. State what success looks like for *this* task, then turn it into 3-6 concrete gradeable criteria. The rubric is the picker's tool in Phase D. Candidates only see the task.
-3. Pick the runners. Use the `arena runners` line. The line is comma-separated. One subagent runs per entry, alias entries included, so the list length sets the count. If the rule or that line is missing, default to one each on class `claude-opus`, prefer no `-fast`, and class `grok`, prefer `-fast`, both at effort `xhigh`. An `auto` or `inherit-parent` entry in this line or the cross-judge line means the parent model, so omit `model` for it. Spawn more when the arena covers multiple design directions. Same model N times when the work is generation-bound rather than judgment-sensitive.
+3. Pick the runners. Use the `arena runners` line. The line is a fan-out line per **Model lists** in `spawn-subagent`. An `auto` or `inherit-parent` entry in this line or the cross-judge line means the parent model, so omit `model` for it. Spawn more when the arena covers multiple design directions. Same model N times when the work is generation-bound rather than judgment-sensitive.
 4. Assign output paths. Each candidate writes to its own location, per the **separate-before-serializing-shared-state** principle skill. A candidate that edits the repo gets its environment and worktree from `spawn-subagent`. Any other candidate writes to `/tmp/arena-<slug>/candidate-<n>/`.
 
 ## Phase B: Fan out
@@ -40,7 +40,7 @@ If a candidate fails to produce output, proceed with N-1 and note the dropout in
 
 ## Phase C: Cross-judge
 
-After all Phase B candidates complete, choose one model from the `arena cross-judge pool` line. If the rule or that line is missing, choose from class `claude-opus`, prefer no `-fast`, and class `grok`, prefer `-fast`, both at effort `xhigh`. The value is comma-separated. Prefer a different model family from the parent's when possible, and use that one entry as the Task `model`. Do not spawn one subagent per entry. Family is the slug prefix: `claude`, `grok`, `gemini`, `gpt`, `composer`, `cursor`. The effort token (`max`, `xhigh`, `high`, `medium`, `low`) and a trailing `-fast` are the same family. `inherit-parent` and `auto` are the parent's family. Skip an alias that matches the parent. If none differs, say so and use the first real slug. Spawn one readonly judge subagent on that model. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't spawn the judge while candidates are still writing.
+After all Phase B candidates complete, choose one model from the `arena cross-judge pool` line. The value is a pick line per **Model lists** in `spawn-subagent`. Use that one entry as the Task `model`. Spawn one readonly judge subagent on that model. It sees the rubric and the candidates by path label, scores each criterion, and recommends a base with rationale. It runs in parallel with the parent's reading in Phase D, not with the candidates themselves. Don't spawn the judge while candidates are still writing.
 
 ## Phase D: Pick a base
 
