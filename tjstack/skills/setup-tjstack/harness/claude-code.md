@@ -22,3 +22,13 @@ tjstack skills are written in Cursor terms. In Claude Code, translate each term 
 | Project skills `.cursor/skills/` | `.claude/skills/` |
 | Plugin skills under `~/.cursor/plugins/` | Under `~/.claude/plugins/` |
 | A bundled skill loads by name | Most tjstack skills set `disable-model-invocation`, so the Skill tool refuses them. Read `skills/<name>/SKILL.md` under the plugin root with the Read tool. The root is two levels above the "Base directory" printed when a tjstack skill loads, or above the tj-mode path in the brief. |
+| Transcripts `~/.cursor/projects/<slug>/agent-transcripts/` | `~/.claude/projects/<slug>/`, `<slug>` is the absolute launch directory with every character that is not a letter or digit turned into `-` (`/home/user/proj` is `-home-user-proj`). In a worktree or subdirectory, drop trailing path parts until the directory exists. Never read another project's directory. This directory is `<agent-transcripts>`. |
+| The system prompt names the active `agent-transcripts/` directory | Nothing names it. Derive the directory from the working directory. The active session is the newest `*.jsonl` directly in it (first line of `ls -t <dir>/*.jsonl`). |
+| Chat transcript `<uuid>/<uuid>.jsonl`, subagent `<uuid>/subagents/<id>.jsonl` | Chat `<session-id>.jsonl`, subagent `<session-id>/subagents/agent-<agentId>.jsonl` with a `.meta.json`. Large tool outputs sit in `<session-id>/tool-results/`. |
+| Every JSONL line is one chat message | Every line is one event. Keep `type` `user` and `assistant`. `message.content` is a string or a list of blocks (`text`, `tool_use`, `tool_result`). The first message is the first `type: user` line. |
+| Cloud-agent URL | claude.ai/code session URL. Its transcript is not on disk, so pick up from the pushed branch. |
+| `AskQuestion` | `AskUserQuestion`. It takes two to four options. Put the rest under its free-text Other answer. |
+| Built-in `create-skill` skill | `skill-creator` skill when installed. Otherwise **noslop** and this table alone. |
+| `/loop` dynamic mode | `/loop` with no interval, which self-paces. |
+| MCP discovery with `GetDynamicTools` or the `mcps/` directory | MCP tools are `mcp__<server>__<tool>` in the tool list. Load deferred ones with `ToolSearch`. `claude mcp list` lists servers. |
+| Cursor restart | Claude Code restart, or `claude --resume`. |
