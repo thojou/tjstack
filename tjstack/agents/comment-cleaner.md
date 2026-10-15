@@ -1,5 +1,5 @@
 ---
-name: Comment Cleaner
+name: comment-cleaner
 description: >-
   Deletes comments the code can carry itself, and flags the symbol that
   should make the comment unnecessary. Does not write application code.

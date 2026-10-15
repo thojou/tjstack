@@ -1,8 +1,19 @@
 # tjstack
 
-This folder is a Cursor marketplace. In Customize, add it as a local folder.
+This repository is a plugin marketplace for Cursor and Claude Code. The installable package is `tjstack/`.
 
-The installable package is `tjstack/`. Cursor reads `.cursor-plugin/plugin.json` and discovers `skills/`, `rules/`, `agents/`, `commands/`, and `hooks/hooks.json`.
+## Install
+
+**Cursor.** In Customize, add this repository as a local folder. Cursor reads `.cursor-plugin/plugin.json` and discovers `skills/`, `rules/`, `agents/`, `commands/`, and `hooks/hooks.json`.
+
+**Claude Code.** Add the marketplace and install the plugin:
+
+```text
+/plugin marketplace add thojou/tjstack
+/plugin install tjstack@tjstack
+```
+
+Claude Code reads `.claude-plugin/plugin.json` and discovers `skills/` and `agents/`. Skills run as `/tjstack:<skill>`, for example `/tjstack:tj-mode`. For a local checkout, run `claude --plugin-dir ./tjstack`.
 
 To add a principle, follow [tjstack/PRINCIPLES.md](tjstack/PRINCIPLES.md).
 
