@@ -12,8 +12,7 @@ description: >-
 
 # Setup tjstack
 
-Write three always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`.
-
+Write three always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`. Outside Cursor, first read `harness/<harness>.md` in this skill's directory (`claude-code.md` in Claude Code). Use its rule-path rows for every path below, and write each rule without the frontmatter.
 
 ## Steps
 
@@ -27,7 +26,7 @@ If `~/.cursor/rules/tjstack-models.mdc` exists, read it. Its `# budget` line and
 
 ### 3. Budget, propose, and confirm
 
-**(a) Ask for a budget.** Prefer AskQuestion over free text. Offer these five options with these exact labels, and name the current budget when the rule records one. With no rule, the budget is `xhigh`.
+**(a) Ask for a budget.** Prefer AskQuestion over free text. Offer these five options with these exact labels, and name the current budget when the rule records one. With no rule, the budget is `xhigh`. In Claude Code, offer `low`, `medium`, `high`, and `xhigh`, and take `max` through the Other answer.
 
 - `low`
 - `medium`
@@ -43,13 +42,13 @@ The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` 
 python3 propose.py --budget <label>
 ```
 
-Add `--current ~/.cursor/rules/tjstack-models.mdc` when that file exists. Stdout is the working table. `NEEDS_CHOICE` means that role needs a choice. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one. Do not re-pick slugs by hand.
+Add `--current ~/.cursor/rules/tjstack-models.mdc` when that file exists. Stdout is the working table. `NEEDS_CHOICE` means that role needs a choice. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one. Do not re-pick slugs by hand. In Claude Code, skip `propose.py`. The model list is the values the Agent tool's `model` parameter accepts. Propose one value per role from that list, judged by the role's work, and one or several values for each list role. Keep a current rule value that is still in the list. The budget goes only on the `# budget` line.
 
-**(c) Show the roles and confirm.** Show that table. Also list each retired role step 2 dropped. Ask whether to accept as-is or change specific roles. Prefer AskQuestion over free text. Do not paste the model catalog into that question. If the user changes a role, run `agent models` and offer those slugs plus `inherit-parent` and `auto`. The list roles (`arena runners`, `architect runners`, `challenge reviewers`, `track-your-work reviewer`, `arena cross-judge pool`) take one model or several. Ask which models to spread them over, for example one model only or `opus, sonnet, haiku`. **Model lists** in `spawn-subagent` says how each list runs. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
+**(c) Show the roles and confirm.** Show that table. Also list each retired role step 2 dropped. Ask whether to accept as-is or change specific roles. Prefer AskQuestion over free text. Do not paste the model catalog into that question. If the user changes a role, run `agent models` and offer those slugs plus `inherit-parent` and `auto`. The list roles (`arena runners`, `architect runners`, `challenge reviewers`, `track-your-work reviewer`, `arena cross-judge pool`) take one model or several. Ask which models to spread them over, one model only or several. **Model lists** in `spawn-subagent` says how each list runs. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
 ### 4. Validate
 
-Every real slug written must be a slug `agent models` printed. `inherit-parent` and `auto` always pass. If a chosen real slug is not in that list, stop and ask again.
+Every real slug written must be a slug `agent models` printed. `inherit-parent` and `auto` always pass. In Claude Code, a value the Agent tool's `model` parameter accepts passes. If a chosen real slug is not in that list, stop and ask again.
 
 ### 5. Write the rule
 
