@@ -21,7 +21,7 @@ Use the caller's files or diff. Otherwise use the current diff against the base 
 
 ## Steps
 
-1. Spawn `Task` with `subagent_type: "Comment Cleaner"`.
+1. Spawn `Task` with `subagent_type: "comment-cleaner"`.
    - role line: `clean-comments reviewer`
    - class: `claude-opus`, prefer no `-fast`, effort `xhigh` when the rule line is missing
    Pass the scope. Do not restate its rules.
