@@ -34,11 +34,11 @@ Remaining triggers:
 - Before review → the **clean-comments** skill.
 - Shipping UI / IDE / CLI → drive the real surface yourself. If `control-cli` or `control-ui` is installed, use that. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the **principle-explain-the-number** skill before you report or act on the number.
-- Bugbot or an agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code.
+- Bugbot or an agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code. Triage fix, dismiss, or ask per `references/bugbot-triage.md`.
 - Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it. That PR still goes through **Opening a PR**, including Destination.
 - Long, autonomous, or multi-phase work, or any task the user steps away from to review later ("going to bed", "trust it when i'm back", "/loop until X") → a decision trail via the **track-your-work** skill. Commit it when stakes need an auditable record. Keep it local otherwise.
 - Opening a PR → `playbooks/opening-a-pr.md`. Do not push or create until its Destination tuple is printed.
-- "check on MR X", "get it green", or "address the review comments" → `playbooks/babysit.md`, not Cursor's built-in babysit skill. Merely opening a PR or MR never triggers it.
+- "babysit this", "get it green", "merge-ready", "address the bugbot comments", "address the review comments", "check on MR X", "is it green", or "anything outstanding on X" → `playbooks/babysit.md`, not Cursor's built-in babysit skill. Merely opening a PR or MR never triggers it. Declare its mode before polling. Step 1 of that playbook owns the request-to-mode mapping. Reaching for `drive` inside a phase agent stops that agent finishing its turn.
 
 ## Principles
 
@@ -97,7 +97,7 @@ Read the leaf skill in full for any principle you apply. Each entry names when i
 
 **Use `subagent_type: "tj-agent"` for any subagent you spawn inside a playbook step** (code-writing delegates, ad-hoc helpers). The chat that receives `/tj-mode` runs the playbook. Never spawn a `tj-agent` to run the playbook itself. `/tj-mode` and `tj-agent` route through the same wrapper. Routed workflow skills (`how`, `why`, `challenge`, `retro`, `swarm`) set their own `subagent_type` for diverse-model review. Respect what the skill prescribes, don't override to `tj-agent`.
 
-**Defaults for every `Task` call.** Read `spawn-subagent` first. `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context. Code playbooks read the role line `bug-fix` or `feature, refactoring` (class `grok`, prefers `-fast`). The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) read `hardest tasks` (class `claude-opus`, prefers no `-fast`), whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits stay on the code role. Prose and judgment read `judgment and prose` (class `claude-opus`, prefers no `-fast`). When the line is missing, the effort is `xhigh`. Per-role lines in the `/setup-tjstack` rule override these, and they override the model choices in the routed skills (`how`, `why`, `arena`, `swarm`, `architect`, `challenge`, `retro`). A role line of `inherit-parent` or `auto` runs that role on the parent chat model (omit Task `model`).
+**Defaults for every `Task` call.** Read `spawn-subagent` first. `run_in_background: true`, agent mode (readonly strips MCP), file pointers not inlined context. Code playbooks read the role line `bug-fix`, `perf-issue`, or `feature, refactoring` (class `grok`, prefers `-fast`). The hardest changes (cross-cutting design, gnarly concurrency, subtle algorithms) read `hardest tasks` (class `claude-opus`, prefers no `-fast`), whether the task needs judgment on vague intent or is a precisely specified sequence of steps to execute to the letter. Trivial mechanical edits stay on the code role. Prose and judgment read `judgment and prose` (class `claude-opus`, prefers no `-fast`). When the line is missing, the effort is `xhigh`. Per-role lines in the `/setup-tjstack` rule override these, and they override the model choices in the routed skills (`how`, `why`, `arena`, `swarm`, `architect`, `challenge`, `retro`). A role line of `inherit-parent` or `auto` runs that role on the parent chat model (omit Task `model`).
 
 You own every subagent's work. Review the diff and write your own summary, don't pass through what it said. A second opinion is the same prompt against a different model. Agreement is high-signal.
 
@@ -115,7 +115,7 @@ Write the reply clean as you draft it. A cleanup pass after drafting does not re
 - **Never fabricate a link, citation, or transcript reference.** Link only artifacts you produced or read this session.
 - **Every claim carries its evidence or its label in the same sentence.** Measured, inferred, or guess. A prediction or an unseen cause is a guess. Never hand the human a check you could run.
 
-Every playbook ends with a reply written this way. Investigation stops at the reply. It does not open a PR. Every other playbook's PR link is the URL the forge printed for the Destination project in `playbooks/opening-a-pr.md`. Never build a `github.com` link by hand. Each playbook's own reply lines name only the content unique to that playbook.
+Every playbook ends with a reply written this way. Investigation, Pause safely, Session pickup, and Multi-phase plan stop at the reply. They do not open a PR. Every other playbook's PR link is the URL the forge printed for the Destination project in `playbooks/opening-a-pr.md`. Never build a `github.com` link by hand. Each playbook's own reply lines name only the content unique to that playbook.
 
 ## Comments
 
@@ -125,13 +125,17 @@ Comments follow the same rule as the reply. Write them clean as you go. Keep a c
 
 Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its file. Copy its steps in verbatim.
 
-A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits, as long as the process itself still needs designing. With a checkable exit condition and a known approach, it routes to Autonomous run instead, or to Autopilot-stack when it ships as a chain of dependent MRs. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
+A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits, as long as the process itself still needs designing. With a checkable exit condition and a known approach, it routes to Autonomous run instead, or to Autopilot-stack when it ships as a chain of dependent MRs. When the deliverable is the plan for phases or stacked PRs, and not the code, route to Multi-phase plan. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
 
 - **Investigation.** Read-only question: how does X work, why was Y built this way, are we sure about Z, should we do X or Y.
 - **Bug fix.** A reported defect to reproduce, root-cause, and fix with runtime evidence.
+- **Perf issue.** A measured slowness to trace and improve against a baseline. Sustained improvement of one metric is Autonomous run.
 - **Feature.** New or changed behavior, built from a named data shape.
 - **Refactoring.** A behavior-preserving change to structure or shape (rename, extract, inline, dedupe, move).
 - **Autonomous run.** A checkable exit condition and a known approach, driven to done without stopping ("/loop until X", "run until done").
 - **Autopilot-stack.** A coupled or ordered queue of MRs. One owner per MR builds it, the root verifies each link, and the operator receives one base-branch stack to land.
-- **Babysit.** Drive an open MR or stack to merge-ready, on request only ("check on MR X", "get it green", "address the review comments"). It never merges.
-- **Opening a PR.** Invoked at the end of every other playbook. File: `playbooks/opening-a-pr.md`.
+- **Babysit.** Drive an open PR or stack to merge-ready, on request only ("babysit this", "get it green", "merge-ready", "check on MR X", "is it green", "address the bugbot comments", "address the review comments"). It never merges. "PR" here also means a GitLab merge request.
+- **Session pickup.** Resuming one prior agent's in-flight work from a transcript, cloud-agent URL, or pushed branch. Catch-up is the other route, for recent working context across chats.
+- **Pause safely.** Suspending in-flight work on an explicit pause, going offline, a Cursor restart, or imminent context compaction. The complement to Session pickup. On "keep going" or "don't stop", do not pause.
+- **Multi-phase or multi-PR plan.** The deliverable is the plan for phases or stacked PRs, not the code. File: `playbooks/multi-phase-plan.md`.
+- **Opening a PR.** Invoked at the end of every playbook that ships code. File: `playbooks/opening-a-pr.md`.

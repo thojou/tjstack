@@ -1,6 +1,6 @@
 ### Opening a PR
 
-Invoked at the end of every other playbook. "PR" below also means a GitLab merge request.
+Invoked at the end of every playbook that ships code. Investigation, Pause safely, Session pickup, and Multi-phase plan stop at the reply. "PR" below also means a GitLab merge request.
 
 **Worktree.** Work from a git worktree off main. Subagents inherit it. Each subagent's environment and isolation follow `spawn-subagent`. Do not push or reset until Destination has read the configured remote. Then reset against that remote: `git fetch <remote> && git reset --hard <remote>/<branch>`. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
 
