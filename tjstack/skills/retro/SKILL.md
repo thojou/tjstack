@@ -10,6 +10,8 @@ Mine this session for durable learnings, then write a retro report. The report i
 
 Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
+Outside Cursor, the `tjstack-harness` rule translates tools, paths, and the transcript format. Give reviewers the translated transcript path. Also add to each reviewer prompt that the subagent tool is `Agent`, tool calls are `tool_use` blocks in `message.content`, and a `Read` of a `SKILL.md` under `.claude/skills/`, `~/.claude/skills/`, or `~/.claude/plugins/` counts as skill use.
+
 ## 1. Locate the active transcript
 
 The parent finds its own transcript file before fanning out. The system prompt names the active workspace's `agent-transcripts/` directory. Use that path. Do not glob across `~/.cursor/projects/*/`. That crosses workspace boundaries and reads private chats from unrelated projects.
