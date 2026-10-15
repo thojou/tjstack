@@ -3,8 +3,8 @@ name: setup-tjstack
 description: >-
   Configure which models tjstack uses per role, at what reasoning budget,
   which git remote alias Opening a PR publishes to, and whether subagents
-  run in cloud or local. Asks for a budget, loads the model list with
-  `agent models`, proposes a slug per role, and writes three always-applied
+  run in cloud or local. Asks for a budget, runs `propose.py` (it calls
+  `agent models`), proposes a slug per role, and writes three always-applied
   rules. Use for /setup-tjstack, "configure tjstack models", "tjstack budget",
   "PR remote", "subagent environment", "cloud or local", or changing those
   choices.
@@ -19,11 +19,11 @@ Write three always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjst
 
 ### 1. Detect available models
 
-Enumerate the model slugs you can pass to a `Task` subagent in this session. That is the dependable source. If Cursor also exposes a models API or CLI that lists the user's entitled models, prefer it for completeness. If you cannot detect any, ask the user to paste the slugs they have access to. Never write a real slug you have not confirmed is available. The aliases `inherit-parent` and `auto` are always valid even though they are not detected slugs.
+Do not do this yourself. Do not read the Task tool schema, search MCP, or look for a CLI. Step 3 runs `propose.py`, which runs `agent models` and prints one slug per role. `inherit-parent` and `auto` stay valid values. Never write a real slug `propose.py` did not print.
 
 ### 2. Load current state
 
-If `~/.cursor/rules/tjstack-models.mdc` exists, read it. Its `# budget` line and its role values are the current choices. Otherwise there is no current choice. A line whose role is not listed above is retired. Drop it.
+If `~/.cursor/rules/tjstack-models.mdc` exists, read it. Its `# budget` line and its role values are the current choices. If the file is missing, there is no current choice. Do not list the rules directory. A line whose role is not in the step 5 template is retired. Drop it.
 
 ### 3. Budget, propose, and confirm
 
@@ -37,13 +37,15 @@ If `~/.cursor/rules/tjstack-models.mdc` exists, read it. Its `# budget` line and
 
 The label is the effort token. `low` sets `low`, `medium` sets `medium`, `high` sets `high`, `xhigh` sets `xhigh`, and `max` sets `max`.
 
-**Load models.** Run `agent models`. Parse lines of the form `slug - name`. The slug is the first field. Skip the header, blank lines, and the `Tip:` line. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one.
+**(b) Propose.** From this skill's directory, run:
 
-**Propose.** From that list, one suggestion per role: the newest slug of the role's class. The model id is the slug with a trailing `-fast` removed and with the effort token removed. The effort token is the last token, or the token before a trailing `fast`, on the ladder `max` > `xhigh` > `high` > `medium` > `low`. Newest is the highest version number in the id. On a tie, prefer the id that does not start with `cursor-`. Ignore a `-thinking` slug when the same id exists without `-thinking`. Use `-fast` only when the role prefers it and that form is in the list. Otherwise use the form without `-fast`. `bug-fix`, `perf-issue`, and `feature, refactoring` are class `grok` and prefer `-fast`. `judgment and prose` and `hardest tasks` are class `claude-opus` and prefer no `-fast`. `swarm workers` is class `grok` and prefers `-fast`. `retro judgment` is class `claude-opus` and prefers no `-fast`. `retro tooling` is class `grok` and prefers `-fast`. `track-your-work reviewer`, `arena runners`, `arena cross-judge pool`, `architect runners`, and `challenge reviewers` are the exception: two slugs on one line, comma-separated, the newest `claude-opus` without `-fast`, then the newest `grok` with `-fast` when that form is listed.
+```bash
+python3 propose.py --budget <label>
+```
 
-**(b) Apply the budget.** The working table starts from those suggestions. On a re-run, keep a current value that is `inherit-parent`, `auto`, a list, or a different family than the suggestion. Set the effort token of every other real slug to the budget label. If that slug is not in the list, use the same family's listed slug with the highest effort at or below the target, and the same fast preference. If none exists, mark the role as needing a choice. `inherit-parent` and `auto` do not change.
+Add `--current ~/.cursor/rules/tjstack-models.mdc` when that file exists. Stdout is the working table. `NEEDS_CHOICE` means that role needs a choice. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one. Do not re-pick slugs by hand.
 
-**(c) Show the roles and confirm.** Show every role with its model, marking any role that needs a choice. Also list each line step 1 dropped. Ask whether to accept as-is or change specific roles, offering the slugs from `agent models` plus `inherit-parent` and `auto`. Prefer AskQuestion over free text. A list value runs one subagent per entry, alias entries included, so the list length sets the count. `arena runners`, `architect runners`, and `challenge reviewers` are that kind of list. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry. `arena cross-judge pool` is also a list, but Arena selects one value from it whose model family differs from the parent's when possible. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
+**(c) Show the roles and confirm.** Show that table. Also list each retired role step 2 dropped. Ask whether to accept as-is or change specific roles. Prefer AskQuestion over free text. Do not paste the model catalog into that question. If the user changes a role, run `agent models` and offer those slugs plus `inherit-parent` and `auto`. A list value runs one subagent per entry, alias entries included, so the list length sets the count. `arena runners`, `architect runners`, and `challenge reviewers` are that kind of list. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry. `arena cross-judge pool` is also a list, but Arena selects one value from it whose model family differs from the parent's when possible. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
 ### 4. Validate
 
@@ -51,14 +53,14 @@ Every real slug written must be a slug `agent models` printed. `inherit-parent` 
 
 ### 5. Write the rule
 
-Write `~/.cursor/rules/tjstack-models.mdc` with `alwaysApply: true`, a `# budget` line with the chosen label only, and one line per role. The values are the slugs from step 2, not the angle brackets below. Overwrite the whole file so re-runs stay idempotent. Create `~/.cursor/rules/` if it is missing. Shape:
+Write `~/.cursor/rules/tjstack-models.mdc` with `alwaysApply: true`, a `# budget` line with the chosen label only, and one line per role. The values are the slugs `propose.py` printed, not the angle brackets below. Overwrite the whole file so re-runs stay idempotent. Create `~/.cursor/rules/` if it is missing. Shape:
 
 ```
 ---
 description: tjstack per-role model choices (overrides skill defaults)
 alwaysApply: true
 ---
-# tjstack model configuration. One line per role. Delete a line to fall back to the proposal rules in setup-tjstack.
+# tjstack model configuration. One line per role. Delete a line to fall back to propose.py in setup-tjstack.
 # `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`).
 # Alias entries in `arena runners`, `architect runners`, and `challenge reviewers` still count toward that line's fan-out. `arena cross-judge pool` selects one entry whose family differs from the parent's when possible. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
 # budget: <chosen label>
