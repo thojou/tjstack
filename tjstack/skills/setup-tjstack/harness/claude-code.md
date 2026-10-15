@@ -1,0 +1,18 @@
+# tjstack harness: Claude Code
+
+tjstack skills are written in Cursor terms. In Claude Code, translate each term with this table.
+
+| Cursor | Claude Code |
+| --- | --- |
+| `Task` tool | `Agent` tool |
+| `subagent_type: generalPurpose` | `subagent_type: general-purpose` |
+| `readonly: true` (strips MCP) | `general-purpose`, and the prompt forbids writes. MCP stays available. |
+| `readonly: false` | Omit. `general-purpose` and the tjstack agents can write. |
+| `subagent_type: tj-agent`, `comment-cleaner` | `tjstack:tj-agent`, `tjstack:comment-cleaner`. Without the plugin installed, use `general-purpose` and start the prompt with the body of `agents/<name>.md` from the plugin root. |
+| `model` is a slug from `agent models` | `model` is a model name (`opus`, `sonnet`, `haiku`, `fable`) or a full model id. No list command exists. `haiku` fits only a trivial mechanical role. |
+| `inherit-parent` or `auto` omits `model` | Omit `model`. |
+| effort is the slug's effort token | `effort` param (`low` to `max`) when the tool offers it. Otherwise drop it. |
+| `environment: "cloud"` | `isolation: "remote"` when the Agent tool offers it. Otherwise run local. |
+| `cloud_base_branch` | None. Push the branch and name it in the brief. |
+| A subagent can spawn subagents | A subagent cannot spawn subagents. The chat runs every fan-out. A delegate that needs one reports back and the chat runs it. |
+| A bundled skill loads by name | Most tjstack skills set `disable-model-invocation`, so the Skill tool refuses them. Read `skills/<name>/SKILL.md` under the plugin root with the Read tool. The root is two levels above the "Base directory" printed when a tjstack skill loads, or above the tj-mode path in the brief. |

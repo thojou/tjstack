@@ -10,7 +10,7 @@ Spawn one reviewer per configured model to adversarially review code changes. Ea
 
 The deliverable is a synthesized verdict. Do NOT auto-apply changes.
 
-Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names the role line, the class, and the effort to use when the rule line is missing.
+Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
 ## Step 1, Determine Scope
 
@@ -35,7 +35,7 @@ Write one clear paragraph. If you're unsure about the intent, ask the user befor
 
 ## Step 3, Spawn Reviewers
 
-Launch all reviewers in a single message using the Task tool. Use the `challenge reviewers` line, one reviewer per entry, extending or shrinking the Reviewer A/B labels to the configured entry count. The line is comma-separated. One subagent runs per entry, alias entries included, so the list length sets the count. If the rule or that line is missing, default to one each on class `claude-opus`, prefer no `-fast`, and class `grok`, prefer `-fast`, both at effort `xhigh`.
+Launch all reviewers in a single message using the Task tool. Use the `challenge reviewers` line, one reviewer per entry, extending or shrinking the Reviewer A/B labels to the configured entry count. The line is a fan-out line per **Model lists** in `spawn-subagent`.
 
 For each reviewer:
 - `subagent_type`: `generalPurpose`
