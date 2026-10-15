@@ -10,7 +10,7 @@ Investigate the motivation and intent behind code.
 
 Companion to the `how` skill. `how` answers what the code does and how it works. `why` answers what forces led to its shape.
 
-Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names the role line, the class, and the effort to use when the rule line is missing.
+Before every Task spawn below, read and follow the `spawn-subagent` skill. Each spawn names its role line.
 
 ## Operating Posture
 
@@ -78,7 +78,6 @@ Spawn one investigator per skill name, in one message, so they run concurrently.
 Subagent config (each):
 - `subagent_type`: `generalPurpose`
 - role line: `why investigator`
-- class: `grok`, prefer `-fast`, effort `xhigh` when the rule line is missing
 - `readonly`: `false` (agent mode). **Do not use readonly/Ask mode.** It strips MCP access, which disables MCP-backed investigators entirely. Investigators still shouldn't write anything.
 
 Each investigator gets:
@@ -123,7 +122,6 @@ Spawn one synthesizer subagent:
 
 - `subagent_type`: `generalPurpose`
 - role line: `why synthesizer`
-- class: `claude-opus`, prefer no `-fast`, effort `xhigh` when the rule line is missing
 - `readonly`: `false` (agent mode). The synthesizer's quality check spot-verifies citations, which can require MCP access. Readonly/Ask mode strips MCPs and defeats that.
 
 The synthesizer gets:

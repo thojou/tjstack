@@ -5,7 +5,7 @@ description: >-
   which git remote alias Opening a PR publishes to, and whether subagents
   run in cloud or local. Asks for a budget, runs `propose.py` (it calls
   `agent models`), proposes a slug per role, and writes three always-applied
-  rules. Use for /setup-tjstack, "configure tjstack models", "tjstack budget",
+  rules, plus a harness rule outside Cursor. Use for /setup-tjstack, "configure tjstack models", "tjstack budget",
   "PR remote", "subagent environment", "cloud or local", or changing those
   choices.
 ---
@@ -45,7 +45,7 @@ python3 propose.py --budget <label>
 
 Add `--current ~/.cursor/rules/tjstack-models.mdc` when that file exists. Stdout is the working table. `NEEDS_CHOICE` means that role needs a choice. If the command fails, stop. Do not invent a slug, and do not ask the user to paste one. Do not re-pick slugs by hand.
 
-**(c) Show the roles and confirm.** Show that table. Also list each retired role step 2 dropped. Ask whether to accept as-is or change specific roles. Prefer AskQuestion over free text. Do not paste the model catalog into that question. If the user changes a role, run `agent models` and offer those slugs plus `inherit-parent` and `auto`. A list value runs one subagent per entry, alias entries included, so the list length sets the count. `arena runners`, `architect runners`, and `challenge reviewers` are that kind of list. `track-your-work reviewer` is also a comma-separated list on one line, but the skill picks one entry whose family differs from the parent's. It does not run one subagent per entry. `arena cross-judge pool` is also a list, but Arena selects one value from it whose model family differs from the parent's when possible. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
+**(c) Show the roles and confirm.** Show that table. Also list each retired role step 2 dropped. Ask whether to accept as-is or change specific roles. Prefer AskQuestion over free text. Do not paste the model catalog into that question. If the user changes a role, run `agent models` and offer those slugs plus `inherit-parent` and `auto`. The list roles (`arena runners`, `architect runners`, `challenge reviewers`, `track-your-work reviewer`, `arena cross-judge pool`) take one model or several. Ask which models to spread them over, for example one model only or `opus, sonnet, haiku`. **Model lists** in `spawn-subagent` says how each list runs. `swarm workers` is the default model for every worker unless a race or comparison assigns another model per arm.
 
 ### 4. Validate
 
@@ -62,7 +62,7 @@ alwaysApply: true
 ---
 # tjstack model configuration. One line per role. Delete a line to fall back to propose.py in setup-tjstack.
 # `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`).
-# Alias entries in `arena runners`, `architect runners`, and `challenge reviewers` still count toward that line's fan-out. `arena cross-judge pool` selects one entry whose family differs from the parent's when possible. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
+# `arena runners`, `architect runners`, and `challenge reviewers` run one subagent per entry, and at least two. `track-your-work reviewer` and `arena cross-judge pool` pick the first entry whose model differs from the parent's. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
 # budget: <chosen label>
 bug-fix: <slug from step 2>
 perf-issue: <slug from step 2>
@@ -75,12 +75,12 @@ blast-radius reader: <slug from step 2>
 catch-up miner: <slug from step 2>
 why investigator: <slug from step 2>
 why synthesizer: <slug from step 2>
-track-your-work reviewer: <claude-opus slug>, <grok slug>
+track-your-work reviewer: <slugs from step 3>
 clean-comments reviewer: <slug from step 2>
-arena runners: <claude-opus slug>, <grok slug>
-arena cross-judge pool: <claude-opus slug>, <grok slug>
-architect runners: <claude-opus slug>, <grok slug>
-challenge reviewers: <claude-opus slug>, <grok slug>
+arena runners: <slugs from step 3>
+arena cross-judge pool: <slugs from step 3>
+architect runners: <slugs from step 3>
+challenge reviewers: <slugs from step 3>
 swarm workers: <slug from step 2>
 retro judgment: <slug from step 2>
 retro tooling: <slug from step 2>
@@ -126,6 +126,10 @@ alwaysApply: true
 subagent environment: <cloud|local>
 ```
 
-### 8. Confirm
+### 8. Harness rule
 
-Tell the user all three rules were written, which slug each role got, which PR remote alias was written, which subagent environment was written, and that all three apply to new sessions. Re-running this skill updates them.
+Skip this step in Cursor. tjstack skills are written in Cursor terms. In any other harness, copy `harness/<harness>.md` from this skill's directory to that harness's always-applied rule `tjstack-harness`, so every session translates the terms. In Claude Code, copy `harness/claude-code.md` to `~/.claude/rules/tjstack-harness.md`. Overwrite the whole file. Create the directory if it is missing.
+
+### 9. Confirm
+
+Tell the user all rules were written, which slug each role got, which PR remote alias was written, which subagent environment was written, whether the harness rule was written, and that all of them apply to new sessions. Re-running this skill updates them.

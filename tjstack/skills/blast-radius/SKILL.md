@@ -52,7 +52,6 @@ Step 4 is the usual bar: one small script that imports the library the app ships
 6. When the change spans more than one package, or you are not sure the one fact covers it, spawn one extra reader before you write the answer. Read `spawn-subagent` first.
    - `subagent_type`: `generalPurpose`
    - role line: `blast-radius reader`
-   - class: `claude-opus`, prefer no `-fast`, effort `xhigh` when the rule line is missing
    - Tell it not to create, edit, or delete files.
    - Give it the diff, the symbols, and this question: what does this break outside the diff?
    - Merge only risks it cites with a real `file:line` that you did not already have.

@@ -13,7 +13,7 @@ This repository is a plugin marketplace for Cursor and Claude Code. The installa
 /plugin install tjstack@tjstack
 ```
 
-Claude Code reads `.claude-plugin/plugin.json` and discovers `skills/` and `agents/`. Skills run as `/tjstack:<skill>`, for example `/tjstack:tj-mode`. For a local checkout, run `claude --plugin-dir ./tjstack`.
+Claude Code reads `.claude-plugin/plugin.json` and discovers `skills/` and `agents/`. Skills run as `/tjstack:<skill>`, for example `/tjstack:tj-mode`. For a local checkout, run `claude --plugin-dir ./tjstack`. Then run `/tjstack:setup-tjstack` once. It writes the rules tjstack reads, including the harness rule that translates the Cursor terms in the skills.
 
 To add a principle, follow [tjstack/PRINCIPLES.md](tjstack/PRINCIPLES.md).
 
