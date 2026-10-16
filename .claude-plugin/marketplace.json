@@ -4,7 +4,8 @@
     "name": "Thomas Joußen"
   },
   "metadata": {
-    "description": "tjstack marketplace"
+    "description": "tjstack marketplace",
+    "version": "0.1.0"
   },
   "plugins": [
     {
