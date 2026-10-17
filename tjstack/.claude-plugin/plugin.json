@@ -1,7 +1,7 @@
 {
   "name": "tjstack",
   "displayName": "TJstack",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "tjstack helps you write less, but higher quality code.",
   "author": {
     "name": "Thomas Joußen"
