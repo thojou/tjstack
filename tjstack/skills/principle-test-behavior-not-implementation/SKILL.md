@@ -18,4 +18,13 @@ These shapes fail that check:
 
 Fix: call the subject in the test body with one concrete input and assert the literal output or effect. When a collaborator is substituted, assert the payload it received. For an absence, also assert the presence on another input. For a constant, test the mechanism that reads it with one input instead of restating the value.
 
+Shape each test so its failure points at one cause:
+
+- **One behavior per test.** Arrange the input, act once, assert the outcome. A test that checks three behaviors hides which one broke.
+- **Fast, independent, repeatable.** No test depends on another test's leftovers, on wall-clock time, or on the network. A slow or order-dependent suite stops being run.
+- **Self-validating.** The test passes or fails on its own. A test that prints output for a human to inspect is not a test.
+- **Read like the spec.** Test code meets the same bar as production code. Name the test for the behavior (`rejects_expired_token`). Pull setup noise into helpers that speak the domain, so the body shows only what matters for this case.
+- **Cover the edges.** Test empty, one, many, the boundary value, and just past it. When you fix a bug, test its neighborhood. Bugs cluster.
+- **A skipped test is an open question.** Resolve the ambiguity or delete the test. Do not leave it skipped.
+
 Keep relation checks across table rows (a key in two tables, a parent that exists). Where the language has a separate type-level check, keep that check too.
