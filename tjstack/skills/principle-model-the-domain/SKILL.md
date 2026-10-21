@@ -21,7 +21,7 @@ Reach for:
 
 Choose the shape by what will grow. Plain data with functions over it makes a new operation cheap and a new kind expensive. Objects with polymorphic methods make a new kind cheap and a new operation expensive. Pick the one whose cheap axis matches the change you expect. Do not build a hybrid that is half of each, because it makes both expensive.
 
-Give each module one reason to change. If you cannot state its job in one sentence without "and", or if some methods use only some fields and the rest use the others, split along that seam.
+Give each module one reason to change. Disjoint groups of methods and fields can reveal independent responsibilities. Split when those responsibilities change independently. Keep operations that enforce the same invariant together. A line count or a conjunction is not a reason to create another class.
 
 Do not force an abstraction. Prefer boring code if the current shape is already clear, local, and unlikely to grow. Be skeptical of an abstraction that adds indirection without removing branches, duplicated rules, invalid states, or lifecycle risk.
 

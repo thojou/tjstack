@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Boundary Discipline
 
-Place validation, type narrowing, and error handling at system boundaries. Trust internal code unconditionally. Business logic lives in pure functions. The shell is thin and mechanical.
+Place validation, type narrowing, and error handling at system boundaries. Trust domain values that have already been validated. Business logic lives in pure functions. The shell is thin and mechanical.
 
 **Why:** Scattered validation is noisy, redundant, and gives a false sense of safety. Keep logic out of framework wiring so it can be tested without the framework.
 
@@ -24,15 +24,16 @@ Validation and error handling:
 - No redundant nil checks deep in call chains if the boundary already validated
 
 Errors:
-- Raise or return an error that names the operation, the input, and why it failed. A bare "invalid value" sends the reader to a debugger.
+- Raise or return an error that names the operation, a safe input identifier, and why it failed. Preserve the original cause without exposing credentials or private payloads.
 - Define error types by what the caller does with them, not by where they came from. Translate a third-party library's many failure types into the one or two your caller can act on, at the wrapper.
-- Do not return null or pass null. Return an empty collection, a special-case value, or a typed absence per [Type System Discipline](../principle-type-system-discipline/SKILL.md). Every null you return becomes a check in every caller.
+- Do not return null or pass null. Use an empty collection only for a successful zero-item result, and a typed absence for a valid optional result per [Type System Discipline](../principle-type-system-discipline/SKILL.md). Never turn a failed operation into either value.
 - Keep the error path out of the happy path. One function handles the failure, another does the work.
+- Release owned resources on failure as well as success. Use the language's scoped cleanup construct, and propagate or translate a failure instead of logging it as success.
 
 Third-party code:
 - Confine a third-party API to one wrapper when it would otherwise spread across call sites. The wrapper exposes the interface your code wishes it had. This is a boundary, not a speculative layer, so [Minimize Reader Load](../principle-minimize-reader-load/SKILL.md) keeps it.
 - Pin what you rely on in learning tests: small tests that call the library the way you use it. An upgrade that breaks an assumption fails there first.
-- When the other side does not exist yet, write the interface you need, code against it, and adapt the real thing to it later.
+- When the other side does not exist yet, write the interface you need, code against it, and adapt the real thing to it later. A fake proves the local contract only. Check the adapter against the real provider before claiming integration works.
 
 Code organization:
 - Business logic in pure functions with no framework dependencies
@@ -42,6 +43,6 @@ Code organization:
 - Scoring and assessment: pure transforms from state to results
 
 **The tests:**
-- "Is this data crossing a system boundary right now?" If not, validation is redundant.
+- "Has this value already been validated for this domain contract?" If yes, do not repeat the check.
 - "Can this be a pure function that the shell just calls?" If yes, extract it.
 - "Would swapping this library touch more than one file?" If yes, wrap it.
