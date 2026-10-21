@@ -26,7 +26,7 @@ If the project already keeps a glossary or ADRs elsewhere, use those paths. If t
 2. Ask one question with your recommended answer. Wait for the reply before the next question. Prefer AskQuestion when the answer is a pick from a few options.
 3. When the code can answer a question, read the code instead of asking. State what you found. Ask a follow-up only if it is still ambiguous. Per the **never-block-on-the-human** principle skill, the user answers preference and product calls, not facts you can look up.
 4. Patch the glossary the moment a term locks. Do not batch it to the end. Read [references/context-format.md](references/context-format.md) before the first write.
-5. Offer an ADR only when a decision passes all three criteria in the **adr** skill's [format reference](../adr/references/adr-format.md). On a yes, follow the **adr** skill.
+5. Offer an ADR only when a decision passes all three criteria in the **create-adr** skill's [format reference](../create-adr/references/adr-format.md). On a yes, follow the **create-adr** skill.
 
 ## During the session
 

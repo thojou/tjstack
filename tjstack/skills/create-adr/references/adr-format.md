@@ -1,6 +1,6 @@
 # ADR format
 
-ADRs live in `docs/adr/` with sequential numbers: `0001-slug.md`, `0002-slug.md`. The `scripts/next-id.sh` script in the **adr** skill prints the next number.
+ADRs live in `docs/adr/` with sequential numbers: `0001-slug.md`, `0002-slug.md`. The `scripts/next-id.sh` script in the **create-adr** skill prints the next number.
 
 In a multi-context workspace, a decision that belongs to one context goes in that context's directory, such as `ordering/docs/adr/`. Workspace-wide decisions stay in `docs/adr/`.
 

@@ -45,10 +45,10 @@ When the user is in the session, show the numbered seam list and ask once whethe
 
 ### 4. Write the PRD
 
-Get the number from the **adr** skill's script. Do not count files yourself.
+Get the number from the **create-adr** skill's script. Do not count files yourself.
 
 ```bash
-bash <this skill's directory>/../adr/scripts/next-id.sh docs/prd
+bash <this skill's directory>/../create-adr/scripts/next-id.sh docs/prd
 ```
 
 The feature name is 2 to 5 lowercase hyphenated words, nouns over verbs. Write `docs/prd/<NNNN>-<feature-name>.md` from [assets/prd-template.md](assets/prd-template.md). The template owns the structure. Do not copy the glossary or the ADR list into the PRD. Use their terms and cite ADRs by title.

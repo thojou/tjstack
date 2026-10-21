@@ -1,6 +1,6 @@
 # Learning record format
 
-Learning records live in `learning-records/` as `0001-slug.md`, `0002-slug.md`, and so on. The **adr** skill's `scripts/next-id.sh` prints the next number.
+Learning records live in `learning-records/` as `0001-slug.md`, `0002-slug.md`, and so on. The **create-adr** skill's `scripts/next-id.sh` prints the next number.
 
 They are the teaching equivalent of ADRs. They capture non-obvious lessons, key insights, and stated prior knowledge that steer later sessions. Together they mark the user's zone of proximal development.
 

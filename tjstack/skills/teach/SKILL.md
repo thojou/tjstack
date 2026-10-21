@@ -23,10 +23,10 @@ The default is `docs/learn/<topic-slug>/` under the working directory. If the us
 | `GLOSSARY.md`, optional | Terms the user has mastered | [glossary-format.md](references/glossary-format.md) |
 | `NOTES.md`, optional | The user's teaching preferences and working notes | None |
 
-Lessons and learning records number independently. Get each number from the **adr** skill's script for that directory.
+Lessons and learning records number independently. Get each number from the **create-adr** skill's script for that directory.
 
 ```bash
-bash <this skill's directory>/../adr/scripts/next-id.sh <workspace>/lessons
+bash <this skill's directory>/../create-adr/scripts/next-id.sh <workspace>/lessons
 ```
 
 **First run.** Create `lessons/`, `learning-records/`, and `reference/`. Write `MISSION.md` before anything else.

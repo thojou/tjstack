@@ -1,10 +1,10 @@
 ---
-name: adr
-description: "Record one architecture decision as a numbered ADR under docs/adr/, from the conversation, a diff, or other evidence. Use for /adr, 'record this decision', 'write an ADR', or a hard-to-reverse tradeoff that a future reader would question."
+name: create-adr
+description: "Record one architecture decision as a numbered ADR under docs/adr/, from the conversation, a diff, or other evidence. Use for /create-adr, 'record this decision', 'write an ADR', or a hard-to-reverse tradeoff that a future reader would question."
 disable-model-invocation: true
 ---
 
-# ADR
+# Create ADR
 
 An ADR records that a decision was made and why. It does not restate the design. The format, the bar for writing one, and the multi-context layout live in [references/adr-format.md](references/adr-format.md). Read it before you write.
 

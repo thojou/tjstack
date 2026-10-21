@@ -78,7 +78,7 @@ billing/
 
 - Stack, frameworks, deployment, schema design.
 - Phase plans, acceptance criteria, task lists. Those go in a PRD from the **create-prd** skill.
-- Decisions and their reasons. Those go in an ADR from the **adr** skill.
+- Decisions and their reasons. Those go in an ADR from the **create-adr** skill.
 
 ## Conflicting contexts
 
