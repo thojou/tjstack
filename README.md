@@ -19,4 +19,4 @@ To add a principle, follow [tjstack/PRINCIPLES.md](tjstack/PRINCIPLES.md).
 
 ## Credits
 
-Adapted in part from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan and [skills](https://github.com/mattpocock/skills) by Matt Pocock, both MIT. License texts are in NOTICE.
+Adapted in part from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan and [skills](https://github.com/mattpocock/skills) by Matt Pocock, both MIT. License texts are in NOTICE. Several principles distill ideas from *Clean Code* by Robert C. Martin (Prentice Hall, 2008), restated in our own words.

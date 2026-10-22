@@ -13,4 +13,11 @@ When concurrent actors might share mutable state, first ask whether they need th
 **Pattern:**
 1. **Identify shared mutable state** (files both read and write, branches both push to, APIs both define and consume).
 2. **Default: eliminate the shared write target.** Ask: do these actors need one canonical object, or are they publishing independent facts? Give each actor its own owned file, key, branch, or state directory, and merge only at the read/reporting boundary. Two workers writing their own `lastX` field into one `state.json` is still shared mutation. `indexer-state.json` + `metrics-state.json` is not.
-3. **Only when one shared write target is a real invariant, serialize access structurally** (lockfiles, sequential phases, single-writer actor, or atomic compare-and-swap). Treat "we need a lock" as a design smell to check, not as the default answer.
+3. **Keep the concurrency mechanism out of the domain logic.** Locks, queues, and thread handling live in their own code. The logic they protect stays a plain function you can test on one thread.
+4. **Only when one shared write target is a real invariant, serialize access structurally** (lockfiles, sequential phases, single-writer actor, or atomic compare-and-swap). Treat "we need a lock" as a design smell to check, not as the default answer.
+5. **Protect the whole invariant.** Thread-safe calls do not make a check followed by an update atomic. Use one atomic operation or protect the complete sequence at its owner. Keep that section as small as correctness allows. Acquire multiple locks in a consistent order.
+6. **Define shutdown.** Cancellation must release blocked workers and owned resources. Test stopping while work is queued or a worker is waiting.
+
+**Stop:** an intermittent failure in concurrent code is a race until proven otherwise. Do not rerun it green and call it a fluke. Reproduce it with more actors than cores, varied timing, or injected delays, then fix it per [Fix Root Causes](../principle-fix-root-causes/SKILL.md).
+
+Check the shared invariant under relevant interleavings. Stress tests can reveal a race. Repeated green runs do not prove its absence.

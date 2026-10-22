@@ -19,6 +19,10 @@ Reach for:
 - A queue, cache, index, graph, tree, or normalized collection where the access pattern calls for it.
 - Any other structure that fits. When none fits, work out what the code must never allow and how the data gets read, then find the structure that encodes exactly that.
 
+Choose the shape by what will grow. Plain data with functions over it makes a new operation cheap and a new kind expensive. Objects with polymorphic methods make a new kind cheap and a new operation expensive. Pick the one whose cheap axis matches the change you expect. Do not build a hybrid that is half of each, because it makes both expensive.
+
+Give each module one reason to change. Disjoint groups of methods and fields can reveal independent responsibilities. Split when those responsibilities change independently. Keep operations that enforce the same invariant together. A line count or a conjunction is not a reason to create another class.
+
 Do not force an abstraction. Prefer boring code if the current shape is already clear, local, and unlikely to grow. Be skeptical of an abstraction that adds indirection without removing branches, duplicated rules, invalid states, or lifecycle risk.
 
 The sign that you skipped this is a new feature that grows an existing if/else chain by one more branch, or a second boolean that must stay in sync with the first. Temporal decomposition is another sign. Phase-named modules repeat the same domain rules across steps.
