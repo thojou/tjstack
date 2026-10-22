@@ -57,14 +57,14 @@ Add a bullet to [Principles](#principles) in the same change.
 
 ## Principles
 
-24 skills. From `tjstack/`, regenerate the names with:
+26 skills. From `tjstack/`, regenerate the names with:
 
 ```bash
 ls skills | grep '^principle-'
 ```
 
 - [principle-attack-the-premise](skills/principle-attack-the-premise/SKILL.md). When two or more fixes that share one premise fail the same gate, write that premise down, count which actors hold the imbalance, and remove the assignment.
-- [principle-boundary-discipline](skills/principle-boundary-discipline/SKILL.md). Put validation and error handling at the CLI, config, network, or external API. Trust data that has already crossed a boundary, and keep business logic in pure functions.
+- [principle-boundary-discipline](skills/principle-boundary-discipline/SKILL.md). Put validation and error handling at the CLI, config, network, or external API. Trust data that has already crossed a boundary, wrap third-party APIs in one place, return errors with context instead of null, and keep business logic in pure functions.
 - [principle-build-the-lever](skills/principle-build-the-lever/SKILL.md). For a non-trivial edit, migration, analysis, or check, build the codemod, script, generator, or delegate skill that does the work or proves it.
 - [principle-encode-lessons-in-structure](skills/principle-encode-lessons-in-structure/SKILL.md). When the same instruction or correction comes up again, encode it as a lint, metadata flag, runtime check, or script.
 - [principle-exhaust-the-design-space](skills/principle-exhaust-the-design-space/SKILL.md). For a novel UI interaction, an architectural decision with no local precedent, or a product decision that depends on feel, build two or three prototypes and compare them before committing.
@@ -72,12 +72,14 @@ ls skills | grep '^principle-'
 - [principle-explain-the-number](skills/principle-explain-the-number/SKILL.md). Before you trust a measured speedup, regression, throughput, latency, or eval result, name what limits it and rule out that the number measured something else.
 - [principle-fix-root-causes](skills/principle-fix-root-causes/SKILL.md). When debugging, reproduce the symptom, ask why until you reach the cause, and fix it there.
 - [principle-foundational-thinking](skills/principle-foundational-thinking/SKILL.md). Before writing logic, get the core data structures right, put shared scaffold before features, and ask what concurrent actors share.
+- [principle-functions-do-one-thing](skills/principle-functions-do-one-thing/SKILL.md). Give each function one job at one level of abstraction. Replace flags that select different operations, make effects explicit, preserve required atomic operations, and extract only when the name lifts the reader a level.
 - [principle-guard-the-context-window](skills/principle-guard-the-context-window/SKILL.md). When context fills with large outputs, long files, repeated reads, or fan-out, send the bulk to subagents and keep summaries in the main thread.
 - [principle-laziness-protocol](skills/principle-laziness-protocol/SKILL.md). When refactoring or about to add a layer, put the decision in one place and make the smallest diff that solves the problem.
 - [principle-make-operations-idempotent](skills/principle-make-operations-idempotent/SKILL.md). Design commands, lifecycle steps, and processing loops so a crash, restart, or retry still reaches the same end state.
 - [principle-migrate-callers-then-delete-legacy-apis](skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md). When a new internal API replaces an old one, migrate the callers and delete the old API in the same wave.
 - [principle-minimize-reader-load](skills/principle-minimize-reader-load/SKILL.md). When code is hard to trace, cut layers between the question and the answer, and cut state the reader has to hold.
 - [principle-model-the-domain](skills/principle-model-the-domain/SKILL.md). When stateful logic branches a lot, or the same shape assumption repeats across files, encode the domain in one structure.
+- [principle-names-reveal-intent](skills/principle-names-reveal-intent/SKILL.md). Name each variable, function, type, and module for why it exists and how it is used. Use one word per concept, the domain's vocabulary, and a length that matches the scope.
 - [principle-never-block-on-the-human](skills/principle-never-block-on-the-human/SKILL.md). On reversible work, decide and proceed, then present the result. Ask first for irreversible actions. Product direction still comes from the human.
 - [principle-outcome-oriented-execution](skills/principle-outcome-oriented-execution/SKILL.md). During a planned rewrite or migration, converge on the target architecture. Planned, scoped, reversible breakage between phase boundaries is acceptable.
 - [principle-prove-it-works](skills/principle-prove-it-works/SKILL.md). Before you call a task done, check the real artifact. Run it, read the value, or inspect the diff. Prefer a script a reviewer can rerun.
@@ -85,5 +87,5 @@ ls skills | grep '^principle-'
 - [principle-separate-before-serializing-shared-state](skills/principle-separate-before-serializing-shared-state/SKILL.md). When concurrent actors might write the same file, branch, key, or object, give each actor its own state. Serialize only when one shared writer is a real invariant.
 - [principle-sequence-verifiable-units](skills/principle-sequence-verifiable-units/SKILL.md). Break a sweep, migration, stack of commits, or stack of pull requests into units that each end in a state you check before the next unit starts.
 - [principle-subtract-before-you-add](skills/principle-subtract-before-you-add/SKILL.md). Before an addition, refactor, or rewrite, remove dead code, redundant validators, and empty stubs, then build on what remains.
-- [principle-test-behavior-not-implementation](skills/principle-test-behavior-not-implementation/SKILL.md). Call the code the way its users do and assert the observed result against a literal expected value. Rewrite or delete a test that would still pass if every dependency returned an empty or wrong value.
+- [principle-test-behavior-not-implementation](skills/principle-test-behavior-not-implementation/SKILL.md). Call the code the way its users do and assert the observed result against a literal expected value. Rewrite or delete a test that would still pass if every dependency returned an empty or wrong value. Keep each test to one behavior, fast, independent, and covering the edges.
 - [principle-type-system-discipline](skills/principle-type-system-discipline/SKILL.md). Make illegal states unrepresentable, separate semantic primitives, parse external data at the boundary, refuse unchecked coercions, handle every variant, and derive shapes from the schema that owns them.
