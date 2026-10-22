@@ -104,7 +104,7 @@ Pick the next behavior, edge case, or error path and return to step 1. For an er
 - Never add `#[Retry]` or `--retry` to hide a flaky test. Make it deterministic: inject the clock and the randomizer, and isolate state. `--repeat` and `--order-by random` help you find the flake.
 - Keep a regression test focused on its bug. Add sibling coverage for a broader failure class after the focused test lands.
 - Never add a public method, setter, or `reset()` to production code that only tests call, and never reach into private members with Reflection. Test through the public API.
-- Commit so the failing test lands before the fix, or with it in one commit. The history then shows red before green.
+- Commit with the **git-commit** skill so the failing test lands before the fix, or with it in one commit. The history then shows red before green.
 
 ## Excuses to catch
 
