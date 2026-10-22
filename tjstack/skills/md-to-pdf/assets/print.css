@@ -1,0 +1,258 @@
+/* md-to-pdf base print stylesheet.
+ * Neutral by design: system fonts, grayscale, one accent token.
+ * A theme overrides the tokens in :root and adds its own @font-face rules.
+ * The pagination rules below are the layout contract; see references/pagination.md.
+ */
+
+:root {
+  --font-body: system-ui, -apple-system, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  --font-heading: var(--font-body);
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+
+  --color-text: #1f1f1f;
+  --color-muted: #5f5f5f;
+  --color-heading: #1f1f1f;
+  --color-subheading: #3a3a3a;
+  --color-accent: #3a3a3a;
+  --color-rule: #d0d0d0;
+  --color-surface: #f6f6f6;
+  --color-surface-strong: #ececec;
+  --color-on-accent: #ffffff;
+
+  --radius: 4px;
+}
+
+@page {
+  size: A4;
+  margin: 16mm 14mm 18mm 14mm;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  font-family: var(--font-body);
+  font-size: 10.5pt;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--color-text);
+  background: #ffffff;
+  margin: 0;
+  padding: 0;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-heading);
+  page-break-after: avoid !important;
+  break-after: avoid-page !important;
+  page-break-inside: avoid !important;
+}
+
+h1 {
+  font-size: 24pt;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 10pt 0;
+  padding-bottom: 8pt;
+  border-bottom: 2pt solid var(--color-rule);
+}
+
+h2 {
+  font-size: 16pt;
+  font-weight: 600;
+  line-height: 1.25;
+  margin: 0 0 12pt 0;
+  padding-bottom: 6pt;
+  border-bottom: 1pt solid var(--color-rule);
+  page-break-before: always !important;
+  break-before: page !important;
+}
+
+h3 {
+  font-size: 12.5pt;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 9pt 0;
+  color: var(--color-subheading);
+}
+
+h4 {
+  font-size: 11pt;
+  font-weight: 600;
+  line-height: 1.3;
+  margin: 0 0 8pt 0;
+  color: var(--color-subheading);
+}
+
+/* Pagination wrappers produced by scripts/md_to_pdf.py */
+.heading-block {
+  margin: 0 0 14pt 0;
+  page-break-inside: avoid !important;
+  break-inside: avoid-page !important;
+}
+
+.heading-block:has(> h2),
+.chapter {
+  page-break-before: always !important;
+  break-before: page !important;
+}
+
+.heading-block h1,
+.heading-block h2,
+.chapter > h2 {
+  margin-top: 0;
+}
+
+.subsection {
+  margin: 18pt 0 12pt 0;
+}
+
+.keep-together {
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+/* Text */
+p {
+  margin: 0 0 8pt 0;
+  orphans: 3;
+  widows: 3;
+}
+
+h1 + p {
+  color: var(--color-muted);
+  font-size: 10pt;
+  line-height: 1.5;
+}
+
+strong { font-weight: 600; }
+
+a {
+  color: var(--color-text);
+  text-decoration-color: var(--color-rule);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 2px;
+}
+
+hr { display: none; }
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 8pt 0 12pt 0;
+  font-size: 8.6pt;
+  line-height: 1.35;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+thead { display: table-header-group; }
+tr { page-break-inside: avoid !important; break-inside: avoid !important; }
+
+th, td {
+  border: 0.6pt solid var(--color-rule);
+  padding: 5pt 6pt;
+  vertical-align: top;
+  text-align: left;
+}
+
+th {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+  font-weight: 600;
+}
+
+tbody tr:nth-child(even) td {
+  background-color: var(--color-surface);
+}
+
+/* Code */
+code {
+  font-family: var(--font-mono);
+  font-size: 8.4pt;
+  background-color: var(--color-surface-strong);
+  padding: 0.5pt 2.5pt;
+  border-radius: var(--radius);
+}
+
+pre {
+  font-family: var(--font-mono);
+  font-size: 7pt;
+  line-height: 1.3;
+  background-color: var(--color-surface);
+  border: 0.8pt solid var(--color-rule);
+  border-left: 3pt solid var(--color-accent);
+  border-radius: var(--radius);
+  padding: 8pt 9pt;
+  margin: 8pt 0 12pt 0;
+  white-space: pre;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: inherit;
+  border-radius: 0;
+}
+
+/* Table of contents: stays with the title, may continue onto the next page */
+.toc {
+  margin: 2pt 0 14pt 0;
+}
+.toc ul {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.toc ul ul {
+  margin: 0 0 5pt 0;
+  padding-left: 12pt;
+}
+.toc > ul > li {
+  margin: 4pt 0 1pt 0;
+}
+.toc ul ul li {
+  margin: 1pt 0;
+}
+.toc a {
+  color: var(--color-subheading);
+  font-weight: 600;
+  text-decoration: none;
+}
+.toc ul ul a {
+  font-weight: 400;
+  color: var(--color-text);
+}
+
+/* Lists */
+ul, ol {
+  margin: 4pt 0 10pt 0;
+  padding-left: 16pt;
+}
+
+li {
+  margin: 2pt 0;
+  page-break-inside: avoid;
+}
+
+ul.checklist {
+  list-style: none;
+  padding-left: 2pt;
+  page-break-inside: avoid !important;
+  break-inside: avoid !important;
+}
+
+blockquote {
+  margin: 8pt 0 12pt 0;
+  padding: 8pt 12pt;
+  background: var(--color-surface);
+  border-left: 3pt solid var(--color-accent);
+  border-radius: var(--radius);
+  page-break-inside: avoid;
+}
