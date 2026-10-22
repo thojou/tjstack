@@ -30,8 +30,8 @@ Remaining triggers:
 - Fuzzy idea, overloaded domain terms, or a feature still taking shape → the **interview** skill. A hard-to-reverse decision that passes its three criteria → the **create-adr** skill. Settled requirements that should outlive the chat → the **create-prd** skill. All three write under `docs/` by default.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface, your reply to the user included → the **noslop** skill. Write the reply per **Writing the reply**. Agent-facing prose also follows the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).
-- Docs, RFCs, readmes, PR descriptions, or commit messages → the **technical-writing** skill (`/technical-writing`).
-- Before commit → **noslop** on the words you will commit. tjstack does not ship `deslop`.
+- Docs, RFCs, readmes, or PR descriptions → the **technical-writing** skill (`/technical-writing`).
+- Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**. tjstack does not ship `deslop`.
 - Before review → the **clean-comments** skill.
 - Shipping UI / IDE / CLI → drive the real surface yourself. If `control-cli` or `control-ui` is installed, use that. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the **principle-explain-the-number** skill before you report or act on the number.

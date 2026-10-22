@@ -55,7 +55,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Print the Destination tuple once per `playbooks/opening-a-pr.md`. Every PR reuses that remote, host, project, and forge CLI. Never require `gt`.
 - [ ] Open the PR ready, never draft, per **Opening a PR**. A stack child uses the stack child command in that playbook and targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
-- [ ] Run **noslop** before each commit and **clean-comments** before review. tjstack does not ship `deslop`.
+- [ ] Make each commit with the **git-commit** skill, which runs **noslop** on the message and the committed prose. Run **clean-comments** before review. tjstack does not ship `deslop`.
 - [ ] Triage every Bugbot and security-reviewer comment per the tj-mode reference `references/bugbot-triage.md`.
 - [ ] Rebase onto current trunk before the code-ready report and babysit. Keep that merge base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure that comes from a change on trunk.
 
