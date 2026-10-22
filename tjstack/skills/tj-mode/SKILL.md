@@ -29,7 +29,7 @@ Remaining triggers:
 - Contested design → the **challenge** skill (multi-model adversarial) before shipping.
 - Fuzzy idea, overloaded domain terms, or a feature still taking shape → the **interview** skill. A hard-to-reverse decision that passes its three criteria → the **create-adr** skill. Settled requirements that should outlive the chat → the **create-prd** skill. All three write under `docs/` by default.
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
-- Any prose surface, your reply to the user included → the **noslop** skill. Write the reply per **Writing the reply**. Agent-facing prose also follows the **create-skill** skill (Cursor's built-in for authoring SKILL.md files).
+- Any prose surface, your reply to the user included → the **noslop** skill. Write the reply per **Writing the reply**. Agent-facing prose also follows the **create-skill** skill.
 - Docs, RFCs, readmes, or PR descriptions → the **technical-writing** skill (`/technical-writing`).
 - Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**. tjstack does not ship `deslop`.
 - Before review → the **clean-comments** skill.
