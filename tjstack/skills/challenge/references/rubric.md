@@ -75,3 +75,18 @@ For each security finding, trace the input path through the code and show it.
 - Authentication/authorization gaps in new endpoints
 - Secrets in code, logs, or error messages
 - TOCTOU (time-of-check-time-of-use) in security-critical paths
+
+## Performance
+
+For each performance finding, name the input size or load that makes it hurt and what it costs there. A finding with no realistic scale behind it is a nit.
+
+- Queries or calls inside a loop (N+1), where one batched call would do
+- Loops, allocations, or buffers that grow with input and have no bound
+- Lists or queries that return everything where they need pagination or a limit
+- New work on a hot path: per request, per render, per frame, per keystroke
+- Synchronous or blocking work where the caller waits on I/O it does not need yet
+- The same result recomputed or refetched where it could be computed once
+- A data structure that fights the access pattern, such as a linear scan for repeated lookups
+- A new query filter or sort on a column with no index
+
+Reading code cannot prove a slowdown. Mark the finding as needing a measurement. The fix then follows the Perf issue playbook in tj-mode and the **explain-the-number** principle skill.
