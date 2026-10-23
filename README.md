@@ -15,7 +15,23 @@ This repository is a plugin marketplace for Cursor and Claude Code. The installa
 
 Claude Code reads `.claude-plugin/plugin.json` and discovers `skills/` and `agents/`. Skills run as `/tjstack:<skill>`, for example `/tjstack:tj-mode`. For a local checkout, run `claude --plugin-dir ./tjstack`. Then run `/tjstack:setup-tjstack` once. It writes the rules tjstack reads, including the harness rule that translates the Cursor terms in the skills.
 
-To add a principle, follow the [create-principle](tjstack/skills/create-principle/SKILL.md) skill.
+## Skills
+
+Skills live in `tjstack/skills/<category>/<name>/SKILL.md`. The category only groups the files. The leaf directory is the skill name, so `skills/design/architect/` runs as `/tjstack:architect`. Both `plugin.json` files list each category directory under `skills`, because neither host scans `skills/` more than one level deep.
+
+| Category | Purpose |
+| --- | --- |
+| `mode` | How the agent behaves, and how to adapt that |
+| `orchestrate` | Plan work and spread it across agents |
+| `session` | The running work: build, commit, track, review the session |
+| `design` | Before code: clarify, record, decide |
+| `understand` | Understand code, history, and answers |
+| `review` | Check and clean up finished work |
+| `writing` | Text and documents for people |
+| `principles` | One `principle-*` skill per engineering rule |
+| `setup` | Set up and extend tjstack |
+
+To add a skill, follow the [create-skill](tjstack/skills/setup/create-skill/SKILL.md) skill. A new category also goes into `skills` in both `plugin.json` files. To add a principle, follow the [create-principle](tjstack/skills/setup/create-principle/SKILL.md) skill. Run `python3 scripts/check-skills.py` after either. It checks that names are unique, that both manifests list every category, and that relative links between skills resolve.
 
 ## Credits
 

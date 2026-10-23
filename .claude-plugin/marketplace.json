@@ -4,15 +4,23 @@
     "name": "Thomas Joußen"
   },
   "metadata": {
-    "description": "tjstack marketplace"
+    "description": "Marketplace for tjstack, a skill library for disciplined AI-assisted engineering in Claude Code and Cursor."
   },
   "plugins": [
     {
       "name": "tjstack",
       "source": "./tjstack",
-      "description": "tjstack helps you write less, but higher quality code.",
+      "description": "Write less, but higher-quality code. Skills and agents for disciplined AI-assisted engineering in Claude Code and Cursor: design before code, test-first builds, multi-agent orchestration, adversarial review, plain technical writing, and 26 engineering principles.",
       "category": "developer-tools",
-      "tags": ["coding", "engineering"]
+      "tags": [
+        "coding",
+        "engineering",
+        "design",
+        "testing",
+        "code-review",
+        "multi-agent",
+        "writing"
+      ]
     }
   ]
 }
