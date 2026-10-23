@@ -7,5 +7,16 @@
     "name": "Thomas Joußen"
   },
   "license": "MIT",
-  "keywords": ["tjstack", "coding", "engineering"]
+  "keywords": ["tjstack", "coding", "engineering"],
+  "skills": [
+    "./skills/mode/",
+    "./skills/orchestrate/",
+    "./skills/session/",
+    "./skills/design/",
+    "./skills/understand/",
+    "./skills/review/",
+    "./skills/writing/",
+    "./skills/principles/",
+    "./skills/setup/"
+  ]
 }

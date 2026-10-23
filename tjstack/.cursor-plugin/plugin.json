@@ -14,6 +14,17 @@
   "category": "developer-tools",
   "tags": [
     "coding",
-     "engineering"
-    ]
+    "engineering"
+  ],
+  "skills": [
+    "./skills/mode/",
+    "./skills/orchestrate/",
+    "./skills/session/",
+    "./skills/design/",
+    "./skills/understand/",
+    "./skills/review/",
+    "./skills/writing/",
+    "./skills/principles/",
+    "./skills/setup/"
+  ]
 }

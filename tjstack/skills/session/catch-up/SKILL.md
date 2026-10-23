@@ -14,7 +14,7 @@ Your context lives in two records. Your own chat history holds what you did and 
 
 Transcripts live at `~/.cursor/projects/<slug>/agent-transcripts/<uuid>/<uuid>.jsonl`, where `<slug>` is the workspace path with the leading slash dropped and each "/" turned into "-" (so `/Users/you/proj` becomes `Users-you-proj`). Every line is one chat message.
 
-1. Classify, then route. One specific prior chat to resume is the `session-pickup` playbook (`../tj-mode/playbooks/session-pickup.md`), not this. Turning habits into a durable skill is `customize-my-mode`. A human-readable summary of your work is a different task. Catch-up loads working context across recent chats before you act. If the user already gave you a full state capsule (paths, branch, the change), use it and skip the mining.
+1. Classify, then route. One specific prior chat to resume is the `session-pickup` playbook (`../../mode/tj-mode/playbooks/session-pickup.md`), not this. Turning habits into a durable skill is `customize-my-mode`. A human-readable summary of your work is a different task. Catch-up loads working context across recent chats before you act. If the user already gave you a full state capsule (paths, branch, the change), use it and skip the mining.
 2. Lock the scope before searching. Pin the window ("recent" is a real range, default the last 7 days), the topic if named, and the workspace (default the active one. Never read another project's transcripts without being asked). State the scope back. Never quietly turn "all" into "recent N".
 3. Fan out across your chat history. Spawn parallel subagents, each taking a slice of the corpus. Read `spawn-subagent` first.
    - `subagent_type`: `generalPurpose`
