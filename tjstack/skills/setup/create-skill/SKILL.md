@@ -20,7 +20,7 @@ If the user gives exact wording, copy it verbatim into `SKILL.md`. Do not paraph
 
 | Target | Path |
 | --- | --- |
-| This plugin | `tjstack/skills/<name>/SKILL.md` |
+| This plugin | `tjstack/skills/<category>/<name>/SKILL.md`, and add a new category directory to `skills` in both `plugin.json` files |
 | A project | `.cursor/skills/<name>/SKILL.md` |
 | Personal, all projects | `~/.cursor/skills/<name>/SKILL.md` |
 

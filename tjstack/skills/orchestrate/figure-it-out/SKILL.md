@@ -6,7 +6,7 @@ disable-model-invocation: true
 
 # Figure it out
 
-When the task matches no narrower playbook, design one. A checklist plan for phases or stacked PRs is the Multi-phase plan playbook (`../tj-mode/playbooks/multi-phase-plan.md`), not this skill. The deliverable before any code is the workflow itself: a sequence of phases that scales rigor to the task, runs the scientific method, and leaves a decision trail a human can audit after stepping away.
+When the task matches no narrower playbook, design one. A checklist plan for phases or stacked PRs is the Multi-phase plan playbook (`../../mode/tj-mode/playbooks/multi-phase-plan.md`), not this skill. The deliverable before any code is the workflow itself: a sequence of phases that scales rigor to the task, runs the scientific method, and leaves a decision trail a human can audit after stepping away.
 
 ## Start
 

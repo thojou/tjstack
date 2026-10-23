@@ -13,7 +13,7 @@ reminder: New task? Playbook match or rigor needed -> apply /tj-mode. Casual tur
 
 # tj-mode
 
-Bundled skills live at `../<name>/SKILL.md` from this file, so put this file's absolute path in every `tj-agent` prompt. Outside Cursor, the `tjstack-harness` rule translates Cursor terms. If that rule is missing, run `/setup-tjstack` first.
+Bundled skills live at `../../<category>/<name>/SKILL.md` from this file (glob `../../*/<name>/SKILL.md`), so put this file's absolute path in every `tj-agent` prompt. Outside Cursor, the `tjstack-harness` rule translates Cursor terms. If that rule is missing, run `/setup-tjstack` first.
 
 ## Non-negotiables
 
