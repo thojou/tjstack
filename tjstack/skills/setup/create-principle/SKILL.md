@@ -20,6 +20,8 @@ ls skills/principles
 
 Read the description of each skill whose trigger might overlap. If one already owns the trigger, cite that skill and stop. Add a directory when no existing principle owns it.
 
+Then read the principles your rule could contradict, not only the ones that share its trigger. A rule to cut code meets the ones that keep validation, types, tests, and boundaries. Resolve each contradiction in the text, or drop the rule. A new rule often fights an old one.
+
 ## Write the file
 
 Create `skills/principles/principle-<kebab-name>/SKILL.md` and nothing else. The directory name and the `name` field are the same string: lowercase letters, digits, and hyphens, at most 64 characters.
