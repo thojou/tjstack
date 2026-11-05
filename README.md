@@ -52,4 +52,4 @@ To rebuild the board by hand and open it, run `node tjstack/hooks/metrics.js boa
 
 ## Credits
 
-Adapted in part from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan and [skills](https://github.com/mattpocock/skills) by Matt Pocock, both MIT. License texts are in NOTICE. Several principles distill ideas from *Clean Code* by Robert C. Martin (Prentice Hall, 2008), restated in our own words.
+Adapted in part from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan, [skills](https://github.com/mattpocock/skills) by Matt Pocock, and [ponytail](https://github.com/DietrichGebert/ponytail) by DietrichGebert, all MIT. License texts are in NOTICE. Several principles distill ideas from *Clean Code* by Robert C. Martin (Prentice Hall, 2008), restated in our own words.
