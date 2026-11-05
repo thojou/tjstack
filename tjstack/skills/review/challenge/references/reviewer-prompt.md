@@ -43,6 +43,8 @@ For each finding, provide:
 ## What Makes a Good Finding
 
 - It references specific code, not vague concerns ("this could be better")
+- It names a concrete case: this input or this situation leads to this wrong result. No case, no finding
+- Its suggestion is the smallest fix that works. When two fixes solve it, prefer the one that deletes code
 - It explains WHY something is a problem, not just THAT it is
 - It distinguishes between "this is broken" and "I would have done this differently"
 - It considers the stated intent. A finding that ignores the context of what's being built is a bad finding
