@@ -129,6 +129,7 @@ Write the reply clean as you draft it. A cleanup pass after drafting does not re
 - **Frame impact for the consumer and the maintainer.** Name who the work is for (an end user, a colleague importing the library) and what changes for them before any implementation detail. Then what the next engineer who owns this code inherits. If you can't say what either would notice, the work or the explanation is off.
 - **Never fabricate a link, citation, or transcript reference.** Link only artifacts you produced or read this session.
 - **Every claim carries its evidence or its label in the same sentence.** Measured, inferred, or guess. A prediction or an unseen cause is a guess. Never hand the human a check you could run.
+- **End with what you skipped and what is at risk.** One or two lines: what you left out or could not check, why, and any risk the user must know. A check you could run is not a skip. Run it.
 
 Every playbook ends with a reply written this way. Investigation, Pause safely, Session pickup, Multi-phase plan, and Prototype stop at the reply. They do not open a PR. Every other playbook's PR link is the URL the forge printed for the Destination project in `playbooks/opening-a-pr.md`. Never build a `github.com` link by hand. Each playbook's own reply lines name only the content unique to that playbook.
 
