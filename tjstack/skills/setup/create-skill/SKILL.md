@@ -16,6 +16,12 @@ If the user gives exact wording, copy it verbatim into `SKILL.md`. Do not paraph
 2. **Draft** `SKILL.md` and any side files with the **technical-writing** skill, then run the **noslop** skill over the `description`, the body, and every side file. Add a side file only under the layering rule below.
 3. **Review with the user.** Cover the cases, cut any line that does not change a decision, then run the checklist.
 
+## Rules that hold
+
+- Write each rule as an action the agent can take and you can check: `grep every caller of the function you touch`. A disposition such as `trace the flow end to end` reads well and changes less.
+- A new rule often fights an old one. Before you add a rule, read the rules next to it, in the same skill and in the principles it cites. Name any rule the new one could contradict, and resolve the contradiction in the text or drop the new rule. A rule to cut code meets the rules that keep validation, types, tests, and boundaries.
+- A counter-rule stacked on a rule that fails is more text, not a fix. Encode the rule in structure, or make it prominent with an example of the failure, per the **encode-lessons-in-structure** principle skill. If neither changes what the agent does, delete the rule.
+
 ## Placement
 
 | Target | Path |
@@ -78,3 +84,4 @@ Add a script when the operation is deterministic, the same code would be regener
 - [ ] One process view, references one level deep
 - [ ] Written with **technical-writing** and checked with **noslop**, `description` and body alike
 - [ ] Consistent terms, concrete examples
+- [ ] Each rule is an action you can check, and no rule contradicts a rule next to it
