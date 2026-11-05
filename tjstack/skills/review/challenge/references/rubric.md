@@ -60,7 +60,7 @@ Is the complexity justified by what the code accomplishes?
 - Code that could be simpler without losing correctness or clarity
 - Abstractions that serve only one call site
 - Configuration or parameterization for cases that don't exist yet
-- Dead code, unused imports, vestigial parameters
+- Dead code, unused imports, vestigial parameters. Before you call code dead, grep the whole tree for it, including tests, fixtures, config, and string or dynamic references
 - Over-engineering: "just in case" code paths with no current callers
 - Obsolete compatibility paths kept alive for transitional stability that's no longer needed. If the migration is done, delete the scaffolding
 - Does the user experience justify the complexity? Every feature, control, and option should earn its place. Half-finished features are worse than missing ones.
@@ -78,7 +78,7 @@ For each security finding, trace the input path through the code and show it.
 
 ## Performance
 
-For each performance finding, name the input size or load that makes it hurt and what it costs there. A finding with no realistic scale behind it is a nit.
+For each performance finding, name the input size or load that makes it hurt and what it costs there. A finding with no realistic scale behind it is a nit. Judge scale against the load the repository expects, from its README or deploy config, and say which load you assumed.
 
 - Queries or calls inside a loop (N+1), where one batched call would do
 - Loops, allocations, or buffers that grow with input and have no bound
