@@ -16,6 +16,7 @@ When debugging, do not fix symptoms. Trace every problem to its root cause and f
 - Do not add guards (adding a nil check to silence a crash is a symptom fix)
 - If a workaround needs a paragraph-long comment to justify it, the code is wrong (fix the code, not the comment)
 - Check for the pattern, not just the instance (grep for the same pattern, fix all instances)
+- Before you edit a function, grep every caller of it, then fix the shared code once. One fix there is a smaller diff than one per caller, and a fix in only the caller the report names leaves the other callers broken
 - Test the neighborhood of the bug. Bugs cluster, so the code next to one is the likeliest place for the next
 - When stuck, instrument. Don't guess (add logging, read the actual error)
 
