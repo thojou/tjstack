@@ -1,5 +1,6 @@
 import { spawnSync } from "node:child_process";
-import { readFileSync } from "node:fs";
+import { readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
 import { dirname, join, resolve } from "node:path";
 import { test } from "node:test";
 import assert from "node:assert/strict";
@@ -33,6 +34,19 @@ test("still prints what it found, then names every missing argument and exits 1"
 	assert.equal(result.status, 1);
 	assert.equal(result.stdout, block(join(skillsDir, "writing/noslop/SKILL.md")));
 	assert.equal(result.stderr, "not found: no-such-skill, playbooks/nope.md\n");
+});
+
+test("prints a large file in full when a later argument is missing", () => {
+	const file = join(tmpdir(), `load-large-${process.pid}.md`);
+	writeFileSync(file, "x".repeat(200_000));
+	try {
+		const result = load(file, "no-such-skill");
+		assert.equal(result.status, 1);
+		assert.equal(result.stdout, block(file));
+		assert.equal(result.stderr, "not found: no-such-skill\n");
+	} finally {
+		rmSync(file);
+	}
 });
 
 test("prints usage and exits 2 without arguments", () => {

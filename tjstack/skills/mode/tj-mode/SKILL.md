@@ -24,8 +24,8 @@ node <this directory>/scripts/load.mjs playbooks/<title>.md noslop how laziness-
 ```
 
 - Build the list from the matched playbook's entry, the Non-negotiables triggers that fire, and the Principles whose "when" fits. Every list includes `noslop`, because every reply follows it.
-- A name is the skill's directory name. The `principle-` prefix is optional. A path ending in `.md` resolves against this directory or as an absolute path, so a skill's own `references/` files load the same way.
-- Each file prints in full inside a `<file path="...">` block. That counts as reading it, including for the Non-negotiables citation rule. Relative paths inside a file resolve against its printed path.
+- A name is the skill's directory name. The `principle-` prefix is optional. A path ending in `.md` resolves against this directory or as an absolute path. Another skill's `references/` file needs a path from this directory, such as `../../understand/why/references/epistemics.md`, or an absolute path.
+- Each file prints in full inside a `<file path="...">` block. That counts as reading it, including for the Non-negotiables citation rule. Inside a loaded file, `playbooks/`, `references/`, and `scripts/` are relative to this directory. A path that starts with `../` is relative to the file that contains it.
 - A name that does not resolve prints on stderr with exit code 1. The files that resolved still print. Rerun with only the corrected names.
 - A skill the work needs later gets one read, or one more loader call for several. Never reload a file already in context.
 

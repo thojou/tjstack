@@ -46,5 +46,5 @@ for (const arg of args) {
 
 if (missing.length) {
 	console.error(`not found: ${missing.join(", ")}`);
-	process.exit(1);
+	process.exitCode = 1;
 }
