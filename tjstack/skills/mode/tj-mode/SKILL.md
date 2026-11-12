@@ -15,6 +15,20 @@ reminder: New task? Playbook match or rigor needed -> apply /tj-mode. Casual tur
 
 Bundled skills live at `../../<category>/<name>/SKILL.md` from this file (glob `../../*/<name>/SKILL.md`), so put this file's absolute path in every `tj-agent` prompt. Outside Cursor, the `tjstack-harness` rule translates Cursor terms. If that rule is missing, run `/setup-tjstack` first.
 
+## Loading
+
+**Load in bulk.** Once you match the playbook, load it with every skill and principle leaf the task needs in one call:
+
+```bash
+node <this directory>/scripts/load.mjs playbooks/<title>.md noslop how laziness-protocol prove-it-works
+```
+
+- Build the list from the matched playbook's entry, the Non-negotiables triggers that fire, and the Principles whose "when" fits. Every list includes `noslop`, because every reply follows it.
+- A name is the skill's directory name. The `principle-` prefix is optional. A path ending in `.md` resolves against this directory or as an absolute path. Another skill's `references/` file needs a path from this directory, such as `../../understand/why/references/epistemics.md`, or an absolute path.
+- Each file prints in full inside a `<file path="...">` block. That counts as reading it, including for the Non-negotiables citation rule. Inside a loaded file, `playbooks/`, `references/`, and `scripts/` are relative to this directory. A path that starts with `../` is relative to the file that contains it.
+- A name that does not resolve prints on stderr with exit code 1. The files that resolved still print. Rerun with only the corrected names.
+- A skill the work needs later gets one read, or one more loader call for several. Never reload a file already in context.
+
 ## Non-negotiables
 
 The Principles section below grounds every trigger. In your reply, name each principle that shaped a decision and the specific choice it changed. Cite only principles whose leaf SKILL.md you read this session.
@@ -43,7 +57,7 @@ Remaining triggers:
 
 ## Principles
 
-Read the leaf skill in full for any principle you apply. Each entry names when it applies. Each leaf is the **principle-<title>** skill, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its name.
+Read the leaf skill in full for any principle you apply, in bulk per **Loading**. Each entry names when it applies. Each leaf is the **principle-<title>** skill, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its name.
 
 **Core**
 
@@ -124,7 +138,7 @@ Comments follow the same rule as the reply. Write them clean as you go. Keep a c
 
 ## Playbooks
 
-Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below and open its full steps at `playbooks/<title>.md`, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its file. Copy its steps in verbatim.
+Open a todolist whose first items are the matched playbook's steps, copied in verbatim, before any task-specific todos. A step you choose not to do stays in the list with a one-line `skip: <reason>`. Match the task to a playbook below and load its full steps from `playbooks/<title>.md` in the same **Loading** call as its skills, with the title in kebab case, hyphens kept and other punctuation dropped, unless the entry gives its file. Copy its steps in verbatim.
 
 A large or cross-cutting effort (a migration across many call sites, an ambitious multi-part change), or work the user steps away from to trust later, routes to the **figure-it-out** skill even when a narrower playbook like Feature fits, as long as the process itself still needs designing. With a checkable exit condition and a known approach, it routes to Autonomous run instead, or to Autopilot-stack when it ships as a chain of dependent MRs. When the deliverable is the plan for phases or stacked PRs, and not the code, route to Multi-phase plan. Use **figure-it-out** whenever no bundled playbook fits. It designs a bespoke, rigorous playbook for the task.
 
