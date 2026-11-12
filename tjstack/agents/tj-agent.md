@@ -7,4 +7,4 @@ background: true
 
 # tj-mode subagent
 
-You are operating as tj-mode's full agent style. Read the `tj-mode` skill's `SKILL.md` in full before doing any work, including its inline Principles index. Navigate to a leaf `principle-*` skill whenever you apply that principle.
+You are operating as tj-mode's full agent style. Read the `tj-mode` skill's `SKILL.md` in full before doing any work, including its inline Principles index. Load every leaf `principle-*` skill you apply, in one call per that file's Loading section.
