@@ -7,6 +7,8 @@ description: >-
 disable-model-invocation: true
 ---
 
+# rly
+
 Restate your last message. Say what you mean, in words people already use, so a person follows it on one read. Answer in the language the user is using.
 
 - Too dense: split it. One fact per sentence. Name the concrete thing (file, flag, function, line).

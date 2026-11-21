@@ -24,14 +24,14 @@ If the project already keeps a glossary or ADRs elsewhere, use those paths. If t
 
 1. Read what exists. `docs/CONTEXT.md`, `docs/CONTEXT-MAP.md`, each nested `CONTEXT.md` the map lists, and the matching `adr/` directories. Skim the code the idea touches.
 2. Ask one question with your recommended answer. Wait for the reply before the next question. Prefer AskQuestion when the answer is a pick from a few options.
-3. When the code can answer a question, read the code instead of asking. State what you found. Ask a follow-up only if it is still ambiguous. Per the **never-block-on-the-human** principle skill, the user answers preference and product calls, not facts you can look up.
+3. When the code can answer a question, read the code instead of asking. State what you found. Ask a follow-up only if it is still ambiguous. Per the **principle-never-block-on-the-human** skill, the user answers preference and product calls, not facts you can look up.
 4. Patch the glossary the moment a term locks. Do not batch it to the end. Read [references/context-format.md](references/context-format.md) before the first write.
 5. Offer an ADR only when a decision passes all three criteria in the **create-adr** skill's [format reference](../create-adr/references/adr-format.md). On a yes, follow the **create-adr** skill.
 
 ## During the session
 
 - **Glossary conflict.** A term the user uses differs from `docs/CONTEXT.md`. Say so at once and quote both meanings.
-- **Fuzzy language.** One word covers two concepts. Propose a precise canonical term for each, per the **model-the-domain** principle skill.
+- **Fuzzy language.** One word covers two concepts. Propose a precise canonical term for each, per the **principle-model-the-domain** skill.
 - **Scenarios.** Stress-test each relationship with a concrete edge case. "What happens to an open order when its customer is deleted?"
 - **Code cross-check.** The user states how something works. Check it in the repo and name any contradiction.
 

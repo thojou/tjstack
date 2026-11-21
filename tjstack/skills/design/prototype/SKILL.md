@@ -52,7 +52,7 @@ Put every look variant behind one switcher, each variant labeled. This is the **
 
 ## Phase E: Drive and observe
 
-Drive every artifact before you share it. The observation is the test here, not an assertion, per the **principle-prove-it-works** skill. If `control-ui` or `control-cli` is installed, use it for the drive. Otherwise drive the surface yourself.
+Drive every artifact before you share it. The observation is the test here, not an assertion, per the **principle-prove-it-works** skill. If the repo has a `verify-*` skill for that surface, use it for the drive. Otherwise drive the surface yourself.
 
 For a look question, open the prototype and step through every variant. Screenshot each one and drive the interaction. A blank page, an exception, or a broken switcher is not a result. Fix it, then share the URL. If no browser automation exists, say so and still record what you could run.
 

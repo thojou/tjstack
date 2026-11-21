@@ -39,7 +39,7 @@ If you have not read the code the feature touches, read it now. Check every clai
 
 ### 3. Sketch the testing seams
 
-Name where the behavior will be verified. Prefer an existing seam at the highest practical level: a module boundary, an API, a CLI command, a browser flow. Propose a new seam only when no existing one reaches the behavior, and also place it as high as possible. The **test-behavior-not-implementation** principle skill sets the bar.
+Name where the behavior will be verified. Prefer an existing seam at the highest practical level: a module boundary, an API, a CLI command, a browser flow. Propose a new seam only when no existing one reaches the behavior, and also place it as high as possible. The **principle-test-behavior-not-implementation** skill sets the bar.
 
 When the user is in the session, show the numbered seam list and ask once whether it matches their expectations. Iterate only on requested changes. When the user is away, write the PRD with your seams and mark them unconfirmed under **Testing decisions**.
 

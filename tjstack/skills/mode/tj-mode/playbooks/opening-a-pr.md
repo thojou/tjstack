@@ -6,7 +6,7 @@ Invoked at the end of every playbook that ships code. Investigation, Pause safel
 
 **Commits.** Commit liberally, each one through the **git-commit** skill. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable.
 
-**PRs.** Run **clean-comments** over the diff before review. Write every PR title and description with `/technical-writing` (every layer except Diátaxis, and apply the STE vocabulary rules: one word per action, keep articles, a plain verb over `-ing` where one works), then apply **noslop**. tjstack does not ship `deslop`.
+**PRs.** Run **clean-comments** over the diff before review. Write every PR title and description with `/technical-writing` (every layer except Diátaxis, and apply the STE vocabulary rules: one word per action, keep articles, a plain verb over `-ing` where one works), then apply **noslop**.
 
 **Titles.** Conventional Commits `type(scope): subject`, no trailing period. Type such as `feat`, `fix`, `docs`, `refactor`, `test`, `chore`, or `perf`. Scope is the area, such as `tjstack` or `tj-mode`. Subject is short, imperative, and names a real symbol when one carries the change, for example `fix(tjstack): pin the PR destination`.
 
