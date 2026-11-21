@@ -4,7 +4,8 @@
 One category level, unique names, both manifests list every category, frontmatter
 descriptions parse, relative and plugin-root paths resolve, every cited skill or playbook
 exists in this plugin, no link points at a foreign skill, the tj-mode Principles index
-lists every principle, and the README links every skill and agent.
+lists every principle, the README links every skill and agent, and every link in the
+user docs points at a file and heading that exist.
 """
 import json
 import re
@@ -26,7 +27,7 @@ BOLD_PAIR = re.compile(r"\*\*([a-z][a-z0-9-]*)\*\* and \*\*([a-z][a-z0-9-]*)\*\*
 BOLD_ONE = re.compile(r"\*\*([a-z][a-z0-9-]*)\*\*(?: principle)? (skill|agent|playbook)s?\b")
 BOLD_PRINCIPLE = re.compile(r"\*\*(principle-[a-z0-9-]+)\*\*")
 TICK_ONE = re.compile(r"`([a-z][a-z0-9-]*)` (skill|agent|playbook)s?\b")
-SLASH = re.compile(r"(?:^|[\s(`\"'])/([a-z][a-z0-9-]+)(?=[^a-z0-9/-]|$)")
+SLASH = re.compile(r"(?:^|[\s(`\"'])/(?:tjstack:)?([a-z][a-z0-9-]+)(?=[^a-z0-9/:<-]|$)")
 INLINE_CODE = re.compile(r"`[^`]*`")
 # A plugin path such as `skills/setup/create-skill/SKILL.md`. Placeholders never match.
 PLUGIN_PATH = re.compile(r"`((?:skills|agents)/[\w./-]+)`")
@@ -145,6 +146,33 @@ catalog = {f"tjstack/skills/{category}/{name}/SKILL.md" for name, category in na
 catalog |= {f"tjstack/agents/{name}.md" for name in agents}
 for missing in sorted(catalog - links):
     errors.append(f"README.md: does not link {missing}")
+
+
+
+def anchors(doc):
+    """GitHub heading slugs: lowercase, punctuation dropped, spaces as hyphens."""
+    return {
+        re.sub(r"[^\w\- ]", "", line.lstrip("#").strip().lower()).replace(" ", "-")
+        for _, line in prose_lines(doc)
+        if line.startswith("#")
+    }
+
+
+# The user docs cite skills and link skills, pages, and headings. Catch a rename that strands them.
+LINK = re.compile(r"\]\(([^)\s]+)\)")
+for doc in [PLUGIN / "README.md", *sorted((PLUGIN / "docs").glob("**/*.md"))]:
+    for line_no, line in prose_lines(doc):
+        check_citations(doc, line_no, line)
+        for target in LINK.findall(INLINE_CODE.sub("", line)):
+            if re.match(r"[a-z]+:", target):
+                continue
+            path, _, anchor = target.partition("#")
+            linked = (doc.parent / path).resolve() if path else doc
+            where = f"{doc.relative_to(PLUGIN)}:{line_no}: {target}"
+            if not linked.exists():
+                errors.append(f"{where} does not resolve")
+            elif anchor and linked.suffix == ".md" and anchor not in anchors(linked):
+                errors.append(f"{where} names a missing heading")
 
 print("\n".join(errors) or f"ok: {len(names)} skills in {len(categories)} categories, {len(agents)} agents")
 sys.exit(1 if errors else 0)

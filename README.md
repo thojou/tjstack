@@ -2,9 +2,16 @@
 
 # tjstack
 
-tjstack is a skill library for AI-assisted engineering in Claude Code and Cursor. It gives the agent playbooks for bug fixes, features, refactorings, and investigations, plus the skills those playbooks call: design before code, test-first builds, multi-agent fan-out, adversarial review, plain technical writing, and 26 engineering principles. The goal is less code, verified on the real artifact.
+tjstack is a skill library for AI-assisted engineering in Claude Code and Cursor. It gives the agent playbooks for bug fixes, features, refactorings, and investigations, plus the skills those playbooks call: design before code, test-first builds, multi-agent fan-out, adversarial review, plain technical writing, and 28 engineering principles. The goal is less code, verified on the real artifact.
 
 This repository is a plugin marketplace. The installable plugin is `tjstack/`.
+
+## Documentation
+
+- The [plugin README](tjstack/README.md) is the short tour: what tjstack does, how to start, and a sample prompt for each skill.
+- The [tjstack guide](tjstack/docs/guide/README.md) is the tutorial. It follows one example project from setup through design, build, verification, and overnight runs, and ends with recipes and troubleshooting.
+- The [skill reference](tjstack/docs/reference/skills.md), the [files reference](tjstack/docs/reference/files.md), and the [glossary](tjstack/docs/reference/glossary.md) are for lookups.
+- In a chat, `/tjstack:tj-help <question>` answers from these pages and gives you a prompt to send. It starts no work.
 
 ## Install
 
@@ -32,7 +39,7 @@ Run `/tjstack:setup-source` before the first `why` question. It records which MC
 
 ## Use
 
-Start with `/tjstack:tj-mode`. It matches the task to a playbook (Investigation, Bug fix, Perf issue, Feature, Refactoring, Prototype, and others) and calls the other skills at the step where each applies. You can also call any skill directly.
+Start with `/tjstack:tj-mode`. It matches the task to a playbook (Investigation, Bug fix, Perf issue, Feature, Refactoring, Prototype, and others) and calls the other skills at the step where each applies. You can also call any skill directly. The [guide](tjstack/docs/guide/02-tj-mode.md) explains how to write a prompt that routes well and how to read the reply.
 
 Most skills set `disable-model-invocation: true`, so they load only when you or a playbook names them. `technical-writing`, `setup-source`, `setup-tjstack`, and `create-source-playbook` can also load on their own.
 
@@ -148,6 +155,7 @@ Set up and extend tjstack.
 - [create-source-playbook](tjstack/skills/setup/create-source-playbook/SKILL.md) writes an evidence playbook for one MCP server.
 - [create-skill](tjstack/skills/setup/create-skill/SKILL.md) creates or revises a skill.
 - [create-principle](tjstack/skills/setup/create-principle/SKILL.md) adds a principle in the form the others use.
+- [tj-help](tjstack/skills/setup/tj-help/SKILL.md) answers questions about tjstack from the docs and hands back a prompt to send. It starts no work.
 
 ### Agents
 
@@ -180,7 +188,7 @@ To rebuild the board by hand and open it, run `node tjstack/hooks/metrics.js boa
 
 ## Contribute
 
-To add a skill, follow the [create-skill](tjstack/skills/setup/create-skill/SKILL.md) skill. A new category also goes into `skills` in both `plugin.json` files, because neither host scans `skills/` more than one level deep. To add a principle, follow the [create-principle](tjstack/skills/setup/create-principle/SKILL.md) skill. Add every new skill to the list above.
+To add a skill, follow the [create-skill](tjstack/skills/setup/create-skill/SKILL.md) skill. A new category also goes into `skills` in both `plugin.json` files, because neither host scans `skills/` more than one level deep. To add a principle, follow the [create-principle](tjstack/skills/setup/create-principle/SKILL.md) skill. Add every new skill to the list above, to the [skill reference](tjstack/docs/reference/skills.md), and to the guide page for its stage. If it changes which skill fits a question, update the routing tables in the `tj-help` skill too. Link skills by relative path, such as `../../skills/design/architect/SKILL.md`, so the link check covers them.
 
 Run the checks before you open a pull request. CI runs the same commands.
 
@@ -192,7 +200,7 @@ python3 tjstack/skills/setup/setup-tjstack/propose.py --self-check
 node --test tjstack/hooks/metrics.test.js
 ```
 
-`check-skills.py` checks that skill names are unique, that both manifests list every category, that descriptions parse, that every link resolves, that every skill a file cites exists in this plugin, and that this README and the tj-mode Principles index list every skill.
+`check-skills.py` checks that skill names are unique, that both manifests list every category, that descriptions parse, that every link resolves, that every skill a file cites exists in this plugin, and that this README and the tj-mode Principles index list every skill. It also checks every link in the plugin README and in `tjstack/docs/`, including links to headings.
 
 ## Credits
 
