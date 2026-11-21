@@ -7,6 +7,9 @@ import type { Metrics, Tests, Tokens } from './types'
 
 const metrics = atom({ plugin: 'tjstack', key: 'metrics' } as const, null)
 const details = atom({ plugin: 'tjstack', key: 'details' } as const, false)
+const tjMode = atom({ plugin: 'tjstack', key: 'tjMode' } as const, false)
+
+const TJ_MODE_CONTEXT = 'tj-mode is on: before anything else, load the `tjstack:tj-mode` skill with the Skill tool and handle this request by it.'
 
 const home = async ($: EngineInterface) => (await $.env.get('HOME')) ?? (await $.env.get('USERPROFILE')) ?? ''
 const metricsDir = async ($: EngineInterface) => `${(await $.env.get('XDG_CONFIG_HOME')) ?? `${await home($)}/.config`}/tjstack/metrics`
@@ -55,7 +58,15 @@ export const register: Register = on => {
     await reload($).catch(() => undefined)
     const shown = (await $.store.get('details')) === true
     await update($, details, () => shown)
+    const isOn = (await $.store.get('tjMode')) === true
+    await update($, tjMode, () => isOn)
     return next(e)
+  }).catch(($, e, next) => next(e))
+
+  // Slash commands keep their own instructions; everything typed gets the tj-mode skill.
+  on('prompt.submit', async ($, e, next) => {
+    if (e.command || e.isMeta || !(await read($, tjMode))) return next(e)
+    return next({ ...e, context: [...(e.context ?? []), TJ_MODE_CONTEXT] })
   }).catch(($, e, next) => next(e))
 
   // The Stop and PostToolUse hooks have written by now; pick their numbers up.
@@ -77,11 +88,16 @@ export const register: Register = on => {
     const below = await next(e).catch(() => undefined)
     const m = await read($, metrics)
     const open = await read($, details)
+    const tj = await read($, tjMode)
     const { Box, Text, Button } = $.ui.resolve(e)
     const width = e.surface === 'terminal' ? e.props.bodyColumns : undefined
     const stack = (mine: NonNullable<typeof below>) => (below ? <Box flexDirection="column">{mine}{below}</Box> : mine)
 
     const run = (command: string) => () => $.command.run({ command })
+    const toggleTj = async () => {
+      await update($, tjMode, x => !x)
+      await $.store.set('tjMode', !tj)
+    }
     const toggle = async () => {
       await update($, details, x => !x)
       await $.store.set('details', !open)
@@ -91,8 +107,7 @@ export const register: Register = on => {
     // An array, not a fragment: a fragment draws as a column of its own.
     const actions = [
       <Box key="gap" flexGrow={1} />,
-      <Button key="review" plain label="Review" onPress={run('tjstack:challenge')} />,
-      <Button key="commit" plain label="Commit" onPress={run('tjstack:git-commit')} />,
+      <Button key="tj-mode" plain label={tj ? 'tj-mode ●' : 'tj-mode ○'} onPress={toggleTj} />,
       <Button key="retro" plain label="Retro" onPress={run('tjstack:retro')} />,
       <Button key="board" plain label="Board" onPress={board} />,
       <Button key="details" plain label={open ? 'Compact' : 'Details'} onPress={toggle} />,
