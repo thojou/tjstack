@@ -22,21 +22,21 @@ The **challenge** and **blast-radius** skills review one change. This skill revi
 - Find the expected load: one person running a script, or many users and processes at once. Judge scale against that load, and state the load you assumed.
 - Trace the main flows end to end: where data comes in, what is stored, what goes out. Read these paths in full: user input, money, auth, data writes, background jobs, and state that processes share.
 - Go deep where a mistake costs the most, not file by file. Record each part you did not read.
-- When the map holds more subsystems than one context can read in full, partition them per the **swarm** skill, one worker per subsystem with this file as its brief. Merge the findings yourself, per the **guard-the-context-window** principle skill.
+- When the map holds more subsystems than one context can read in full, partition them per the **swarm** skill, one worker per subsystem with this file as its brief. Merge the findings yourself, per the **principle-guard-the-context-window** skill.
 
 ## 2. Look for
 
 1. **Bug.** A wrong result, a crash, a missed edge case (empty, zero, the last item, rounding, time zones), a caller that disagrees with what a function returns, or the same rule applied differently in two places.
 2. **Risk.** Injection, weak randomness, secrets in code or logs, a missing check on user input, a swallowed error, writes in the wrong order, or a missing transaction.
 3. **Scale.** Fine for one user, wrong for many: a check-then-write race, the same work done by every process, memory or a list that only grows, a query per item, quadratic work on large input, or per-process state that must be shared.
-4. **Missing test.** Logic with a branch, a parser, money, security, or a data write, and no test that fails when it breaks, per the **laziness-protocol** principle skill.
-5. **Speed.** A large slowdown is a finding. A small win, such as work repeated in a hot loop, is a nice-to-have. Reading code cannot prove a slowdown, so mark it as needing a measurement per the **explain-the-number** principle skill.
+4. **Missing test.** Logic with a branch, a parser, money, security, or a data write, and no test that fails when it breaks, per the **principle-laziness-protocol** skill.
+5. **Speed.** A large slowdown is a finding. A small win, such as work repeated in a hot loop, is a nice-to-have. Reading code cannot prove a slowdown, so mark it as needing a measurement per the **principle-explain-the-number** skill.
 6. **Lean.** Code that should not exist or should be smaller.
-   - Delete dead code, unused options, flags, and config, and speculative features, per the **subtract-before-you-add** principle skill.
-   - Reuse instead of keeping two helpers that do the same job. Keep one and name its path. Code that the standard library, the platform, or an installed dependency already does is a finding per the reuse ladder in the **laziness-protocol** principle skill. So is a dependency that does what a few lines can do.
-   - Collapse an interface with one implementation, a factory with one product, or a wrapper that only passes calls through, per the **minimize-reader-load** principle skill. A wrapper that confines a third-party API is a boundary and stays, per the **boundary-discipline** principle skill.
+   - Delete dead code, unused options, flags, and config, and speculative features, per the **principle-subtract-before-you-add** skill.
+   - Reuse instead of keeping two helpers that do the same job. Keep one and name its path. Code that the standard library, the platform, or an installed dependency already does is a finding per the reuse ladder in the **principle-laziness-protocol** skill. So is a dependency that does what a few lines can do.
+   - Collapse an interface with one implementation, a factory with one product, or a wrapper that only passes calls through, per the **principle-minimize-reader-load** skill. A wrapper that confines a third-party API is a boundary and stays, per the **principle-boundary-discipline** skill.
    - Merge near-copies that must change together.
-   - Split a function that does several unrelated jobs, per the **functions-do-one-thing** principle skill. Split by job, never by line count.
+   - Split a function that does several unrelated jobs, per the **principle-functions-do-one-thing** skill. Split by job, never by line count.
 
 ## 3. Check before you report
 

@@ -7,7 +7,7 @@
 3. **Hold the operator gates.** State the plan, then wait. A request to state the plan is not a go. On the operator's stop, every owner stops writing at once.
 4. **Verify each round.** The owner reports its code-ready head SHA when the shipped code is final, and each later push that changes the patch. At that SHA, the root runs these lanes per the **swarm** skill, on a model other than the owner's, from a `spawn-subagent` role line:
    - Re-run the gates.
-   - Prove the load-bearing behavior live on the real surface, with `control-cli` or `control-ui` if installed. Without this lane, no verdict is clean.
+   - Prove the load-bearing behavior live on the real surface, through the repo's `verify-*` skill when one covers it. Without this lane, no verdict is clean.
    - Audit the diff in two or more lanes, each with one focus (consumer parity, races, data safety), distrusting the MR body.
    - Run the same scenario on current trunk as the regression lane.
 

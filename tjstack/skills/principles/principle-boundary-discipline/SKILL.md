@@ -1,6 +1,6 @@
 ---
 name: principle-boundary-discipline
-description: "Apply when wiring validation, error handling, third-party libraries, or framework adapters. Concentrate guards at system boundaries (CLI, config, network, external APIs); trust data that has already crossed a boundary, wrap third-party APIs in one place, return errors with context instead of null, and keep business logic in pure functions."
+description: "Apply when wiring validation, error handling, third-party libraries, or framework adapters. Concentrate guards at system boundaries (CLI, config, network, external APIs); parse all input before the first side effect, trust data that has already crossed a boundary, wrap third-party APIs in one place, return errors with context instead of null, and keep business logic in pure functions."
 disable-model-invocation: true
 ---
 
@@ -20,6 +20,7 @@ Place validation, type narrowing, and error handling at system boundaries. Trust
 Validation and error handling:
 - Validate config at parse time (the boundary), not inside business logic
 - Parse raw data into domain values at the boundary
+- Parse all of an operation's input before its first side effect. A parse error found after a write leaves the system half-changed. Do not interleave checks with effects (shotgun parsing). Parse into one domain value, then act on it
 - Do not re-export transport, storage, framework, or wire types through the public surface
 - No redundant nil checks deep in call chains if the boundary already validated
 

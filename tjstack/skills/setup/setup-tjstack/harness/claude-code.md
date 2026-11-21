@@ -28,7 +28,7 @@ tjstack skills are written in Cursor terms. In Claude Code, translate each term 
 | Every JSONL line is one chat message | Every line is one event. Keep `type` `user` and `assistant`. `message.content` is a string or a list of blocks (`text`, `tool_use`, `tool_result`). The first message is the first `type: user` line. |
 | Cloud-agent URL | claude.ai/code session URL. Its transcript is not on disk, so pick up from the pushed branch. |
 | `AskQuestion` | `AskUserQuestion`. It takes two to four options. Put the rest under its free-text Other answer. |
-| Built-in `create-skill` skill | This plugin's **create-skill** skill. Read `skills/create-skill/SKILL.md`. |
+| Built-in `create-skill` skill | This plugin's **create-skill** skill. Read `skills/setup/create-skill/SKILL.md`. |
 | `/loop` dynamic mode | `/loop` with no interval, which self-paces. |
 | MCP discovery with `GetDynamicTools` or the `mcps/` directory | MCP tools are `mcp__<server>__<tool>` in the tool list. Load deferred ones with `ToolSearch`. `claude mcp list` lists servers. |
 | Cursor restart | Claude Code restart, or `claude --resume`. |

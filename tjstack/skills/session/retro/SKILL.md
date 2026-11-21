@@ -44,7 +44,7 @@ Use `references/synthesizer.md` verbatim, with each reviewer's full output inlin
 
 ## 4. Structural check
 
-For any Accepted item a lint rule, script, metadata flag, or runtime check would enforce more reliably, move it to Backlog. See the **encode-lessons-in-structure** principle skill.
+For any Accepted item a lint rule, script, metadata flag, or runtime check would enforce more reliably, move it to Backlog. See the **principle-encode-lessons-in-structure** skill.
 
 ## 5. Write the report
 

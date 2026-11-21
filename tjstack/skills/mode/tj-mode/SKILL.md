@@ -46,9 +46,9 @@ Remaining triggers:
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface, your reply to the user included → the **noslop** skill. Write the reply per **Writing the reply**. Agent-facing prose also follows the **create-skill** skill.
 - Docs, RFCs, readmes, or PR descriptions → the **technical-writing** skill (`/technical-writing`).
-- Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**. tjstack does not ship `deslop`.
+- Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**.
 - Before review → the **clean-comments** skill.
-- Shipping UI / IDE / CLI → drive the real surface yourself. If `control-cli` or `control-ui` is installed, use that. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
+- Shipping UI / IDE / CLI → drive the real surface yourself. If the repo has a `verify-*` skill, drive through it. If it has none and the surface needs repeated proof, write one with the **create-verification-skill** skill. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the **principle-explain-the-number** skill before you report or act on the number.
 - Bugbot or an agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code. Triage fix, dismiss, or ask per `references/bugbot-triage.md`.
 - Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it. That PR still goes through **Opening a PR**, including Destination.
@@ -74,12 +74,17 @@ Read the leaf skill in full for any principle you apply, in bulk per **Loading**
 - **Exhaust the Design Space.** A novel interaction or architectural decision with no precedent. Build 2-3 competing prototypes and compare before committing.
 - **Build the Lever.** Any non-trivial work. Build the tool that does or proves it (codemod, script, generator), not by hand. The tool is the artifact a reviewer reruns.
 
+**Code**
+
+- **Functions Do One Thing.** Writing or reviewing a function with mixed abstraction levels, behavior-selecting flags, unclear arguments, or hidden effects. One job per function, explicit inputs and effects, required atomic operations kept intact.
+- **Names Reveal Intent.** Naming or renaming a variable, function, type, module, or file. Pick the name that says why it exists and how it is used, so no comment has to.
+
 **Architecture**
 
 - **Model the Domain.** Writing stateful logic, or code that branches a lot or repeats a shape assumption across files. Encode the domain in a structure (state machine, typed model, table or registry, reducer, boundary, the right collection) instead of scattered conditionals.
-- **Boundary Discipline.** Wiring validation, error handling, or framework adapters. Guards at system boundaries, trust internal types, keep business logic pure.
+- **Boundary Discipline.** Wiring validation, error handling, or framework adapters. Guards at system boundaries, parse all input before the first side effect, trust internal types, keep business logic pure.
 - **Fail Fast.** Code meets a broken invariant, a bad or missing config value, or a failure you are tempted to default or log past. Stop at that point with an error naming what broke, check config at startup, and catch failures in one top-level handler per unit of work.
-- **Type System Discipline.** Designing types or a signature in any typed language. Make illegal states unrepresentable, brand primitives, parse external data at boundaries.
+- **Type System Discipline.** Designing types or a signature in any typed language. Make illegal states unrepresentable, brand primitives, parse external data at boundaries, return the refined value instead of a bool or unit verdict.
 - **Make Operations Idempotent.** Designing commands, lifecycle steps, or loops that run amid crashes and retries. Converge to the same end state.
 - **Migrate Callers Then Delete Legacy APIs.** Introducing a new internal API while old callers exist. Migrate and delete in one wave.
 - **Separate Before Serializing Shared State.** Concurrent actors might write the same file, branch, key, or object. Eliminate the sharing first.

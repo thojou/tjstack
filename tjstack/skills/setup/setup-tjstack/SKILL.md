@@ -5,9 +5,9 @@ description: >-
   which git remote alias Opening a PR publishes to, and whether subagents
   run in cloud or local. Asks for a budget, runs `propose.py` (it calls
   `agent models`), proposes a slug per role, and writes three always-applied
-  rules, plus a harness rule outside Cursor. Use for /setup-tjstack, "configure tjstack models", "tjstack budget",
-  "PR remote", "subagent environment", "cloud or local", or changing those
-  choices.
+  rules, plus a harness rule outside Cursor. Use for /setup-tjstack,
+  "configure tjstack models", "tjstack budget", "PR remote", "subagent
+  environment", "cloud or local", or changing those choices.
 ---
 
 # Setup tjstack
@@ -63,26 +63,26 @@ alwaysApply: true
 # `inherit-parent` or `auto` as a value: the role runs on the parent chat model (omit Task `model`).
 # `arena runners`, `architect runners`, and `challenge reviewers` run one subagent per entry, and at least two. `track-your-work reviewer` and `arena cross-judge pool` pick the first entry whose model differs from the parent's. `swarm workers` is the default for every worker unless a race or comparison assigns another model per arm.
 # budget: <chosen label>
-bug-fix: <slug from step 2>
-perf-issue: <slug from step 2>
-feature, refactoring: <slug from step 2>
-judgment and prose: <slug from step 2>
-hardest tasks: <slug from step 2>
-how explorer: <slug from step 2>
-how explainer: <slug from step 2>
-blast-radius reader: <slug from step 2>
-catch-up miner: <slug from step 2>
-why investigator: <slug from step 2>
-why synthesizer: <slug from step 2>
+bug-fix: <slug from step 3>
+perf-issue: <slug from step 3>
+feature, refactoring: <slug from step 3>
+judgment and prose: <slug from step 3>
+hardest tasks: <slug from step 3>
+how explorer: <slug from step 3>
+how explainer: <slug from step 3>
+blast-radius reader: <slug from step 3>
+catch-up miner: <slug from step 3>
+why investigator: <slug from step 3>
+why synthesizer: <slug from step 3>
 track-your-work reviewer: <slugs from step 3>
-clean-comments reviewer: <slug from step 2>
+clean-comments reviewer: <slug from step 3>
 arena runners: <slugs from step 3>
 arena cross-judge pool: <slugs from step 3>
 architect runners: <slugs from step 3>
 challenge reviewers: <slugs from step 3>
-swarm workers: <slug from step 2>
-retro judgment: <slug from step 2>
-retro tooling: <slug from step 2>
+swarm workers: <slug from step 3>
+retro judgment: <slug from step 3>
+retro tooling: <slug from step 3>
 ```
 
 ### 6. PR remote

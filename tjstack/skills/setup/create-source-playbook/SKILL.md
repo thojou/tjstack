@@ -3,7 +3,7 @@ name: create-source-playbook
 description: >-
   Writes a personal source-playbook-skill for one MCP and one why category
   when no source-playbook-skill for that source exists yet. Reads the live
-  tool schema and fills the five pstack source-playbook sections. Use for
+  tool schema and fills the five source-playbook sections. Use for
   /create-source-playbook, an MCP with no source-playbook-skill, or a call
   from setup-source.
 ---
@@ -13,7 +13,6 @@ description: >-
 Write `~/.cursor/skills/source-<mcp-slug>/SKILL.md`, a personal source-playbook-skill the why skill reads. One MCP, one category, one skill file. Re-running overwrites that same file.
 
 The only writes are that skill file and, when this skill is invoked alone, `~/.cursor/rules/source-playbooks.mdc`.
-
 
 ## Steps
 
@@ -98,7 +97,7 @@ disable-model-invocation: true
 
 Use the namespace and the category string as given. The description sentence stays otherwise exact. Quote the description when the namespace contains a colon.
 
-The H1 is the namespace. The first heading says when this source is the one to use. The next five are the pstack why source-playbook headings, in this order, each filled from the schema you just read. Keep the file short: a few bullets per heading. Do not add further headings.
+The H1 is the namespace. The first heading says when this source is the one to use. The next five are the source-playbook headings, in this order, each filled from the schema you just read. Keep the file short: a few bullets per heading. Do not add further headings.
 
 Ask for the when-sentence when the caller did not pass one. It names the product and the id form. "Mantis #123" is this source. "Redmine #456" is not, when this source is Mantis.
 

@@ -5,14 +5,14 @@
 1. When the change is one or two files with an obvious approach, skip the plan. Say so and stop.
 2. Settle open questions by a throwaway sketch before you write. Run the Prototype playbook (`playbooks/prototype.md`) and let the result decide. Keep the branch, the SHA, and the screenshots for Appendix A. Ask the operator only about a product or preference call that no run can settle. Give options (the **principle-never-block-on-the-human** skill).
 3. Explore in subagents with `subagent_type: "tj-agent"` (the **principle-guard-the-context-window** skill). Read `spawn-subagent`. Role line `how explorer`. Each returns file pointers, conventions, test commands, and entry points. No inlined dumps.
-4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **principle-sequence-verifiable-units** skill). Name the execution playbook in **How to read this**. A coupled or ordered queue names `playbooks/autopilot-stack.md`, per the routing rule at the end of that playbook. Independent MRs are separate Feature runs. tjstack does not ship `autopilot-full` or `orchestrate`. A standing program whose process still needs designing is the **figure-it-out** skill, not this plan.
+4. Copy the skeleton below into the plan file and fill every placeholder. Unless the operator names a path, write the file under the agent store's `docs/`. Keep every heading and every sub-block in the order shown. One section per PR. One PR is one change with its own evidence (the **principle-sequence-verifiable-units** skill). Name the execution playbook in **How to read this**. A coupled or ordered queue names `playbooks/autopilot-stack.md`, per the routing rule at the end of that playbook. Independent MRs are separate Feature runs. A standing program whose process still needs designing is the **figure-it-out** skill, not this plan.
 5. Write under `/technical-writing` in full, then **noslop**. The body is one Diátaxis mode, how-to. Appendices hold explanation and reference. Each heading states the task or the finding. No long dashes. No mid-sentence colons.
 6. Run `node` on `scripts/check-plan.mjs` in the tj-mode directory (the parent of `playbooks/`) and fix every line it prints (the **principle-encode-lessons-in-structure** skill).
 7. Hand back. Post the plan path and the script's output, then stop. Execution starts on the operator's explicit go, under the execution playbook the plan names.
 
 **Verification.** Tests alone are not sufficient verification. A PR is verified only when its unit, live, and perf boxes are all checked (the **principle-prove-it-works** skill). That sentence is the verification rule. Every verification block opens with it. The live block is mandatory. Ten lanes at the PR head drive the real surface, per the **swarm** skill, on the `swarm workers` role line. Each lane is one box with a concrete scenario, the screenshot it saves, and its pass predicate. One lane is the **Regression lane against trunk.** It runs the same load-bearing scenario on trunk and head. If trunk does not have the feature, the lane records that fact and gates the behavior the diff adds plus the end state the user waits for instead of inventing a trunk result. The perf gate is dual-sided. Trunk and head must both produce the named metric. If trunk lacks the feature, also isolate the work the diff adds and set an absolute budget for that work plus the end-to-end state the user waits for. Do not claim a ratio between unlike scenarios. The perf block names the metric, the interleaved probe, the trunk baseline measured first, and the rule with the number that fails. A PR that changes an interaction is review-gated. The operator reviews it in chat with screenshots and a video before merge. A PR that changes no interaction writes `**Review gate.** None. <PR id> is not review-gated.` and no boxes under it.
 
-**Control skill.** Pick it by surface. Browser, Electron, and web UIs use `control-ui` when it is installed. CLIs and TUIs use `control-cli` when it is installed. If neither is installed, drive the real surface yourself and name that drive in the live block. A PR that touches two surfaces gets lanes on both. A surface with no installed control skill is a risk in Appendix C, and its live block still names how each lane drives it.
+**Verify skill.** Pick it by surface. A browser, Electron, web UI, CLI, or TUI uses the repo's `verify-*` skill from **create-verification-skill** when one covers that surface. If none covers it, drive the real surface yourself and name that drive in the live block. A PR that touches two surfaces gets lanes on both. A surface no verify skill covers is a risk in Appendix C, and its live block still names how each lane drives it.
 
 ````markdown
 # <Program> plan
@@ -55,7 +55,7 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 - [ ] Print the Destination tuple once per `playbooks/opening-a-pr.md`. Every PR reuses that remote, host, project, and forge CLI. Never require `gt`.
 - [ ] Open the PR ready, never draft, per **Opening a PR**. A stack child uses the stack child command in that playbook and targets its parent branch.
 - [ ] Run the repo's lint and typecheck once before the PR-facing push. Push with hooks on.
-- [ ] Make each commit with the **git-commit** skill, which runs **noslop** on the message and the committed prose. Run **clean-comments** before review. tjstack does not ship `deslop`.
+- [ ] Make each commit with the **git-commit** skill, which runs **noslop** on the message and the committed prose. Run **clean-comments** before review.
 - [ ] Triage every Bugbot and security-reviewer comment per the tj-mode reference `references/bugbot-triage.md`.
 - [ ] Rebase onto current trunk before the code-ready report and babysit. Keep that merge base in fix rounds. Rebase again only at merge prep, on a `git merge-tree` conflict with trunk, or on a CI failure that comes from a change on trunk.
 
@@ -67,11 +67,11 @@ Tests alone are not sufficient verification. A PR is verified only when its unit
 
 ### Boot recipe, for every live lane
 
-Each live lane is a detached worktree at the PR head SHA per `spawn-subagent`. The parent creates it. The lane does not fetch or push. Drive through `control-ui` or `control-cli` when that skill is installed. If neither is installed, drive the real surface and name the commands in the lane.
+Each live lane is a detached worktree at the PR head SHA per `spawn-subagent`. The parent creates it. The lane does not fetch or push. Drive through the repo's `verify-*` skill when one covers the surface. Otherwise drive the real surface and name the commands in the lane.
 
 - [ ] Confirm `git rev-parse HEAD` is `<head SHA>` and `git rev-parse --show-toplevel` is the worktree path.
 - [ ] <Start the backend and the surface. Wait for ready.>
-- [ ] <Deliver input only through the control skill's commands when one is installed. Otherwise name the drive commands. Name the read-only diagnostics.>
+- [ ] <Deliver input only through the verify skill's commands when one covers the surface. Otherwise name the drive commands. Name the read-only diagnostics.>
 - [ ] Save every screenshot to `/tmp/swarm-<pr-id>/worker-<n>/<slug>.png` and return the paths with the report.
 
 ## <Task as a verb phrase> (<PR id>)
