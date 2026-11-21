@@ -64,7 +64,7 @@ Read the leaf skill in full for any principle you apply, in bulk per **Loading**
 
 - **Laziness Protocol.** Writing new code, refactoring, sizing a diff, or tempted to add an abstraction, a dependency, a layer, or signal threading. Take the first rung of the reuse ladder that fully works, reach every caller the change breaks, and keep the safety floor.
 - **Foundational Thinking.** Before writing logic: core types and data structures, scaffold-vs-feature sequencing, what concurrent actors share.
-- **Redesign from First Principles.** Integrating a new requirement into an existing design. Redesign as if it had been foundational from day one.
+- **Redesign from First Principles.** Integrating a new requirement into an existing design. Redesign as if it had been foundational from day one, inside the project's conventions. A convention changes everywhere or nowhere, never in one feature.
 - **Attack the Premise.** Two or more fixes that share one premise have failed the same gate. Take a census of which actors hold the imbalance before the next fix, then question the premise instead of writing another fix that assumes it.
 - **Subtract Before You Add.** Sequencing an addition, refactor, or rewrite. Remove dead weight first, then build on the simpler base.
 - **Minimize Reader Load.** Reviewing or shaping code that's hard to trace. Count layers and hidden state, collapse one-caller wrappers, shrink mutable scope.
