@@ -1,0 +1,29 @@
+name: checks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Skill tree
+        run: python3 scripts/check-skills.py
+      - name: Plan checker tests
+        run: node --test tjstack/skills/mode/tj-mode/scripts/check-plan.test.mjs
+      - name: peer-subagent dry runs
+        run: bash tjstack/skills/orchestrate/peer-subagent/scripts/spawn.test.sh
+      - name: Model proposal self-check
+        run: python3 tjstack/skills/setup/setup-tjstack/propose.py --self-check
