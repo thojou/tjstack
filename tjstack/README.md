@@ -119,6 +119,7 @@ Most skills run inside tj-mode's playbooks without you naming them. Call one dir
 | [`/audit`](./skills/review/audit/SKILL.md) | You want a ranked review of a whole repository or folder: bugs, security, scale, missing tests, speed, and code to delete. Report only. |
 | [`/tdd`](./skills/session/tdd/SKILL.md) | A fix or feature with a cheap local test path. Red, watch it fail, green, refactor. PHPUnit first. |
 | [`/git-commit`](./skills/session/git-commit/SKILL.md) | Commit as small Conventional Commits, staged by logical change. |
+| [`/babysit`](./skills/session/babysit/SKILL.md) | An open PR or stack needs conflicts, review threads, and CI cleared until it can merge. Stops at merge-ready. GitHub and GitLab. |
 | [`/track-your-work`](./skills/session/track-your-work/SKILL.md) | You want a reviewable decision trail for a long or unattended run, checked by a reviewer on another model. |
 | [`/retro`](./skills/session/retro/SKILL.md) | A session taught you something. Three reviewers mine the transcript and propose skill changes. Report only. |
 | [`/technical-writing`](./skills/writing/technical-writing/SKILL.md) | Docs, RFCs, ADRs, READMEs, PR descriptions, and commit messages to a layered standard, in English or German. |

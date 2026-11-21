@@ -159,7 +159,7 @@ A large or cross-cutting effort (a migration across many call sites, an ambitiou
 - **Prototype.** A throwaway sketch to settle a design or behavioral decision, or an empirical fork, by observing it. File: `playbooks/prototype.md`. The steps live in the **prototype** skill.
 - **Autonomous run.** A checkable exit condition and a known approach, driven to done without stopping ("/loop until X", "run until done").
 - **Autopilot-stack.** A coupled or ordered queue of MRs. One owner per MR builds it, the root verifies each link, and the operator receives one base-branch stack to land.
-- **Babysit.** Drive an open PR or stack to merge-ready, on request only ("babysit this", "get it green", "merge-ready", "check on MR X", "is it green", "address the bugbot comments", "address the review comments"). It never merges. "PR" here also means a GitLab merge request.
+- **Babysit.** Drive an open PR or stack to merge-ready, on request only ("babysit this", "get it green", "merge-ready", "check on MR X", "is it green", "address the bugbot comments", "address the review comments"). It never merges. "PR" here also means a GitLab merge request. The steps live in the **babysit** skill.
 - **Session pickup.** Resuming one prior agent's in-flight work from a transcript, cloud-agent URL, or pushed branch. Catch-up is the other route, for recent working context across chats.
 - **Pause safely.** Suspending in-flight work on an explicit pause, going offline, a Cursor restart, or imminent context compaction. The complement to Session pickup. On "keep going" or "don't stop", do not pause.
 - **Multi-phase or multi-PR plan.** The deliverable is the plan for phases or stacked PRs, not the code. File: `playbooks/multi-phase-plan.md`.
