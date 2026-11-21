@@ -19,7 +19,7 @@ Each spawn names a role line in the `tjstack-models.mdc` rule (`~/.cursor/rules/
 
 Resolve the environment for each spawn. The first rule that matches wins.
 
-1. A worker that needs this machine runs local. That covers control-ui or control-cli, local transcripts, a local database or Docker, auth that exists only here, and commits that are not pushed.
+1. A worker that needs this machine runs local. That covers a `verify-*` skill that drives a local app, local transcripts, a local database or Docker, auth that exists only here, and commits that are not pushed.
 2. Once a run falls back from cloud, it stays local.
 3. When the operator names `cloud` or `local` in this task, use that.
 4. Otherwise use the `subagent environment:` line in `~/.cursor/rules/tjstack-environment.mdc`. A missing file or line means `local`.

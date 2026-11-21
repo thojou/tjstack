@@ -46,9 +46,9 @@ Remaining triggers:
 - Nontrivial multi-step → write the throughput checkpoint (Feature step 3).
 - Any prose surface, your reply to the user included → the **noslop** skill. Write the reply per **Writing the reply**. Agent-facing prose also follows the **create-skill** skill.
 - Docs, RFCs, readmes, or PR descriptions → the **technical-writing** skill (`/technical-writing`).
-- Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**. tjstack does not ship `deslop`.
+- Every commit → the **git-commit** skill. It stages by logical change and writes the message with **technical-writing** and **noslop**.
 - Before review → the **clean-comments** skill.
-- Shipping UI / IDE / CLI → drive the real surface yourself. If `control-cli` or `control-ui` is installed, use that. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
+- Shipping UI / IDE / CLI → drive the real surface yourself. If the repo has a `verify-*` skill, drive through it. If it has none and the surface needs repeated proof, write one with the **create-verification-skill** skill. For bug fixes, reproduce first on the same surface yourself. Hand to the user only under the narrow Bug fix step 1 exception.
 - Running a benchmark, measuring perf yourself, or reporting a speedup or regression you measured → the **principle-explain-the-number** skill before you report or act on the number.
 - Bugbot or an agentic security review commented → skeptical posture. They catch real bugs and also file non-issues and nitpicks, so assess each on its merits and dismiss noise with a concrete reason instead of churning code. Triage fix, dismiss, or ask per `references/bugbot-triage.md`.
 - Broken skill mid-task → fix it in its own PR. Don't block. Don't silently work around it. That PR still goes through **Opening a PR**, including Destination.
