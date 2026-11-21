@@ -71,6 +71,7 @@ The running work: build, commit, track, and review the session.
 - [tdd](tjstack/skills/session/tdd/SKILL.md) drives a change test-first with PHPUnit, red before green.
 - [git-commit](tjstack/skills/session/git-commit/SKILL.md) stages by logical change and writes Conventional Commits.
 - [track-your-work](tjstack/skills/session/track-your-work/SKILL.md) keeps a TSV decision trail for long or unattended runs.
+- [babysit](tjstack/skills/session/babysit/SKILL.md) drives an open PR or stack to merge-ready, and never merges.
 - [catch-up](tjstack/skills/session/catch-up/SKILL.md) rebuilds your recent working context from chat history and the shared record.
 - [retro](tjstack/skills/session/retro/SKILL.md) mines the session for durable learnings and proposes skill changes.
 

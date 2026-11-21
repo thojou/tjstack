@@ -87,6 +87,7 @@ The running work: build, commit, track, and review the session.
 | [`/tdd`](../../skills/session/tdd/SKILL.md) | A feature or fix has a cheap local test path. PHP and PHPUnit first, Pest supported, other runners by analogy. | Tests and code | Yes, in Bug fix |
 | [`/git-commit`](../../skills/session/git-commit/SKILL.md) | You want small Conventional Commits staged by logical change. | Commits | Yes, for every commit |
 | [`/track-your-work`](../../skills/session/track-your-work/SKILL.md) | A long, unattended, or multi-phase run needs a decision trail you can audit. | `decisions.tsv` or `.audit/<task>.tsv` | Yes, for long runs |
+| [`/babysit`](../../skills/session/babysit/SKILL.md) | An open PR or stack should reach merge-ready. Never merges. | Fix commits and thread replies on the PR | Yes, via the Babysit playbook |
 | [`/catch-up`](../../skills/session/catch-up/SKILL.md) | You're starting or resuming work and want your recent context on a topic. | Read-only | No |
 | [`/retro`](../../skills/session/retro/SKILL.md) | A session taught you something and you want the lessons as proposals. Report only. | Read-only | No |
 
@@ -94,6 +95,7 @@ The running work: build, commit, track, and review the session.
 /tdd add a regression test for the vat rounding bug, then fix it
 /git-commit split this into logical commits
 /track-your-work keep a decision trail i can review when i'm back.
+/babysit PR 418. get it green, the merge is mine.
 /catch-up my work on the export pipeline
 /retro that took too long. what should change?
 ```
