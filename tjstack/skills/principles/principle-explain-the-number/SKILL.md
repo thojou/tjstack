@@ -11,7 +11,7 @@ disable-model-invocation: true
 - **A saving needs a baseline that ran.** Do not report lines, tokens, or time saved against a version nobody built. Report what you measured on both sides, or label the figure a guess.
 - **Keep the evidence with the number.** Put the run count, the spread, and the limiter in the notes or a linked artifact.
 
-For a performance number, run the full procedure with the [benchmark-checklist](https://github.com/cursor/plugins/blob/main/pstack/skills/benchmark-checklist/SKILL.md) skill. For an eval result, ask the same of the trials: did every run do the task, does the gap hold across trials and models, and does the scenario matter.
+For a performance number, run the baseline and the candidate interleaved on the same machine, with enough runs to show the spread, and keep the profile that names the limiter. For an eval result, ask the same of the trials: did every run do the task, does the gap hold across trials and models, and does the scenario matter.
 
 You skipped this when the evidence behind a number has no run count, no spread, or no named limiter, or when the time saved is larger than the time the changed piece took.
 

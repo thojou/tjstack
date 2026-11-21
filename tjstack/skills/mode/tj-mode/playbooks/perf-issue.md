@@ -2,7 +2,7 @@
 
 **You own the measurement story. Plan, review, verify the numbers.** Tie every fix to a measurement, don't read source instead of measuring.
 
-1. Capture a baseline trace on the real surface. If `control-cli` or `control-ui` is installed, use it. If neither is installed, drive the surface yourself. Vet the baseline, and each later number, with the **principle-explain-the-number** skill.
+1. Capture a baseline trace on the real surface. If the repo has a `verify-*` skill for that surface, drive through it. Otherwise drive the surface yourself. Vet the baseline, and each later number, with the **principle-explain-the-number** skill.
 2. `how` to ground hypotheses. Don't claim a perf ceiling without running it first.
    Try the performance mantras in order, cheapest first:
    1. Don't do it. Stop work whose result nothing uses rather than cheapening it.
@@ -20,6 +20,6 @@
 5. Cite the measurement in the PR.
 6. Run **Opening a PR**.
 
-For sustained improvement against a metric rather than a one-off fix, use **Autonomous run** (`playbooks/autonomous-run.md`). tjstack does not ship Hillclimb.
+For sustained improvement against a metric rather than a one-off fix, use **Autonomous run** (`playbooks/autonomous-run.md`).
 
 **Reply:** baseline number, post-fix number, delta, artifact path.
