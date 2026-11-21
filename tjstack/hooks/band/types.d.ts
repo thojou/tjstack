@@ -22,6 +22,6 @@ export type Metrics = {
 
 declare module 'claude-code' {
   interface PluginState {
-    tjstack: { metrics: Metrics | null; details: boolean }
+    tjstack: { metrics: Metrics | null; details: boolean; tjMode: boolean }
   }
 }
