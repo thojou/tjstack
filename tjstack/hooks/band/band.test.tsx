@@ -10,7 +10,7 @@ test('the band shows before the first prompt', async ($, on) => {
   on('session.start', (_, e) => ({ cwd: e.cwd }))
   await $.session.start({ cwd: '/', surface: 'terminal', isInteractive: true })
   const ui = await $.ui.mount({ ...BAND, surface: 'terminal' })
-  expect((await ui.find({ type: 'Text', text: /tjstack/ }))?.text).toBe('● tjstack')
+  expect(await ui.find({ type: 'Button', key: 'tj-mode' })).toBeDefined()
   await ui.unmount()
 })
 
@@ -35,4 +35,16 @@ test('the tj-mode button adds the skill to typed prompts, not to slash commands'
   expect(seen[1]?.[0]).toContain('# tj-mode\nbody')
   expect(seen[1]?.[0]).not.toContain('name: tj-mode')
   expect(seen[2]).toBeUndefined()
+})
+
+test('details on desktop draw the metrics as one SVG with tj-mode on the left', async ($, on) => {
+  on('session.start', (_, e) => ({ cwd: e.cwd }))
+  on('store.get', () => ({ value: undefined }))
+  on('store.set', () => ({ value: undefined }))
+  await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
+  const ui = await $.ui.mount({ ...BAND, surface: 'desktop' })
+  await ui.press({ key: 'details' })
+  expect((await ui.find({ type: 'Svg' }))?.props.alt).toContain('cost')
+  expect(await ui.find({ type: 'Button', key: 'tj-mode' })).toBeDefined()
+  await ui.unmount()
 })

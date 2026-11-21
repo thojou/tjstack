@@ -49,6 +49,30 @@ const testsText = (t: Tests) =>
         : ''
 const testsTone = (t: Tests) => (t.state === 'pass' ? 'success' : t.state === 'fail' ? 'error' : t.state === 'stale' ? 'warning' : undefined)
 
+type Col = { key: string; label: string; value: string; sub: string; tone?: 'warning' | 'success' | 'error' }
+
+const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+const fit = (s: string, max: number) => (s.length > max ? `${s.slice(0, Math.max(1, max - 1))}…` : s)
+const FONT = "-apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif"
+// The image cannot read the app's theme, so it follows the system's.
+const STYLE = `.l,.s{fill:#87867f;font:12px ${FONT}}.v{fill:#1f1e1d;font:600 16px ${FONT}}.d{stroke:#1f1e1d;stroke-opacity:.12}.warning{fill:#a86400}.success{fill:#2e7d32}.error{fill:#c62828}@media (prefers-color-scheme:dark){.v{fill:#ecebe6}.d{stroke:#fff;stroke-opacity:.14}.warning{fill:#e3a03d}.success{fill:#6abf69}.error{fill:#ef6a5a}}`
+
+// Text glyphs make broken lines in the desktop's proportional font; an SVG draws real dividers and exact columns.
+export function metricsSvg(cols: Col[], width = 720): string {
+  const height = 64
+  const colW = width / Math.max(1, cols.length)
+  let body = `<line class="d" x1="0" y1="0.5" x2="${width}" y2="0.5"/>`
+  cols.forEach((c, i) => {
+    const x = i * colW + (i === 0 ? 0 : 12)
+    const tone = c.tone ? ` ${c.tone}` : ''
+    if (i > 0) body += `<line class="d" x1="${i * colW}" y1="14" x2="${i * colW}" y2="${height - 2}"/>`
+    body += `<text class="l" x="${x}" y="24">${esc(c.label)}</text>`
+    body += `<text class="v${tone}" x="${x}" y="44">${esc(fit(c.value, Math.floor((colW - 16) / 9)))}</text>`
+    if (c.sub) body += `<text class="s" x="${x}" y="61">${esc(fit(c.sub, Math.floor((colW - 16) / 6.2)))}</text>`
+  })
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${width}" height="${height}" viewBox="0 0 ${width} ${height}"><style>${STYLE}</style>${body}</svg>`
+}
+
 async function openBoard($: EngineInterface) {
   const file = `${await metricsDir($)}/board.html`
   if (!(await $.fs.exists(file).catch(() => false))) return $.ui.toast('tjstack: no board yet, finish a turn first')
@@ -112,7 +136,6 @@ export const register: Register = on => {
     // An array, not a fragment: a fragment draws as a column of its own.
     const actions = [
       <Box key="gap" flexGrow={1} />,
-      <Button key="tj-mode" plain label={tj ? 'tj-mode ●' : 'tj-mode ○'} onPress={toggleTj} />,
       <Button key="retro" plain label="Retro" onPress={run('tjstack:retro')} />,
       <Button key="board" plain label="Board" onPress={board} />,
       <Button key="details" plain label={open ? 'Compact' : 'Details'} onPress={toggle} />,
@@ -121,7 +144,9 @@ export const register: Register = on => {
     if (!open) {
       return stack(
         <Box flexDirection="row" alignItems="center" gap={2} width={width}>
-          <Text color="suggestion">● tjstack</Text>
+          <Button key="tj-mode" plain onPress={toggleTj}>
+            <Text color={tj ? 'suggestion' : 'inactive'}>●</Text> tj-mode
+          </Button>
           <Text>{usd(m?.cost ?? null)}</Text>
           <Text dimColor>{elapsed(m?.agentMs ?? 0)}</Text>
           {tests !== '' && <Text color={m ? testsTone(m.tests) : undefined}>{tests}</Text>}
@@ -130,18 +155,15 @@ export const register: Register = on => {
       )
     }
 
-    const cols = [
-      { key: 'cost', label: 'cost', value: usd(m?.cost ?? null), sub: m?.lastTurnCost != null ? `last turn $${m.lastTurnCost.toFixed(2)}` : '' },
+    const avg = m && m.cost !== null && m.turns > 0 ? ` · ⌀ $${(m.cost / m.turns).toFixed(2)}` : ''
+    const cols: Col[] = [
+      { key: 'cost', label: 'cost', value: usd(m?.cost ?? null), sub: m?.lastTurnCost != null ? `last $${m.lastTurnCost.toFixed(2)}${avg}` : '' },
       { key: 'tokens', label: 'tokens', value: fmtTokens(total(m?.tokens ?? null)), sub: `${m?.turns ?? 0} ${m?.turns === 1 ? 'turn' : 'turns'}` },
       { key: 'time', label: 'agent time', value: elapsed(m?.agentMs ?? 0), sub: m && m.turns > 0 ? `⌀ ${elapsed(m.agentMs / m.turns)} / turn` : '' },
       { key: 'tests', label: 'tests', value: tests || 'not run', sub: m?.tests.state === 'stale' ? 'code changed since' : '', tone: m ? testsTone(m.tests) : undefined },
     ]
-    return stack(
-      <Box flexDirection="column" width={width}>
-        <Box flexDirection="row" alignItems="center" gap={1}>
-          <Text color="suggestion">● tjstack</Text>
-          {actions}
-        </Box>
+    let body = (
+      <Box flexDirection="column">
         <Text dimColor wrap="truncate-end">
           {'─'.repeat(e.props.bodyColumns)}
         </Text>
@@ -158,6 +180,25 @@ export const register: Register = on => {
             </Box>
           ))}
         </Box>
+      </Box>
+    )
+    if (e.surface === 'desktop') {
+      const { Svg } = $.ui.resolve(e)
+      body = <Svg source={metricsSvg(cols)} alt={cols.map(c => `${c.label} ${c.value}`).join(', ')} />
+    }
+    return stack(
+      // The desktop's SVG draws its own line at the top, which would touch the buttons without the gap.
+      <Box flexDirection="column" width={width} gap={e.surface === 'desktop' ? 1 : 0}>
+        <Box flexDirection="row" alignItems="center" gap={1}>
+          <Button
+            key="tj-mode"
+            label="tj-mode"
+            {...(tj ? { variant: 'primary' as const } : { plain: true as const, dimColor: true })}
+            onPress={toggleTj}
+          />
+          {actions}
+        </Box>
+        {body}
       </Box>
     )
   }).catch(($, e, next) => next(e))
