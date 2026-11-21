@@ -27,3 +27,5 @@ jobs:
         run: bash tjstack/skills/orchestrate/peer-subagent/scripts/spawn.test.sh
       - name: Model proposal self-check
         run: python3 tjstack/skills/setup/setup-tjstack/propose.py --self-check
+      - name: Session metrics tests
+        run: node --test tjstack/hooks/metrics.test.js
