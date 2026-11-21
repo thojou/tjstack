@@ -9,7 +9,12 @@ const metrics = atom({ plugin: 'tjstack', key: 'metrics' } as const, null)
 const details = atom({ plugin: 'tjstack', key: 'details' } as const, false)
 const tjMode = atom({ plugin: 'tjstack', key: 'tjMode' } as const, false)
 
-const TJ_MODE_CONTEXT = 'tj-mode is on: before anything else, load the `tjstack:tj-mode` skill with the Skill tool and handle this request by it.'
+// tj-mode sets disable-model-invocation, so the model cannot load it through the Skill tool: hand it the skill's text.
+async function tjModeContext($: EngineInterface) {
+  const file = `${$.plugin.root}/skills/mode/tj-mode/SKILL.md`
+  const body = (await $.fs.read(file)).replace(/^---\n[\s\S]*?\n---\n/, '')
+  return `tj-mode is on: handle this request by the tj-mode skill below, as if the user had run /tjstack:tj-mode. The skill's file is ${file}.\n\n${body}`
+}
 
 const home = async ($: EngineInterface) => (await $.env.get('HOME')) ?? (await $.env.get('USERPROFILE')) ?? ''
 const metricsDir = async ($: EngineInterface) => `${(await $.env.get('XDG_CONFIG_HOME')) ?? `${await home($)}/.config`}/tjstack/metrics`
@@ -66,7 +71,7 @@ export const register: Register = on => {
   // Slash commands keep their own instructions; everything typed gets the tj-mode skill.
   on('prompt.submit', async ($, e, next) => {
     if (e.command || e.isMeta || !(await read($, tjMode))) return next(e)
-    return next({ ...e, context: [...(e.context ?? []), TJ_MODE_CONTEXT] })
+    return next({ ...e, context: [...(e.context ?? []), await tjModeContext($)] })
   }).catch(($, e, next) => next(e))
 
   // The Stop and PostToolUse hooks have written by now; pick their numbers up.

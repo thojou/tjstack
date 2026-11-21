@@ -20,6 +20,7 @@ test('the tj-mode button adds the skill to typed prompts, not to slash commands'
   on('prompt.submit', (_, e) => (seen.push(e.context), { text: e.text }))
   on('store.get', () => ({ value: undefined }))
   on('store.set', () => ({ value: undefined }))
+  on('fs.read', () => ({ value: '---\nname: tj-mode\n---\n# tj-mode\nbody' }))
   await $.session.start({ cwd: '/', surface: 'desktop', isInteractive: true })
 
   await $.prompt.submit({ text: 'hi' })
@@ -30,6 +31,8 @@ test('the tj-mode button adds the skill to typed prompts, not to slash commands'
   await ui.unmount()
 
   expect(seen[0]).toBeUndefined()
-  expect(seen[1]?.[0]).toContain('tjstack:tj-mode')
+  expect(seen[1]?.[0]).toContain('/tjstack:tj-mode')
+  expect(seen[1]?.[0]).toContain('# tj-mode\nbody')
+  expect(seen[1]?.[0]).not.toContain('name: tj-mode')
   expect(seen[2]).toBeUndefined()
 })
