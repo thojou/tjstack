@@ -8,7 +8,7 @@ disable-model-invocation: true
 
 Write `.cursor/skills/verify-<slug>/` in the repo under test. The next agent reads it cold and drives the app. Browser and CLI are the surfaces you script whenever the repo has them.
 
-Prove the real user path and read the resulting state (the **prove-it-works** principle skill). Assert the value the user sees (the **test-behavior-not-implementation** principle skill).
+Prove the real user path and read the resulting state (the **principle-prove-it-works** skill). Assert the value the user sees (the **principle-test-behavior-not-implementation** skill).
 
 ## 1. Interview the repo, not the user
 

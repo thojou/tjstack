@@ -2,7 +2,7 @@
 
 Read this before you call `createStub()` or `createMock()`, add a test helper, or touch `phpunit.xml`. A test double cuts the class under test off from something slow or external. It is never the thing the test checks.
 
-The **test-behavior-not-implementation** principle skill owns the general assertion rules. This file owns the PHP and PHPUnit specifics. Version notes refer to PHPUnit. Check `vendor/bin/phpunit --version` before using an API marked with a version.
+The **principle-test-behavior-not-implementation** skill owns the general assertion rules. This file owns the PHP and PHPUnit specifics. Version notes refer to PHPUnit. Check `vendor/bin/phpunit --version` before using an API marked with a version.
 
 ## Doubles
 

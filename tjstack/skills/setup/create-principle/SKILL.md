@@ -53,10 +53,10 @@ Run the **noslop** skill on the text.
 Name the principle in the playbook at the moment it applies:
 
 ```markdown
-per the **example-name** principle skill
+per the **principle-example-name** skill
 ```
 
-Drop the `principle-` prefix inside the bold slug. The sentence states the rule. [figure-it-out](../../orchestrate/figure-it-out/SKILL.md) reads each named principle in full before applying it. If that skill is not in the session, the sentence in the playbook is the rule, so the sentence has to hold on its own.
+Write the full skill name inside the bold, so a reader finds `skills/principles/<name>/SKILL.md` without guessing a prefix, and `scripts/check-skills.py` can resolve it. The sentence states the rule. [figure-it-out](../../orchestrate/figure-it-out/SKILL.md) reads each named principle in full before applying it. If that skill is not in the session, the sentence in the playbook is the rule, so the sentence has to hold on its own.
 
 Inside another principle, link the file: `[Example Name](../principle-example-name/SKILL.md)`.
 

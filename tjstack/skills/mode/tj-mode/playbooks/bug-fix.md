@@ -9,7 +9,7 @@ Be scientific. Every shipped line traces to runtime evidence. Belt-and-suspender
 3. Plan the fix. Before you edit, grep every caller of the function you touch and fix the shared code once, per the **fix-root-causes** principle skill. A fix in only the path the report names leaves the other callers broken. If it crosses a function boundary, `architect` first. Delegate implementation to a subagent with a specific scope. Read `spawn-subagent`. Role line `bug-fix`.
 4. Verify on the same surface. The original repro now passes. "Inconclusive" or wrong-surface is not a pass. Flag it. Unit tests show branch behavior, not bug absence. Then clean up. `rg '\[DEBUG-'` over the tree returns nothing, and throwaway harnesses are deleted.
 5. Stage the commits with the **git-commit** skill so the failing repro lands before the fix in git history. When the bug has a cheap local test path, land that failing repro first with the **tdd** skill. Skip it when the test would be expensive, integration-heavy, or unclear.
-   This is the canonical **sequence-verifiable-units** principle skill, the failing test first and the fix on top.
+   This is the canonical case of the **principle-sequence-verifiable-units** skill, the failing test first and the fix on top.
 6. Run **Opening a PR**.
 
 **Reply:** what was broken, root cause, fix, how you verified. Paste failing-then-passing repro output verbatim. Name the rejected hypotheses and the evidence that ruled each out. Say what would have prevented the bug. When the answer is structural, such as a missing test seam or tangled callers, name it as follow-up work, not part of this fix.
