@@ -14,7 +14,6 @@ Write `~/.cursor/skills/source-<mcp-slug>/SKILL.md`, a personal source-playbook-
 
 The only writes are that skill file and, when this skill is invoked alone, `~/.cursor/rules/source-playbooks.mdc`.
 
-
 ## Steps
 
 ### 1. Take the inputs
