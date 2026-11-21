@@ -49,5 +49,6 @@
     "./skills/writing/",
     "./skills/principles/",
     "./skills/setup/"
-  ]
+  ],
+  "hooks": "./hooks/cursor-hooks.json"
 }
