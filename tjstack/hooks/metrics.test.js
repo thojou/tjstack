@@ -53,6 +53,22 @@ test('a cursor session: prompt, test run, edit, stop', () => {
   assert.deepStrictEqual(s.files, ['/x/a.js'])
 })
 
+test('a cursor CLI session: only sessionEnd, name and turns from the transcript', () => {
+  const transcript = path.join(tmp, 'cursor.jsonl')
+  fs.writeFileSync(transcript, [
+    JSON.stringify({ role: 'user', message: { content: [{ type: 'text', text: '<timestamp>x</timestamp>\n<user_query>\nSay hi\nplease\n</user_query>' }] } }),
+    JSON.stringify({ role: 'assistant', message: { content: [{ type: 'text', text: 'Hi' }] } }),
+    JSON.stringify({ type: 'turn_ended', status: 'success' }),
+  ].join('\n'))
+  const s = apply('cursor', { conversation_id: 'c2', hook_event_name: 'sessionEnd', duration_ms: 4200, transcript_path: transcript }, fresh('cursor', 'c2', 0), 1)
+  assert.strictEqual(s.name, 'Say hi')
+  assert.strictEqual(s.turns, 1)
+  assert.strictEqual(s.agentMs, 4200)
+  // After stop has timed the turns (the IDE), sessionEnd keeps that time.
+  const timed = apply('cursor', { conversation_id: 'c2', hook_event_name: 'sessionEnd', duration_ms: 999999 }, { ...s, agentMs: 3000 }, 2)
+  assert.strictEqual(timed.agentMs, 3000)
+})
+
 test('a claude session: a failing test run, then stop reads the transcript', () => {
   const transcript = path.join(tmp, 's1.jsonl')
   fs.writeFileSync(transcript, reply('m', 'claude-sonnet-5-5', { input_tokens: 1000, output_tokens: 1000 }))
