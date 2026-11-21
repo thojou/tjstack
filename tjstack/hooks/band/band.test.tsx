@@ -33,3 +33,25 @@ test('the tj-mode button adds the skill to typed prompts, not to slash commands'
   expect(seen[1]?.[0]).toContain('tjstack:tj-mode')
   expect(seen[2]).toBeUndefined()
 })
+
+test('on desktop the Board button opens the board as a pane', async ($, on) => {
+  const opened: string[] = []
+  const m = { host: 'claude', session: 's1', project: 'p', name: 'Fix login', model: 'm', started: 0, updated: 1, turns: 2, agentMs: 5000, turnStart: null, cost: 0.5, lastTurnCost: null, tokens: null, tests: { state: 'pass', passed: 3, failed: null }, files: [] }
+  on('env.get', (_, e) => ({ value: e.name === 'HOME' ? '/h' : undefined }))
+  on('fs.list', () => ({ value: [{ name: 's1.json', kind: 'file', size: 1, mtimeMs: 1, isLink: false }] }))
+  on('fs.read', () => ({ value: JSON.stringify(m) }))
+  on('ui.open', (_, e) => (opened.push(e.id), { value: { isPlaced: true } }))
+
+  const band = await $.ui.mount({ ...BAND, surface: 'desktop' })
+  await band.press({ key: 'board' })
+  await band.unmount()
+  expect(opened).toEqual(['tjstack-board'])
+
+  const pane = await $.ui.mount({
+    plugin: 'tjstack', component: 'Pane', requestId: 'tjstack-board', surface: 'desktop',
+    props: { title: 'tjstack board', isFocused: false, bodyColumns: 80, placement: 'dock', scroll: { offset: 0, bodyRows: 20 }, view: {} },
+  })
+  expect((await pane.find({ type: 'Text', text: /Fix login/ }))?.text).toBe('Fix login')
+  expect((await pane.find({ type: 'Text', text: /passed/ }))?.text).toBe('✓ 3 passed')
+  await pane.unmount()
+})
