@@ -96,6 +96,7 @@ Check and clean up finished work.
 - [blast-radius](tjstack/skills/review/blast-radius/SKILL.md) finds what a change breaks outside the diff and proves the safety fact.
 - [clean-comments](tjstack/skills/review/clean-comments/SKILL.md) deletes comments the code can carry itself.
 - [create-verification-skill](tjstack/skills/review/create-verification-skill/SKILL.md) writes a project `verify-*` skill that drives your app's browser or CLI.
+- [audit](tjstack/skills/review/audit/SKILL.md) reviews a whole repository or folder and ranks bugs, risks, scale, missing tests, speed, and code to cut.
 
 ### writing
 
@@ -186,6 +187,7 @@ python3 scripts/check-skills.py
 node --test tjstack/skills/mode/tj-mode/scripts/check-plan.test.mjs
 bash tjstack/skills/orchestrate/peer-subagent/scripts/spawn.test.sh
 python3 tjstack/skills/setup/setup-tjstack/propose.py --self-check
+node --test tjstack/hooks/metrics.test.js
 ```
 
 `check-skills.py` checks that skill names are unique, that both manifests list every category, that descriptions parse, that every link resolves, that every skill a file cites exists in this plugin, and that this README and the tj-mode Principles index list every skill.
