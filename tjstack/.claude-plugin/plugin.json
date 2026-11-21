@@ -38,5 +38,9 @@
     "./skills/writing/",
     "./skills/principles/",
     "./skills/setup/"
-  ]
+  ],
+  "hooks": [
+    "./hooks/claude-hooks.json"
+  ],
+  "types": "./hooks/band/types.d.ts"
 }

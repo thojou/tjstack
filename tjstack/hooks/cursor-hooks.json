@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "hooks": {
+    "beforeSubmitPrompt": [{ "command": "node \"$CURSOR_PLUGIN_ROOT/hooks/metrics.js\" cursor", "timeout": 10 }],
+    "afterShellExecution": [{ "command": "node \"$CURSOR_PLUGIN_ROOT/hooks/metrics.js\" cursor", "timeout": 10 }],
+    "afterFileEdit": [{ "command": "node \"$CURSOR_PLUGIN_ROOT/hooks/metrics.js\" cursor", "timeout": 10 }],
+    "stop": [{ "command": "node \"$CURSOR_PLUGIN_ROOT/hooks/metrics.js\" cursor", "timeout": 30 }]
+  }
+}

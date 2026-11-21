@@ -33,6 +33,23 @@ Skills live in `tjstack/skills/<category>/<name>/SKILL.md`. The category only gr
 
 To add a skill, follow the [create-skill](tjstack/skills/setup/create-skill/SKILL.md) skill. A new category also goes into `skills` in both `plugin.json` files. To add a principle, follow the [create-principle](tjstack/skills/setup/create-principle/SKILL.md) skill. Run `python3 scripts/check-skills.py` after either. It checks that names are unique, that both manifests list every category, and that relative links between skills resolve.
 
+## Session metrics
+
+tjstack tracks each agent session through hooks in both hosts. One script, `tjstack/hooks/metrics.js`, handles both hosts and needs Node.js on `PATH`. It writes one JSON file per session to `~/.config/tjstack/metrics/` (or `$XDG_CONFIG_HOME/tjstack/metrics/`). After every turn, it rebuilds `board.html` in the same folder. Open that file in a browser to compare sessions across projects and hosts. No data leaves your machine.
+
+| Metric | Claude Code | Cursor |
+| --- | --- | --- |
+| Agent time and turns | yes | yes |
+| Tests (pass, fail, stale after an edit) | yes | yes, read from the output, because Cursor reports no exit code |
+| Tokens and cost | yes, from the transcript at list prices | no, Cursor hooks do not report usage |
+| Model and task name | yes | yes |
+
+**Claude Code** also shows a band above the prompt. The band holds this session's cost, agent time and tests, plus the buttons Review (`/tjstack:challenge`), Commit (`/tjstack:git-commit`), Retro (`/tjstack:retro`), Board and Details. Press ctrl+x, then Tab, to move the focus into the band from the keyboard. The band is a Claude Code hooks module (`tjstack/hooks/band/register.tsx`). Claude Code hooks modules are in early access.
+
+**Cursor** gets the same hooks through `tjstack/hooks/cursor-hooks.json`, but no band, because Cursor has no UI extension point for it.
+
+To rebuild the board by hand and open it, run `node tjstack/hooks/metrics.js board --open`. To run the tests, run `node --test tjstack/hooks/metrics.test.js`.
+
 ## Credits
 
 Adapted in part from [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan and [skills](https://github.com/mattpocock/skills) by Matt Pocock, both MIT. License texts are in NOTICE. Several principles distill ideas from *Clean Code* by Robert C. Martin (Prentice Hall, 2008), restated in our own words.
