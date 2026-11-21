@@ -83,6 +83,25 @@ function claudeUsage(files) {
   return { tokens, cost: replies.size && priced ? cost : null, model: model ? model[0] : '' }
 }
 
+// Cursor transcripts carry no usage, but the first prompt and one `turn_ended` record per turn.
+function cursorTranscript(file) {
+  let text = ''
+  try { text = fs.readFileSync(file, 'utf8') } catch {}
+  let name = ''
+  let turns = 0
+  for (const line of text.split('\n')) {
+    let r
+    try { r = JSON.parse(line) } catch { continue }
+    if (r.type === 'turn_ended') turns += 1
+    if (!name && r.role === 'user') {
+      const t = ((r.message || {}).content || []).map(c => c.text || '').join('\n')
+      const q = /<user_query>\s*([\s\S]*?)\s*<\/user_query>/.exec(t)
+      name = (q ? q[1] : t).trim().split('\n')[0].slice(0, 80)
+    }
+  }
+  return { name, turns }
+}
+
 function subagentFiles(transcript) {
   const dir = path.join(transcript.replace(/\.jsonl$/, ''), 'subagents')
   try {
@@ -168,6 +187,13 @@ function apply(host, e, s, now) {
       s.tokens = u.tokens
       if (u.model) s.model = u.model
     }
+  } else if (ev === 'sessionEnd') {
+    // The Cursor CLI (-p) sends no beforeSubmitPrompt or stop, only sessionStart and sessionEnd.
+    const t = e.transcript_path ? cursorTranscript(e.transcript_path) : { name: '', turns: 0 }
+    if (!s.name && !t.name.startsWith('/')) s.name = t.name
+    s.turns = Math.max(s.turns, t.turns)
+    // In the IDE, stop already timed each turn; sessionEnd's duration there is the composer's whole life.
+    if (s.agentMs === 0 && e.duration_ms) s.agentMs = e.duration_ms
   }
   return s
 }
@@ -183,7 +209,7 @@ function hook(host) {
     try {
       const s = apply(host, e, load(session) || fresh(host, session, now), now)
       save(s)
-      if (e.hook_event_name === 'Stop' || e.hook_event_name === 'stop') writeBoard(now)
+      if (['Stop', 'stop', 'sessionEnd'].includes(e.hook_event_name)) writeBoard(now)
     } catch (err) {
       process.stderr.write(`tjstack metrics: ${err.message}\n`)
     }
@@ -207,7 +233,7 @@ function writeBoard(now = Date.now()) {
   return file
 }
 
-module.exports = { apply, fresh, claudeUsage, replyCost, testResult, projectOf, TEST_CMD }
+module.exports = { apply, fresh, claudeUsage, cursorTranscript, replyCost, testResult, projectOf, TEST_CMD }
 
 if (require.main === module) {
   const [mode, flag] = process.argv.slice(2)

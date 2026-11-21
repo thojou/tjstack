@@ -46,7 +46,7 @@ tjstack tracks each agent session through hooks in both hosts. One script, `tjst
 
 **Claude Code** also shows a band above the prompt. The band holds this session's cost, agent time and tests, plus the buttons Review (`/tjstack:challenge`), Commit (`/tjstack:git-commit`), Retro (`/tjstack:retro`), Board and Details. Press ctrl+x, then Tab, to move the focus into the band from the keyboard. The band is a Claude Code hooks module (`tjstack/hooks/band/register.tsx`). Claude Code hooks modules are in early access.
 
-**Cursor** gets the same hooks through `tjstack/hooks/cursor-hooks.json`, but no band, because Cursor has no UI extension point for it.
+**Cursor** gets the same hooks through `tjstack/hooks/cursor-hooks.json`, but no band, because Cursor has no UI extension point for it. The Cursor CLI in print mode (`agent -p`) sends no `beforeSubmitPrompt` or `stop` event. There, the `sessionEnd` hook takes the task name and the turn count from the transcript, and the agent time from the session's duration.
 
 To rebuild the board by hand and open it, run `node tjstack/hooks/metrics.js board --open`. To run the tests, run `node --test tjstack/hooks/metrics.test.js`.
 
