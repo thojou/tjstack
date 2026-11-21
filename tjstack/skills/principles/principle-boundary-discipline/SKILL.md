@@ -28,7 +28,7 @@ Errors:
 - Raise or return an error that names the operation, a safe input identifier, and why it failed. Preserve the original cause without exposing credentials or private payloads.
 - Define error types by what the caller does with them, not by where they came from. Translate a third-party library's many failure types into the one or two your caller can act on, at the wrapper.
 - Do not return null or pass null. Use an empty collection only for a successful zero-item result, and a typed absence for a valid optional result per [Type System Discipline](../principle-type-system-discipline/SKILL.md). Never turn a failed operation into either value.
-- Keep the error path out of the happy path. One function handles the failure, another does the work.
+- Keep the error path out of the happy path. One function handles the failure, another does the work. A guard clause that only returns or raises is not handling, so it stays at the top of the working function per [Early Return](../principle-early-return/SKILL.md).
 - Release owned resources on failure as well as success. Use the language's scoped cleanup construct, and propagate or translate a failure instead of logging it as success.
 
 Third-party code:

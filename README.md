@@ -112,6 +112,7 @@ One skill per engineering rule. [tj-mode](tjstack/skills/mode/tj-mode/SKILL.md) 
 
 - [principle-attack-the-premise](tjstack/skills/principles/principle-attack-the-premise/SKILL.md)
 - [principle-boundary-discipline](tjstack/skills/principles/principle-boundary-discipline/SKILL.md)
+- [principle-early-return](tjstack/skills/principles/principle-early-return/SKILL.md)
 - [principle-build-the-lever](tjstack/skills/principles/principle-build-the-lever/SKILL.md)
 - [principle-encode-lessons-in-structure](tjstack/skills/principles/principle-encode-lessons-in-structure/SKILL.md)
 - [principle-exhaust-the-design-space](tjstack/skills/principles/principle-exhaust-the-design-space/SKILL.md)
