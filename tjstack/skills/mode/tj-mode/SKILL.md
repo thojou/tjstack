@@ -73,6 +73,11 @@ Read the leaf skill in full for any principle you apply, in bulk per **Loading**
 - **Exhaust the Design Space.** A novel interaction or architectural decision with no precedent. Build 2-3 competing prototypes and compare before committing.
 - **Build the Lever.** Any non-trivial work. Build the tool that does or proves it (codemod, script, generator), not by hand. The tool is the artifact a reviewer reruns.
 
+**Code**
+
+- **Functions Do One Thing.** Writing or reviewing a function with mixed abstraction levels, behavior-selecting flags, unclear arguments, or hidden effects. One job per function, explicit inputs and effects, required atomic operations kept intact.
+- **Names Reveal Intent.** Naming or renaming a variable, function, type, module, or file. Pick the name that says why it exists and how it is used, so no comment has to.
+
 **Architecture**
 
 - **Model the Domain.** Writing stateful logic, or code that branches a lot or repeats a shape assumption across files. Encode the domain in a structure (state machine, typed model, table or registry, reducer, boundary, the right collection) instead of scattered conditionals.
