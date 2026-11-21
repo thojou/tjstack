@@ -11,7 +11,7 @@ A commit says what the diff changes and nothing else. Make each one a single log
 ## Workflow
 
 1. **Look before you stage.** `git status --porcelain` shows what is modified, staged, and untracked. Read `git diff --staged` when something is staged, else `git diff`. Open untracked files you have not seen.
-2. **Group the hunks.** Decide which changes form one unit and stage exactly those, by path or with `git add -p` when one file mixes two units. Never stage everything blind with `git add -A` or `git add .`. A test belongs in the commit of the code it covers. The exception is a failing test you land first on purpose, per the **sequence-verifiable-units** principle skill.
+2. **Group the hunks.** Decide which changes form one unit and stage exactly those, by path or with `git add -p` when one file mixes two units. Never stage everything blind with `git add -A` or `git add .`. A test belongs in the commit of the code it covers. The exception is a failing test you land first on purpose, per the **principle-sequence-verifiable-units** skill.
 3. **Check what you stage.**
    - Secrets stay out. Check the staged list for `.env` files, keys, tokens, and credential exports. Unstage any you find and tell the user.
    - Prose gets the same pass as the message. When the diff adds or changes docs, comments, or user-facing strings, run **noslop** on those words before you commit them.

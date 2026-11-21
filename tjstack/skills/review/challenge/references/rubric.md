@@ -89,4 +89,4 @@ For each performance finding, name the input size or load that makes it hurt and
 - A data structure that fights the access pattern, such as a linear scan for repeated lookups
 - A new query filter or sort on a column with no index
 
-Reading code cannot prove a slowdown. Mark the finding as needing a measurement. The fix then follows the Perf issue playbook in tj-mode and the **explain-the-number** principle skill.
+Reading code cannot prove a slowdown. Mark the finding as needing a measurement. The fix then follows the Perf issue playbook in tj-mode and the **principle-explain-the-number** skill.

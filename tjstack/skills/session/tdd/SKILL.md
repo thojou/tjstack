@@ -45,7 +45,7 @@ final class InvoiceCalculatorTest extends TestCase
 ```
 
 - Arrange, act, assert, in that order, each once.
-- Call the code the way its users do and assert the literal result they observe, per the **test-behavior-not-implementation** principle skill. Use `assertSame` with a literal expected value. Reach for `assertEquals` only for objects compared by value, and say why.
+- Call the code the way its users do and assert the literal result they observe, per the **principle-test-behavior-not-implementation** skill. Use `assertSame` with a literal expected value. Reach for `assertEquals` only for objects compared by value, and say why.
 - Use PHP 8 attributes (`#[Test]`, `#[DataProvider]`, `#[CoversClass]`), never docblock annotations. PHPUnit 11 deprecated annotations and PHPUnit 12 dropped them.
 - Several inputs for one rule go into one data provider: `public static`, named data sets, literal expected values.
 - Design the call from the caller's side first. If the test is awkward to write, the class is awkward to use: change the class, not the test.
@@ -69,7 +69,7 @@ A test that is green on its first run either covers behavior that already exists
 
 ### 3. Green: write the minimal code
 
-Write the simplest production change that makes the test pass. No options, parameters, or abstractions the test does not demand, per the **laziness-protocol** principle skill. For a bug, fix the root cause, not the symptom, per the **fix-root-causes** principle skill.
+Write the simplest production change that makes the test pass. No options, parameters, or abstractions the test does not demand, per the **principle-laziness-protocol** skill. For a bug, fix the root cause, not the symptom, per the **principle-fix-root-causes** skill.
 
 Do not refactor other code or add features in this step.
 
@@ -94,7 +94,7 @@ Only after green: remove duplication, improve names, extract helpers. Rerun afte
 
 ### 6. Next test
 
-Pick the next behavior, edge case, or error path and return to step 1. For an error path, expect the specific exception class and its message, and act after the expectation. One behavior per loop keeps every failure local, per the **sequence-verifiable-units** principle skill.
+Pick the next behavior, edge case, or error path and return to step 1. For an error path, expect the specific exception class and its message, and act after the expectation. One behavior per loop keeps every failure local, per the **principle-sequence-verifiable-units** skill.
 
 ## Guardrails
 
@@ -133,7 +133,7 @@ Each of these sends you back to step 1.
 
 ## Reply
 
-Report the evidence, not only the outcome, per the **prove-it-works** principle skill:
+Report the evidence, not only the outcome, per the **principle-prove-it-works** skill:
 
 - The failing-before test or check, and the failure it produced, pasted verbatim.
 - The passing-after run, and the nearby suites and static analysis you also ran.
