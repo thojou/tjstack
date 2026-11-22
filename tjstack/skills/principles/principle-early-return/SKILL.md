@@ -18,6 +18,7 @@ Handle each case that ends the function first, in its own guard clause that retu
 - **Guards are exits, not dispatch.** A ladder of `if (kind === A) return doA()` that picks which operation runs is a branch chain. Use a tagged variant or a table per [Model the Domain](../principle-model-the-domain/SKILL.md). If a guard checks a state the type could exclude, change the type per [Type System Discipline](../principle-type-system-discipline/SKILL.md).
 - **Name why the function stops.** Guard on a positive predicate when the exit reason has one: `if (order.isPaid()) return`. Otherwise negate one positive predicate, `if (!isEligible(order)) return`. Never negate a negative name. This keeps the positive-condition rule in [Functions Do One Thing](../principle-functions-do-one-thing/SKILL.md).
 - **Release resources with scope, not with a single exit.** Use the language's scoped cleanup construct (`finally`, `with`, `defer`, a destructor) so every return releases what the function owns. Do not thread a `result` variable through nested branches to reach one cleanup block.
+- **Return the condition, not a literal.** `if (actual == expected) return true else return false` becomes `return actual == expected`. The same holds for two branches that only assign `true` and `false`. A branch that only turns a condition into a boolean is neither an exit nor a main path.
 
 **Stop:** do not rewrite an `if`/`else` whose two branches are both main results of equal weight, such as `return a > b ? a : b`. Neither branch is an exit.
 
