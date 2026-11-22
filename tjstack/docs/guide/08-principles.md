@@ -1,6 +1,6 @@
 # Steer with principle names
 
-A principle in tjstack is a skill that holds exactly one engineering rule. There are 28. `/tj-mode` keeps an index of all of them. Each entry names the situation the principle applies to. At the start of a task, tj-mode loads the principles whose situation fits, together with the playbook. Playbook steps also name the principle that governs them, so a step can pull one in later. Whenever a principle changes a decision, the reply says which principle and which decision. It may cite only principles it has read in full in this session.
+A principle in tjstack is a skill that holds exactly one engineering rule. There are 29. `/tj-mode` keeps an index of all of them. Each entry names the situation the principle applies to. At the start of a task, tj-mode loads the principles whose situation fits, together with the playbook. Playbook steps also name the principle that governs them, so a step can pull one in later. Whenever a principle changes a decision, the reply says which principle and which decision. It may cite only principles it has read in full in this session.
 
 For you, the names work as shorthand. The agent already has the full rule behind each name, so a three-word phrase can redirect it more precisely than a paragraph of explanation.
 
@@ -34,7 +34,7 @@ The names work because the rules behind them are concrete. Hold the agent to the
 
 If a principle isn't loaded in your chat yet, type it as a command, such as `/principle-prove-it-works`, and the agent reads it in full.
 
-## The 28, briefly
+## The 29, briefly
 
 **Core.** How much to build, and when to start over.
 
@@ -54,6 +54,7 @@ If a principle isn't loaded in your chat yet, type it as a command, such as `/pr
 
 - [Model the Domain](../../skills/principles/principle-model-the-domain/SKILL.md). Rules that recur belong in a structure, like a state machine, a typed model, or a lookup table, instead of `if` statements spread across files.
 - [Boundary Discipline](../../skills/principles/principle-boundary-discipline/SKILL.md). Parse all input where it enters, before the first side effect. Wrap each third-party API in one place, and let inner code rely on its types.
+- [Compose Over Inherit](../../skills/principles/principle-compose-over-inherit/SKILL.md). Give a type its behaviors as collaborators behind small interfaces and combine them at construction, instead of writing a subclass for each mix. Where inheritance stays, the base class runs the steps and subclasses fill in only the hooks.
 - [Fail Fast](../../skills/principles/principle-fail-fast/SKILL.md). At a broken invariant or a bad config value, stop with an error that names what broke. Check config at startup, and catch failures in one top-level handler per unit of work.
 - [Type System Discipline](../../skills/principles/principle-type-system-discipline/SKILL.md). Design types so invalid states can't be constructed. Parse external data into those types at the boundary, and return the parsed value instead of a yes-or-no verdict.
 - [Make Operations Idempotent](../../skills/principles/principle-make-operations-idempotent/SKILL.md). Running an operation again after a crash should land in the same state.
@@ -96,6 +97,7 @@ You don't need the exact names. Everyday wording reaches the same rules:
 | "Shall I try X?" for something easy to undo | "just try it and show me" | Never Block on the Human |
 | `render(bool $asPdf)` | "one function, one job" | Functions Do One Thing |
 | The main path sits three `if` blocks deep | "guard clauses first" | Early Return |
+| `EmailAndSmsNotifier extends EmailNotifier` | "compose, don't inherit" | Compose Over Inherit |
 | A missing config value silently becomes `0` | "fail fast, name what's missing" | Fail Fast |
 | A 10x speedup from a one-line change | "explain the number" | Explain the Number |
 

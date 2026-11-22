@@ -58,7 +58,7 @@ The words tjstack's skills and replies use, in alphabetical order. Each entry li
 
 **Principle.** A one-rule skill such as Prove It Works. You steer with its name. See [Principles](../guide/08-principles.md).
 
-**Reuse ladder.** The order the Laziness Protocol checks before new code: nothing, code the repository has, the standard library, an installed dependency, one readable line, then the least new code. See [Principles](../guide/08-principles.md#the-28-briefly).
+**Reuse ladder.** The order the Laziness Protocol checks before new code: nothing, code the repository has, the standard library, an installed dependency, one readable line, then the least new code. See [Principles](../guide/08-principles.md#the-29-briefly).
 
 **Role line.** One line in the models rule that maps a job, such as `how explorer`, to a model. Every subagent spawn names its role line. See [Setup](../guide/01-setup.md#2-a-model-for-each-role).
 

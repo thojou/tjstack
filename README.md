@@ -2,7 +2,7 @@
 
 # tjstack
 
-tjstack is a skill library for AI-assisted engineering in Claude Code and Cursor. It gives the agent playbooks for bug fixes, features, refactorings, and investigations, plus the skills those playbooks call: design before code, test-first builds, multi-agent fan-out, adversarial review, plain technical writing, and 28 engineering principles. The goal is less code, verified on the real artifact.
+tjstack is a skill library for AI-assisted engineering in Claude Code and Cursor. It gives the agent playbooks for bug fixes, features, refactorings, and investigations, plus the skills those playbooks call: design before code, test-first builds, multi-agent fan-out, adversarial review, plain technical writing, and 29 engineering principles. The goal is less code, verified on the real artifact.
 
 This repository is a plugin marketplace. The installable plugin is `tjstack/`.
 
@@ -122,6 +122,7 @@ One skill per engineering rule. [tj-mode](tjstack/skills/mode/tj-mode/SKILL.md) 
 - [principle-boundary-discipline](tjstack/skills/principles/principle-boundary-discipline/SKILL.md)
 - [principle-early-return](tjstack/skills/principles/principle-early-return/SKILL.md)
 - [principle-build-the-lever](tjstack/skills/principles/principle-build-the-lever/SKILL.md)
+- [principle-compose-over-inherit](tjstack/skills/principles/principle-compose-over-inherit/SKILL.md)
 - [principle-encode-lessons-in-structure](tjstack/skills/principles/principle-encode-lessons-in-structure/SKILL.md)
 - [principle-exhaust-the-design-space](tjstack/skills/principles/principle-exhaust-the-design-space/SKILL.md)
 - [principle-experience-first](tjstack/skills/principles/principle-experience-first/SKILL.md)

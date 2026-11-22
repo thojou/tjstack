@@ -187,10 +187,10 @@ Those subagents run as [`tj-agent`](./agents/tj-agent.md), a wrapper whose first
 
 ## Principles
 
-Each of the 28 principles is a small skill with one rule. tj-mode keeps an index of all of them, with the situation each one applies to, and loads the ones a task needs when it starts. Playbook steps also name the principle that governs them. You use them by name, as in "prove it works, show me the CLI output".
+Each of the 29 principles is a small skill with one rule. tj-mode keeps an index of all of them, with the situation each one applies to, and loads the ones a task needs when it starts. Playbook steps also name the principle that governs them. You use them by name, as in "prove it works, show me the CLI output".
 
 <details>
-<summary>All twenty-eight principles</summary>
+<summary>All twenty-nine principles</summary>
 
 | Principle | Group | Rule |
 | --- | --- | --- |
@@ -207,6 +207,7 @@ Each of the 28 principles is a small skill with one rule. tj-mode keeps an index
 | [build-the-lever](./skills/principles/principle-build-the-lever/SKILL.md) | core | Write the tool that does or checks the work, so a reviewer can rerun it. |
 | [model-the-domain](./skills/principles/principle-model-the-domain/SKILL.md) | architecture | Put recurring rules in a structure, not in scattered conditionals. |
 | [boundary-discipline](./skills/principles/principle-boundary-discipline/SKILL.md) | architecture | Parse all input at the entry point before the first side effect, wrap each third-party API once, trust inner types. |
+| [compose-over-inherit](./skills/principles/principle-compose-over-inherit/SKILL.md) | architecture | Combine small collaborators at construction instead of a subclass per mix of behaviors. |
 | [fail-fast](./skills/principles/principle-fail-fast/SKILL.md) | architecture | Stop at a broken invariant or bad config with an error that names it. Never default or log past it. |
 | [type-system-discipline](./skills/principles/principle-type-system-discipline/SKILL.md) | architecture | Design types so invalid states can't be built. |
 | [make-operations-idempotent](./skills/principles/principle-make-operations-idempotent/SKILL.md) | architecture | A rerun after a crash ends in the same state. |
