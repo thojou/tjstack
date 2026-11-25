@@ -2,6 +2,8 @@
 
 # tjstack
 
+> **Vibe coder looking for the next skill library?! [Read this first.](STATEMENT.md)**
+
 tjstack is a skill library for AI-assisted engineering in Claude Code and Cursor. It gives the agent playbooks for bug fixes, features, refactorings, and investigations, plus the skills those playbooks call: design before code, test-first builds, multi-agent fan-out, adversarial review, plain technical writing, and 29 engineering principles. The goal is less code, verified on the real artifact.
 
 This repository is a plugin marketplace. The installable plugin is `tjstack/`.
