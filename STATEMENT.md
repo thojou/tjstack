@@ -47,6 +47,8 @@ It also matters *who* you build for. Software for yourself, software for a small
 
 There is a scene in the German western comedy *Der Schuh des Manitu* where the saloon simply collapses, right when everything seems to be going to plan. That is what a lot of AI-generated software reminds me of: it looks like a building from the street, and when you lean on it, it turns out nothing was holding it up.
 
+<p align="center"><img src="assets/statement-saloon.png" alt="Three cowboys stare as a saloon facade with nothing behind it tips over in the desert" width="720"></p>
+
 AI is very good at the first 80 %: the scaffold, the happy path, the demo that works. The remaining 20 % is the work that matters: edge cases, error handling, security, performance under real load, and maintainability two years from now. That 20 % is where most of the effort and most of the risk have always been, and it is exactly where agents still need an experienced engineer.
 
 The numbers support this, if you read them carefully:
