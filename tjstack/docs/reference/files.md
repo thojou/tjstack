@@ -25,7 +25,7 @@ Commit these. They apply to this repository only.
 | --- | --- | --- | --- | --- |
 | PR remote alias | `.cursor/rules/tjstack-pr-remote.mdc` | `.claude/rules/tjstack-pr-remote.md` | the repo | Opening a PR, Babysit, Autopilot-stack |
 
-A missing file means `origin`. The line is `pr remote: <alias>`, one git remote name. The host of that remote's push URL picks `gh` or `glab`.
+The line is `pr remote: <alias>`, one git remote name. `AGENTS.md` or `CLAUDE.md` can name the remote instead. A remote named in the prompt wins over all of them, and with none of them, the remote is `origin`. The host of that remote's push URL picks `gh` or `glab`.
 
 ## Personal and project skills
 

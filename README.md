@@ -34,7 +34,7 @@ Run `/tjstack:setup-tjstack` once after you install. It writes the rules the ski
 - `tjstack-environment` says whether subagents run local or in the cloud. The default is `local`.
 - `tjstack-harness`, outside Cursor only, translates the Cursor terms in the skills to the host's tools and paths.
 
-Pull requests go to the git remote `origin`. A repo that publishes elsewhere commits `.cursor/rules/tjstack-pr-remote.mdc` with a `pr remote:` line. The remote's host picks `gh` or `glab`.
+Pull requests go to the git remote `origin` by default. The project's configuration (a rule, `AGENTS.md`, or `CLAUDE.md`) can name another remote, and a remote you name in the prompt wins over both. The remote's host picks `gh` or `glab`.
 
 Run `/tjstack:setup-source` before the first `why` question. It records which MCP servers answer each kind of evidence question.
 

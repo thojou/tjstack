@@ -12,7 +12,7 @@ description: >-
 
 # Setup tjstack
 
-Write two always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`. Opening a PR does not read a home remote rule. Its alias is `origin` unless the project commits `.cursor/rules/tjstack-pr-remote.mdc`. Outside Cursor, first read `harness/<harness>.md` in this skill's directory (`claude-code.md` in Claude Code). Use its rule-path rows for every path below, and write each rule without the frontmatter.
+Write two always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`. Opening a PR does not read a home remote rule. Its alias is `origin` by default. The project's configuration (a rule, `AGENTS.md`, or `CLAUDE.md`) or the operator's prompt overrides it. Outside Cursor, first read `harness/<harness>.md` in this skill's directory (`claude-code.md` in Claude Code). Use its rule-path rows for every path below, and write each rule without the frontmatter.
 
 ## Steps
 
@@ -87,7 +87,7 @@ retro tooling: <slug from step 3>
 
 ### 6. Retire the home PR remote
 
-If `~/.cursor/rules/tjstack-pr-remote.mdc` exists, delete it. Do not write a replacement. Opening a PR publishes to `origin` unless the project commits `.cursor/rules/tjstack-pr-remote.mdc`.
+If `~/.cursor/rules/tjstack-pr-remote.mdc` exists, delete it. Do not write a replacement. Opening a PR publishes to `origin` unless the project's configuration or the operator's prompt names another remote.
 
 ### 7. Subagent environment
 
@@ -115,4 +115,4 @@ Skip this step in Cursor. tjstack skills are written in Cursor terms. In any oth
 
 ### 9. Confirm
 
-Tell the user all rules were written, which slug each role got, which subagent environment was written, whether the harness rule was written, whether the home PR-remote file was deleted, and that all of them apply to new sessions. Re-running this skill updates them. Pull requests go to `origin` unless the project commits its own `pr remote:` rule.
+Tell the user all rules were written, which slug each role got, which subagent environment was written, whether the harness rule was written, whether the home PR-remote file was deleted, and that all of them apply to new sessions. Re-running this skill updates them. Pull requests go to `origin` unless the project's configuration or the user's prompt names another remote.
