@@ -61,9 +61,9 @@ Each entry names a symptom, its cause, and the fix. Find your symptom in the tab
 
 ## The PR went to the wrong place, or stopped before pushing
 
-**Cause.** Opening a PR uses `origin`, or the alias in the project's PR remote rule, and takes the forge from that remote's host. It stops instead of guessing when the alias doesn't exist, the push URL and fetch URL disagree, the host is unknown (such as an SSH alias), or the `gh` or `glab` CLI is missing or not signed in.
+**Cause.** Opening a PR uses the remote you named, else the project's configured remote, else `origin`, and takes the forge from that remote's host. It stops instead of guessing when the alias doesn't exist, the push URL and fetch URL disagree, the host is unknown (such as an SSH alias), or the `gh` or `glab` CLI is missing or not signed in.
 
-**Fix.** Read the Destination tuple the playbook printed. To publish somewhere other than `origin`, commit `.cursor/rules/tjstack-pr-remote.mdc` with `pr remote: <alias>`. A name you say mid-task doesn't override that file. Check the CLI with `gh auth status` or `glab auth status --hostname <host>`.
+**Fix.** Read the Destination tuple the playbook printed. To publish somewhere other than `origin`, name the remote in the prompt, or set it in the project's configuration: `.cursor/rules/tjstack-pr-remote.mdc` with `pr remote: <alias>`, `AGENTS.md`, or `CLAUDE.md`. Check the CLI with `gh auth status` or `glab auth status --hostname <host>`.
 
 ## Babysit didn't merge a green PR
 

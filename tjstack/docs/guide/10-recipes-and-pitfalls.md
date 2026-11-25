@@ -215,7 +215,7 @@ The reply is an explanation, one prompt you can paste, and a link to its source.
 | Using `auto` as if it were a model | It means "use the chat's model". | See [model roles](./01-setup.md#2-a-model-for-each-role). |
 | Accepting "build passes" as done | Compiling isn't working. | Ask for the real output and expect it in the reply. |
 | Waiting for the agent to merge | No playbook merges on its own. | Merge yourself, or ask explicitly and confirm when it pauses. |
-| Not reading the Destination tuple | The push goes to `origin`, or to the alias in the project's PR remote rule. | Read it before the first push. Change the remote by committing that rule. |
+| Not reading the Destination tuple | The push goes to the remote you named, the project's configured remote, or `origin`. | Read it before the first push. Name the remote in the prompt, or set it in the project's configuration. |
 | Writing `SKILL.md` freehand | Weak descriptions and frontmatter go unnoticed. | [`/create-skill`](./09-make-it-yours.md#author-a-focused-skill-with-create-skill). |
 
 New to tjstack and starting on this page? Do [setup](./01-setup.md) and one real task first. The recipes are much easier to adapt once you've watched a playbook work.

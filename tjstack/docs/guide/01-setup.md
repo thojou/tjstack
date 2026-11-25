@@ -62,7 +62,7 @@ Running setup again is safe. It starts from your current answers, drops role lin
 
 ### Where pull requests go
 
-Pull requests go to `origin`. The host of that remote picks the CLI: `gh` for GitHub, `glab` for GitLab. A repo that publishes to another remote commits `.cursor/rules/tjstack-pr-remote.mdc` with one line, `pr remote: <alias>`. Opening a PR reads that file. A remote name typed mid-task does not redirect the push. `/setup-tjstack` does not ask.
+The project decides where pull requests go. `origin` is only the default. A project that publishes to another remote says so in its configuration: a rule such as `.cursor/rules/tjstack-pr-remote.mdc` with `pr remote: <alias>`, or a line in `AGENTS.md` or `CLAUDE.md`. A remote you name in the prompt overrides both. The host of the chosen remote picks the CLI: `gh` for GitHub, `glab` for GitLab. `/setup-tjstack` does not ask.
 
 ## Connect evidence sources with `/setup-source`
 

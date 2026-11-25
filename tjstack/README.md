@@ -28,7 +28,7 @@ Commands are namespaced in Claude Code, so `/tj-mode` becomes `/tjstack:tj-mode`
 
 ## Get started
 
-1. Run [`/setup-tjstack`](./skills/setup/setup-tjstack/SKILL.md). It asks for a reasoning budget, a model per role, and whether subagents run locally or in the cloud. Pull requests go to `origin` unless the repo commits its own remote rule. In Claude Code it also installs the rule that maps the skills' Cursor vocabulary to Claude Code. Open a new chat afterward.
+1. Run [`/setup-tjstack`](./skills/setup/setup-tjstack/SKILL.md). It asks for a reasoning budget, a model per role, and whether subagents run locally or in the cloud. Pull requests go to `origin` unless the project's configuration or your prompt names another remote. In Claude Code it also installs the rule that maps the skills' Cursor vocabulary to Claude Code. Open a new chat afterward.
 2. Prefix any task that deserves care with [`/tj-mode`](./skills/mode/tj-mode/SKILL.md).
 
 Two more steps pay off in the first week. [`/setup-source`](./skills/setup/setup-source/SKILL.md) lets `/why` search your tracker, docs, and chat as well as git. [`/create-verification-skill`](./skills/review/create-verification-skill/SKILL.md) teaches agents to run your app, so they can check their own work.
