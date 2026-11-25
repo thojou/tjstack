@@ -6,8 +6,8 @@ Each entry names a symptom, its cause, and the fix. Find your symptom in the tab
 | --- | --- |
 | A skill says to run `/setup-tjstack` first | [Missing rules](#a-skill-says-to-run-setup-tjstack-first) |
 | Changed models still run the old ones | [Rules apply to new chats](#changed-models-still-run-the-old-ones) |
-| `/why` stops and asks for `/setup-source` | [No evidence sources](#why-stops-and-asks-for-setup-source) |
-| `/why` reports many coverage gaps | [No evidence sources](#why-stops-and-asks-for-setup-source) |
+| `/why` says `/setup-source` has not run | [No evidence sources](#why-says-setup-source-has-not-run) |
+| `/why` reports many coverage gaps | [No evidence sources](#why-says-setup-source-has-not-run) |
 | A skill never starts unless you type it | [Skills load when named](#a-skill-never-starts-unless-you-type-it) |
 | The Skill tool refuses a tjstack skill in Claude Code | [Skills load when named](#a-skill-never-starts-unless-you-type-it) |
 | Later turns ignore `/tj-mode` | [Mode fades](#later-turns-ignore-tj-mode) |
@@ -35,9 +35,9 @@ Each entry names a symptom, its cause, and the fix. Find your symptom in the tab
 
 **Fix.** Start a new chat. If a role still uses an old model, open the models rule and check the role's line. Delete a line to fall back to the default, then rerun `/setup-tjstack`.
 
-## `/why` stops and asks for `/setup-source`
+## `/why` says `/setup-source` has not run
 
-**Cause.** `/why` reads the source-playbooks rule to know which tool covers each evidence category. Without it, `/why` doesn't guess.
+**Cause.** `/why` reads the source-playbooks rule to know which tool covers each evidence category. Without it, `/why` searches only git and the forge, and reports every other category as a gap.
 
 **Fix.** Run `/setup-source`. Many coverage gaps in a `/why` report mean those categories have no tool connected. Add the MCP server for that tool, then rerun `/setup-source`. It offers to write a source playbook for any new server.
 

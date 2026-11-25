@@ -57,7 +57,7 @@ Capture this as seed context (file paths, symbols, commits, PR/MR numbers, linke
 
 ### Discovery
 
-Read `~/.cursor/rules/source-playbooks.mdc`. If the file is missing, stop and tell the user to run `/setup-source`. Do not discover MCPs or skills inline.
+Read `~/.cursor/rules/source-playbooks.mdc`. If the file is missing, do not stop: use `source control: code-explore gh glab` and mark every other category `gap`. Say in the reply that `/setup-source` has not run. Do not discover MCPs or skills inline.
 
 The rule has `alwaysApply: false`. One line per category. The value is `gap`, or one or more skill names separated by spaces. The source-control line is one skill, then forge tokens:
 
