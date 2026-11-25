@@ -2,7 +2,7 @@
   "name": "tjstack",
   "displayName": "TJstack",
   "version": "0.1.0",
-  "description": "Write less, but higher-quality code. Skills and agents for disciplined AI-assisted engineering in Claude Code and Cursor: design before code, test-first builds, multi-agent orchestration, adversarial review, plain technical writing, and 26 engineering principles.",
+  "description": "Write less, but higher-quality code. Skills and agents for disciplined AI-assisted engineering in Claude Code and Cursor: design before code, test-first builds, multi-agent orchestration, adversarial review, plain technical writing, and 29 engineering principles.",
   "author": {
     "name": "Thomas Joußen"
   },
