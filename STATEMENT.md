@@ -45,6 +45,8 @@ I have a master's degree in IT. I have built, run, and maintained dozens of soft
 
 It also matters *who* you build for. Software for yourself, software for a small group of users, and software for an enterprise are different disciplines. A script that runs on your laptop can fail and nobody notices. An enterprise system has audits, compliance rules, hundreds of integrations, and users who depend on it for their income. I have spent many years learning best practices for software development and software systems, and most of that knowledge is about the second kind of software, not the first.
 
+For more than ten years, I have also trained apprentices in several IT professions. I know the hurdles they have to clear and the experience they have to collect before they can work on customer projects on their own and reliably. That experience does not come from a prompt. It comes from years of building things, breaking them, and fixing them under the guidance of people who did it before.
+
 ## The saloon in *Manitou's Shoe*
 
 There is a scene in the German western comedy *Manitou's Shoe* (*Der Schuh des Manitu*) where the saloon simply collapses, right when everything seems to be going to plan. That is what a lot of AI-generated software reminds me of: it looks like a building from the street, and when you lean on it, it turns out nothing was holding it up.
@@ -52,6 +54,8 @@ There is a scene in the German western comedy *Manitou's Shoe* (*Der Schuh des M
 <p align="center"><img src="assets/statement-saloon.png" alt="Three cowboys stare as a saloon facade with nothing behind it tips over in the desert" width="720"></p>
 
 AI is very good at the first 80 %: the scaffold, the happy path, the demo that works. The remaining 20 % is the work that matters: edge cases, error handling, security, performance under real load, and maintainability two years from now. That 20 % is where most of the effort and most of the risk have always been, and it is exactly where agents still need an experienced engineer.
+
+Which raises a simple question. If you have never built, say, a multi-tenant billing system that has to survive a database migration with live customer data, how do you know that what the AI gave you is what you actually needed? How do you assure quality if you don't know what good quality looks like? The agent will always tell you it's done. Knowing whether it is right is still the human's job.
 
 The numbers support this, if you read them carefully:
 
