@@ -9,14 +9,23 @@ tjstack keeps its configuration in rules, its design records under `docs/`, and 
 | Rule | Cursor | Claude Code | Written by | Read by |
 | --- | --- | --- | --- | --- |
 | Models per role and the budget | `~/.cursor/rules/tjstack-models.mdc` | `~/.claude/rules/tjstack-models.md` | `/setup-tjstack` | `spawn-subagent`, so every skill that spawns |
-| PR remote alias | `~/.cursor/rules/tjstack-pr-remote.mdc` | `~/.claude/rules/tjstack-pr-remote.md` | `/setup-tjstack` | Opening a PR, Babysit, Autopilot-stack |
 | Subagent environment | `~/.cursor/rules/tjstack-environment.mdc` | `~/.claude/rules/tjstack-environment.md` | `/setup-tjstack` | `spawn-subagent` |
 | Harness translation | none | `~/.claude/rules/tjstack-harness.md` | `/setup-tjstack` | Every skill outside Cursor |
 | Evidence sources for `/why` | `~/.cursor/rules/source-playbooks.mdc` | `~/.claude/tjstack/source-playbooks.md` | `/setup-source` | `/why`, `/catch-up` |
 
 The source-playbooks rule is not always applied. In Claude Code it lives outside `~/.claude/rules/` on purpose, because every file there loads in every session.
 
-A missing models rule makes skills ask you to run `/setup-tjstack`. A missing PR remote rule means `origin`. A missing environment rule means `local`.
+A missing models rule makes skills ask you to run `/setup-tjstack`. A missing environment rule means `local`. `/setup-tjstack` deletes a leftover home PR-remote rule. Opening a PR does not read it.
+
+## Project rules
+
+Commit these. They apply to this repository only.
+
+| Rule | Cursor | Claude Code | Written by | Read by |
+| --- | --- | --- | --- | --- |
+| PR remote alias | `.cursor/rules/tjstack-pr-remote.mdc` | `.claude/rules/tjstack-pr-remote.md` | the repo | Opening a PR, Babysit, Autopilot-stack |
+
+A missing file means `origin`. The line is `pr remote: <alias>`, one git remote name. The host of that remote's push URL picks `gh` or `glab`.
 
 ## Personal and project skills
 

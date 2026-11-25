@@ -31,9 +31,10 @@ Skills run as `/tjstack:<skill>`, for example `/tjstack:tj-mode`. To load a loca
 Run `/tjstack:setup-tjstack` once after you install. It writes the rules the skills read:
 
 - `tjstack-models` picks a model for each subagent role, at a reasoning budget you choose.
-- `tjstack-pr-remote` names the git remote that pull requests go to. The default is `origin`.
 - `tjstack-environment` says whether subagents run local or in the cloud. The default is `local`.
 - `tjstack-harness`, outside Cursor only, translates the Cursor terms in the skills to the host's tools and paths.
+
+Pull requests go to the git remote `origin`. A repo that publishes elsewhere commits `.cursor/rules/tjstack-pr-remote.mdc` with a `pr remote:` line. The remote's host picks `gh` or `glab`.
 
 Run `/tjstack:setup-source` before the first `why` question. It records which MCP servers answer each kind of evidence question.
 
@@ -152,7 +153,7 @@ One skill per engineering rule. [tj-mode](tjstack/skills/mode/tj-mode/SKILL.md) 
 
 Set up and extend tjstack.
 
-- [setup-tjstack](tjstack/skills/setup/setup-tjstack/SKILL.md) writes the model, PR remote, environment, and harness rules.
+- [setup-tjstack](tjstack/skills/setup/setup-tjstack/SKILL.md) writes the model, environment, and harness rules, and deletes a leftover home PR-remote rule.
 - [setup-source](tjstack/skills/setup/setup-source/SKILL.md) configures the evidence sources that `why` reads.
 - [create-source-playbook](tjstack/skills/setup/create-source-playbook/SKILL.md) writes an evidence playbook for one MCP server.
 - [create-skill](tjstack/skills/setup/create-skill/SKILL.md) creates or revises a skill.

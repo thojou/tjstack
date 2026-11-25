@@ -1,6 +1,6 @@
 # Set up tjstack
 
-Setup takes about ten minutes. You install the plugin, answer four questions in `/setup-tjstack`, and optionally connect the tools `/why` searches and give agents a way to run your app. Then you try one real task on Ledger.
+Setup takes about ten minutes. You install the plugin, answer three questions in `/setup-tjstack`, and optionally connect the tools `/why` searches and give agents a way to run your app. Then you try one real task on Ledger.
 
 ## Install the plugin
 
@@ -23,7 +23,7 @@ Nothing runs just because the plugin is installed. Nearly all tjstack skills car
 /setup-tjstack
 ```
 
-[`/setup-tjstack`](../../skills/setup/setup-tjstack/SKILL.md) walks you through four choices and saves each as an always-applied rule. Rules are read when a chat starts, so open a fresh chat when you're done.
+[`/setup-tjstack`](../../skills/setup/setup-tjstack/SKILL.md) walks you through three choices and saves them as always-applied rules. Rules are read when a chat starts, so open a fresh chat when you're done.
 
 ### 1. A reasoning budget
 
@@ -44,13 +44,7 @@ Panels come in two flavors. A **fan-out line** (`arena runners`, `architect runn
 
 For a role you don't care about, write `inherit-parent` or `auto`. Both tell tjstack to leave the subagent's `model` field empty, so it runs on whatever model your chat uses. Neither is a model slug.
 
-### 3. The PR remote
-
-Name the git remote alias pull requests go to. It defaults to `origin`. If Ledger lives on a company GitLab added as `gitlab`, enter `gitlab`. The Opening a PR playbook reads this rule and nothing else, so mentioning a remote mid-task won't redirect a push. Rerun setup to change it.
-
-From the remote's host, tjstack picks `gh` for GitHub or `glab` for GitLab. A host it can't classify makes it stop and ask.
-
-### 4. Where subagents run
+### 3. Where subagents run
 
 `local` keeps subagents on your machine and gives each writing subagent a git worktree of its own. `cloud` starts them as cloud agents, except jobs that need your machine, such as reading your local chat transcripts or your local database. If a cloud start fails, tjstack falls back to local for the rest of the run. Without a choice, it's `local`.
 
@@ -59,13 +53,16 @@ From the remote's host, tjstack picks `gh` for GitHub or `glab` for GitLab. A ho
 | Rule | Cursor | Claude Code |
 | --- | --- | --- |
 | Models and budget | `~/.cursor/rules/tjstack-models.mdc` | `~/.claude/rules/tjstack-models.md` |
-| PR remote | `~/.cursor/rules/tjstack-pr-remote.mdc` | `~/.claude/rules/tjstack-pr-remote.md` |
 | Subagent environment | `~/.cursor/rules/tjstack-environment.mdc` | `~/.claude/rules/tjstack-environment.md` |
 | Harness translation | not needed | `~/.claude/rules/tjstack-harness.md` |
 
 The last row matters in Claude Code. The skills are written in Cursor's vocabulary, so they say `Task` where Claude Code has `Agent`, and `~/.cursor/rules/` where Claude Code uses `~/.claude/rules/`. The **harness rule** is the dictionary. Its source is [`harness/claude-code.md`](../../skills/setup/setup-tjstack/harness/claude-code.md). A skill that notices it's missing will send you back to `/setup-tjstack`.
 
-Running setup again is safe. It starts from your current answers, drops role lines it no longer recognizes, and lists what it dropped. To return one role to its default, delete that line and rerun.
+Running setup again is safe. It starts from your current answers, drops role lines it no longer recognizes, and lists what it dropped. To return one role to its default, delete that line and rerun. It also deletes a leftover `~/.cursor/rules/tjstack-pr-remote.mdc` from older setups.
+
+### Where pull requests go
+
+Pull requests go to `origin`. The host of that remote picks the CLI: `gh` for GitHub, `glab` for GitLab. A repo that publishes to another remote commits `.cursor/rules/tjstack-pr-remote.mdc` with one line, `pr remote: <alias>`. Opening a PR reads that file. A remote name typed mid-task does not redirect the push. `/setup-tjstack` does not ask.
 
 ## Connect evidence sources with `/setup-source`
 

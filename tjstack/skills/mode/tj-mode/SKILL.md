@@ -113,7 +113,7 @@ Read the leaf skill in full for any principle you apply, in bulk per **Loading**
 
 **Always pause** for irreversible writes: force-push to shared branches, deploys, data deletion, customer messages, and merging a PR or MR, arming its auto-merge, or closing it. Also pause for any push or PR create before Opening a PR has printed a Destination tuple. A session override does not switch the PR remote.
 
-**Session overrides:** "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" → keep going. The PR remote stays the alias in `tjstack-pr-remote.mdc`.
+**Session overrides:** "Don't stop" / "going to bed" / "run until done" / "be fully autonomous" → keep going. The PR remote stays `origin`, or the alias in the project's `.cursor/rules/tjstack-pr-remote.mdc`.
 
 **No is an acceptable answer.** Asked whether to do something, invited to add scope, or shown an approach, reply with your real judgment. Decline, push back, or say "this doesn't earn its place" when true. A recommendation is a judgment, not a validation. Agreement is not the default, candor over sycophancy.
 

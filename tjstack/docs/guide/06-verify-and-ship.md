@@ -112,7 +112,7 @@ Destination
 - base: main   head: fix/credit-note-vat   forge CLI: gh
 ```
 
-The remote comes only from the rule `/setup-tjstack` wrote, and the host decides the CLI: `gh` for `github.com`, `glab` for GitLab. If the host is ambiguous, for example an SSH alias, it stops and asks. This block is your last chance to stop a push to the wrong place before it happens, so read it.
+The remote is `origin`, unless the repo commits `.cursor/rules/tjstack-pr-remote.mdc`. The host decides the CLI: `gh` for `github.com`, `glab` for GitLab, including a host where `glab auth status` succeeds. If the host is ambiguous, for example an SSH alias, it stops and asks. This block is your last chance to stop a push to the wrong place before it happens, so read it.
 
 Titles use Conventional Commits, for example `fix(tax): apply customer exemptions to credit notes`. The description is written for a reviewer who has the diff open and a minute to spare. Its sections, in order, are Why, What changed, Scope, Tradeoffs, Blast Radius, and Verification. Scope is always present, and the others appear when there's something to say. Several narrow PRs review faster than one wide one, and a stacked follow-up is better than a branch that keeps growing.
 

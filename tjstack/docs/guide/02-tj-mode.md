@@ -145,7 +145,7 @@ It stops and asks before anything that can't be undone:
 - Merging a PR, closing it, or turning on auto-merge.
 - Any push or PR creation before the Destination tuple is printed. That block names the remote, URL, host, project, base, and head branch.
 
-**Session overrides** such as "don't stop", "going to bed", "run until done", or "be fully autonomous" remove the routine check-ins. They don't touch the list above, and they don't change the PR remote.
+**Session overrides** such as "don't stop", "going to bed", "run until done", or "be fully autonomous" remove the routine check-ins. They don't touch the list above, and they don't change the PR remote. That stays `origin`, or the alias in the project's `.cursor/rules/tjstack-pr-remote.mdc`.
 
 Questions about facts get answered by experiment, not by you. If the agent wonders whether a layout fits or a query is fast enough, it builds a quick sketch with the Prototype playbook and looks. You get asked about product and taste decisions, which no experiment can settle.
 

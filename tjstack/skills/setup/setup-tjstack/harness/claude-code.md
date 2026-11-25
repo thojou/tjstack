@@ -17,6 +17,7 @@ tjstack skills are written in Cursor terms. In Claude Code, translate each term 
 | A subagent can spawn subagents | A subagent cannot spawn subagents. The chat runs every fan-out. A delegate that needs one reports back and the chat runs it. |
 | `agent models` lists the models | The values the Agent tool's `model` parameter lists. Nothing to run. |
 | Always-applied rule `~/.cursor/rules/<name>.mdc` with `alwaysApply: true` frontmatter | `~/.claude/rules/<name>.md`, no frontmatter |
+| Project rule `.cursor/rules/<name>.mdc` with `alwaysApply: true` frontmatter | `.claude/rules/<name>.md` in the project, no frontmatter |
 | On-demand rule `~/.cursor/rules/source-playbooks.mdc` | `~/.claude/tjstack/source-playbooks.md`, no frontmatter. Files in `~/.claude/rules/` load every session. |
 | Personal skills `~/.cursor/skills/<name>/SKILL.md` | `~/.claude/skills/<name>/SKILL.md` |
 | Project skills `.cursor/skills/` | `.claude/skills/` |

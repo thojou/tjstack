@@ -21,7 +21,16 @@ Invoked at the end of every playbook that ships code. Investigation, Pause safel
 
 After the sections, attach videos or screenshots when they prove a claim. Full SHAs, swarm or arena lane recitals, lever-correction essays, file-by-file checklists, and "CLEAN" verdicts go in a linked artifact, not the body.
 
-**Destination.** Opening a PR publishes the branch. The remote alias is the `pr remote:` line in `~/.cursor/rules/tjstack-pr-remote.mdc`. If that file or line is missing, the alias is `origin`. Use that alias for every push, create, edit, retarget, view, and stack child. Do not choose a different remote. A name the operator says in this task does not override the rule. Changing the alias is `/setup-tjstack`.
+**Destination.** Opening a PR publishes the branch. The remote alias is `origin`. A project that publishes elsewhere commits `.cursor/rules/tjstack-pr-remote.mdc` at the repository root, and its `pr remote:` line is the alias: one remote name, such as `gitlab`, not a URL. Use that alias for every push, create, edit, retarget, view, and stack child. Do not choose a different remote. A name the operator says in this task does not override the file. `~/.cursor/rules/tjstack-pr-remote.mdc` is retired. Do not read it. `/setup-tjstack` deletes it. An empty value or a value with spaces is not an alias. Stop and ask. The project file has this shape:
+
+```
+---
+description: git remote alias this repo publishes pull requests to
+alwaysApply: true
+---
+# Remote alias for Opening a PR in this repo. A missing file means origin.
+pr remote: <alias>
+```
 
 1. Read the push URL with `git remote get-url --push <alias>`. If that fails, stop and name the missing alias. Do not fall back to another remote. Take the host and the project path (`owner/repo` or `group/subgroup/project`, without `.git`) from `git@<host>:<path>`, `ssh://[user@]<host>[:port]/<path>`, or `https://<host>/<path>`. If the fetch URL and push URL differ in host or path, stop and ask.
 2. Forge from that host:
@@ -33,7 +42,7 @@ After the sections, attach videos or screenshots when they prove a claim. Full S
 
    ```text
    Destination
-   - remote: <alias from the rule>
+   - remote: <alias>
    - push URL: <url>
    - host: <host>   project: <path>
    - base: <base-branch>   head: <head-branch>   forge CLI: <gh|glab>
@@ -72,7 +81,7 @@ Branch from trunk only for independent work. Rebase on trunk before substantial 
 
 Before you call the PR open, confirm all three:
 
-- The Destination tuple was printed in this session, and its remote is the alias from `tjstack-pr-remote.mdc`, or `origin` when that rule is missing.
+- The Destination tuple was printed in this session, and its remote is the alias from the project's `.cursor/rules/tjstack-pr-remote.mdc`, or `origin` when that file or its `pr remote:` line is missing.
 - Every push and PR command so far used `<remote>` and `--repo` or `-R` for that project.
 - The URL the forge printed matches the tuple's host and project.
 

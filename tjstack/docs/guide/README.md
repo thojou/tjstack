@@ -10,7 +10,7 @@ Every page uses the same imaginary project, so the prompts build on each other. 
 
 | Page | What you'll be able to do afterward |
 | --- | --- |
-| [1. Set up tjstack](./01-setup.md) | Install the plugin, choose models per role, set the PR remote, and connect the sources `/why` searches. |
+| [1. Set up tjstack](./01-setup.md) | Install the plugin, choose models per role, and connect the sources `/why` searches. |
 | [2. Route work through `/tj-mode`](./02-tj-mode.md) | Write a prompt that routes to the right playbook, and audit the reply you get back. |
 | [3. Understand Ledger's code first](./03-understand.md) | Get a traced model of the code and its history with `/how`, `/why`, `/explain`, `/teach`, and `/catch-up`. |
 | [4. Design the change](./04-design.md) | Go from a fuzzy idea to agreed terms, recorded decisions, requirements, and a tested shape. |

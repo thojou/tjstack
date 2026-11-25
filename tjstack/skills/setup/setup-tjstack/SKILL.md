@@ -2,17 +2,17 @@
 name: setup-tjstack
 description: >-
   Configure which models tjstack uses per role, at what reasoning budget,
-  which git remote alias Opening a PR publishes to, and whether subagents
-  run in cloud or local. Asks for a budget, runs `propose.py` (it calls
-  `agent models`), proposes a slug per role, and writes three always-applied
-  rules, plus a harness rule outside Cursor. Use for /setup-tjstack,
-  "configure tjstack models", "tjstack budget", "PR remote", "subagent
-  environment", "cloud or local", or changing those choices.
+  and whether subagents run in cloud or local. Asks for a budget, runs
+  `propose.py` (it calls `agent models`), proposes a slug per role, and
+  writes two always-applied rules, plus a harness rule outside Cursor.
+  Deletes a leftover home PR-remote rule. Use for /setup-tjstack,
+  "configure tjstack models", "tjstack budget", "subagent environment",
+  "cloud or local", or changing those choices.
 ---
 
 # Setup tjstack
 
-Write three always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-pr-remote.mdc` sets the git remote alias Opening a PR pushes to and opens against. The default alias is `origin`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`. Outside Cursor, first read `harness/<harness>.md` in this skill's directory (`claude-code.md` in Claude Code). Use its rule-path rows for every path below, and write each rule without the frontmatter.
+Write two always-applied rules. `~/.cursor/rules/tjstack-models.mdc` sets tjstack's model per role. Skills that spawn a subagent read it through `/spawn-subagent`. `~/.cursor/rules/tjstack-environment.mdc` sets whether subagents run as cloud agents or on this machine. `/spawn-subagent` reads it too. The default is `local`. Opening a PR does not read a home remote rule. Its alias is `origin` unless the project commits `.cursor/rules/tjstack-pr-remote.mdc`. Outside Cursor, first read `harness/<harness>.md` in this skill's directory (`claude-code.md` in Claude Code). Use its rule-path rows for every path below, and write each rule without the frontmatter.
 
 ## Steps
 
@@ -85,25 +85,9 @@ retro judgment: <slug from step 3>
 retro tooling: <slug from step 3>
 ```
 
-### 6. PR remote
+### 6. Retire the home PR remote
 
-This choice is the only place that picks the remote. Opening a PR does not choose one.
-
-If `~/.cursor/rules/tjstack-pr-remote.mdc` exists, its `pr remote:` value is the current alias. Otherwise the alias is `origin`.
-
-Ask whether to keep that alias or set another git remote name. Prefer AskQuestion. Offer the current alias. The other choice is a different alias the user types. The value is one remote name, such as `origin` or `gitlab`. It is not a URL, a host, or a project path. An empty value or a value with spaces is not an alias. Ask again.
-
-Write `~/.cursor/rules/tjstack-pr-remote.mdc` with `alwaysApply: true`. Overwrite the whole file. Create `~/.cursor/rules/` if it is missing. Shape:
-
-```
----
-description: git remote alias tjstack uses when opening a pull request
-alwaysApply: true
----
-# Remote alias for Opening a PR. That playbook reads this line and does not choose a remote.
-# Default is origin. Set another git remote name to publish elsewhere.
-pr remote: <alias>
-```
+If `~/.cursor/rules/tjstack-pr-remote.mdc` exists, delete it. Do not write a replacement. Opening a PR publishes to `origin` unless the project commits `.cursor/rules/tjstack-pr-remote.mdc`.
 
 ### 7. Subagent environment
 
@@ -131,4 +115,4 @@ Skip this step in Cursor. tjstack skills are written in Cursor terms. In any oth
 
 ### 9. Confirm
 
-Tell the user all rules were written, which slug each role got, which PR remote alias was written, which subagent environment was written, whether the harness rule was written, and that all of them apply to new sessions. Re-running this skill updates them.
+Tell the user all rules were written, which slug each role got, which subagent environment was written, whether the harness rule was written, whether the home PR-remote file was deleted, and that all of them apply to new sessions. Re-running this skill updates them. Pull requests go to `origin` unless the project commits its own `pr remote:` rule.

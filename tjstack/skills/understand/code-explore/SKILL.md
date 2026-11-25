@@ -67,7 +67,7 @@ rg -l '<symbol>' --glob '*test*'
 
 ### Matching
 
-- Remote host `github.com` matches `gh`. Host `gitlab.com`, or a host whose name contains `gitlab`, matches `glab`.
+- Remote host `github.com` matches `gh`. Host `gitlab.com`, a host whose name contains `gitlab`, or a host where `glab auth status --hostname <host>` succeeds, matches `glab`.
 - A commit subject `(#1234)` matches `gh`. A `!123` reference matches `glab`.
 - If both match (two remotes, or both reference forms), run both subsections.
 - A token the rule lists that this repo does not match: skip it and say so under What I Searched.

@@ -142,7 +142,7 @@ Set up and extend tjstack.
 
 | Skill | Use it when | Writes | Inside tj-mode |
 | --- | --- | --- | --- |
-| [`/setup-tjstack`](../../skills/setup/setup-tjstack/SKILL.md) | First run, or to change models, budget, PR remote, or subagent environment. | Three rules, plus the harness rule outside Cursor | No |
+| [`/setup-tjstack`](../../skills/setup/setup-tjstack/SKILL.md) | First run, or to change models, budget, or subagent environment. | Two rules, plus the harness rule outside Cursor | No |
 | [`/setup-source`](../../skills/setup/setup-source/SKILL.md) | `/why` needs to know which tool covers each evidence category. | The source-playbooks rule | No |
 | [`/create-source-playbook`](../../skills/setup/create-source-playbook/SKILL.md) | An MCP server has no playbook that tells `/why` how to search it. `/setup-source` calls it for you. | `~/.cursor/skills/source-<mcp>/SKILL.md` | No |
 | [`/create-skill`](../../skills/setup/create-skill/SKILL.md) | Writing or revising any `SKILL.md`. | The skill directory | Yes, for agent-facing prose |
