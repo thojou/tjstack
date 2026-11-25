@@ -1,3 +1,5 @@
+<p align="center"><img src="assets/statement-banner.png" alt="Cobbler, stick to your last: a saloon facade tips over in the desert" width="100%"></p>
+
 # Cobbler, stick to your last
 
 *Why tjstack exists, whose shoulders it stands on, and what I think about building software with AI in late 2026.*
