@@ -2,23 +2,9 @@
 
 # Cobbler, stick to your last
 
-*Why tjstack exists, whose shoulders it stands on, and what I think about building software with AI in late 2026.*
+*What I think about building software with AI in late 2026. For the work tjstack builds on, see the [credits](README.md#credits).*
 
 — Thomas Joußen, November 2026
-
-## Standing on other people's shoulders
-
-Let me start with the most important thing: tjstack is, to a large extent, other people's work.
-
-Before tjstack, I maintained my own skill library called Coby. It grew out of my day-to-day work with coding agents, and it taught me a lot about what helps an agent and what only fills its context. When I compared what I had learned with what other developers had published, one approach stood out: [pstack](https://github.com/cursor/plugins/tree/main/pstack) by Lauren Tan (poteto). Its idea is a single router skill that picks the right playbook for the job, delegates to the right models, and verifies the result instead of trusting it. That matched my own experience better than what I had built, so I decided to follow that concept rather than keep reinventing it.
-
-What I added on top:
-
-- My own concepts, principles, and ways of working. The engineering principles, the emphasis on less code verified on the real artifact, and the way the playbooks are cut reflect how I have built and maintained software for years.
-- Independence from a single stack. pstack was tailored to TypeScript projects in Cursor. I removed that focus so tjstack works for any project, in any language.
-- Support for Claude Code next to Cursor.
-
-tjstack also adapts parts of [skills](https://github.com/mattpocock/skills) by Matt Pocock and [ponytail](https://github.com/DietrichGebert/ponytail) by DietrichGebert, and several principles restate ideas from *Clean Code* by Robert C. Martin. The licenses are in [NOTICE](NOTICE). Thank you to all of you. Open source works because people share what they have learned, and tjstack would not exist without that.
 
 ## Everyone can code now. Good.
 
