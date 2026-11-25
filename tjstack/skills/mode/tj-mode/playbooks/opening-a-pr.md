@@ -2,7 +2,7 @@
 
 Invoked at the end of every playbook that ships code. Investigation, Pause safely, Session pickup, Multi-phase plan, and Prototype stop at the reply. "PR" below also means a GitLab merge request.
 
-**Worktree.** Work from a git worktree off main. Subagents inherit it. Each subagent's environment and isolation follow `spawn-subagent`. Do not push or reset until Destination has read the configured remote. Then reset against that remote: `git fetch <remote> && git reset --hard <remote>/<branch>`. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
+**Worktree.** Work from a git worktree off main. Subagents inherit it. Each subagent's environment and isolation follow `spawn-subagent`. Do not push or rebase until Destination has read the configured remote. Then rebase onto that remote: `git fetch <remote> && git rebase <remote>/<branch>`. Never `reset --hard` a worktree that holds commits. Dirty branch with unrelated work: patch out, fresh worktree, apply. Snarled worktree: reset from main, redo minimally.
 
 **Commits.** Commit liberally, each one through the **git-commit** skill. Rebase into small, ordered commits before opening PRs. Each commit is a future PR: landable, ordered to tell the story. Amend when the fix belongs in a just-made commit. New commit when separable.
 
