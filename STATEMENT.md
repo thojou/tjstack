@@ -43,9 +43,9 @@ I have a master's degree in IT. I have built, run, and maintained dozens of soft
 
 It also matters *who* you build for. Software for yourself, software for a small group of users, and software for an enterprise are different disciplines. A script that runs on your laptop can fail and nobody notices. An enterprise system has audits, compliance rules, hundreds of integrations, and users who depend on it for their income. I have spent many years learning best practices for software development and software systems, and most of that knowledge is about the second kind of software, not the first.
 
-## The saloon in *Der Schuh des Manitu*
+## The saloon in *Manitou's Shoe*
 
-There is a scene in the German western comedy *Der Schuh des Manitu* where the saloon simply collapses, right when everything seems to be going to plan. That is what a lot of AI-generated software reminds me of: it looks like a building from the street, and when you lean on it, it turns out nothing was holding it up.
+There is a scene in the German western comedy *Manitou's Shoe* (*Der Schuh des Manitu*) where the saloon simply collapses, right when everything seems to be going to plan. That is what a lot of AI-generated software reminds me of: it looks like a building from the street, and when you lean on it, it turns out nothing was holding it up.
 
 <p align="center"><img src="assets/statement-saloon.png" alt="Three cowboys stare as a saloon facade with nothing behind it tips over in the desert" width="720"></p>
 
